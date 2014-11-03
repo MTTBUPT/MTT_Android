@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" 
+    android:weightSum="10">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="#222C36" >
+
+        <Button
+            android:id="@+id/btn_user_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="#222C36"
+            android:onClick="backmore"
+            android:text="@string/back"
+            android:textColor="#FF8B2E" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/btn_user_back"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@id/btn_user_back"
+            android:text="@string/onlinestore"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+    </RelativeLayout>
+    <RelativeLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        >
+        
+        <TextView 
+            android:id="@+id/storeexplain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/storeexplain"
+            android:textSize="18sp"
+            android:textColor="#222C36"
+            android:layout_centerInParent="true"/>
+
+        <Button
+            android:id="@+id/openonlinestore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/storeexplain"
+            android:layout_centerHorizontal="true"
+            android:text="@string/onlinestore"
+            android:textColor="#FFFFFF"
+            android:background="#DC2021" />
+        
+    </RelativeLayout>
+</LinearLayout>

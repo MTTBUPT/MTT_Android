@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mycanvasview.CanvasViewActivity" >
+
+	<com.mtt.customview.RoundView  
+	    android:id="@+id/roundview"
+		android:layout_width="match_parent" 
+		android:layout_height="match_parent"/>
+
+	<ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="openMine"
+        android:layout_margin="22dp"
+        android:src="@drawable/mine"/>
+	
+	<ImageView 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:src="@drawable/main_logo"
+	    android:layout_centerInParent="true"/>
+	
+	<ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bluetoothle"
+        android:layout_margin="22dp"
+        android:onClick="openBluetoothLe"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"/>
+
+	<ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/more"
+        android:onClick="openMore"
+        android:layout_margin="22dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"/>
+
+	<ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/setting"
+        android:onClick="openSetting"
+        android:layout_margin="22dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

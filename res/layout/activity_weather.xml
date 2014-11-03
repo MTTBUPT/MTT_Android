@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" 
+    android:weightSum="10">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="#222C36" >
+
+        <Button
+            android:id="@+id/btn_user_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="#222C36"
+            android:onClick="backmore"
+            android:text="@string/back"
+            android:textColor="#FF8B2E" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/btn_user_back"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@id/btn_user_back"
+            android:text="@string/weatherinformation"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="天气图片" 
+                android:textColor="#FF8B2E"/>
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/date"
+                    android:textColor="#222C36"
+                    android:textSize="20sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="日期选择器"
+                    android:textColor="#FF8B2E"
+                    android:textSize="20sp" />
+                
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/weather"
+                    android:textColor="#222C36"
+                    android:textSize="20sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="天气提示"
+                    android:textColor="#FF8B2E"
+                    android:textSize="20sp" />
+                
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

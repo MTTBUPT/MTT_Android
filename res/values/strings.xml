@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="appname">马蹄铁</string>
+    <string name="appversion">1.1</string>
+    <string name="app_name">MTT_Android</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="navi">导航</string>
+    <string name="path">轨迹</string>
+    <string name="camera">相机</string>
+    <string name="stopwatch">秒表</string>
+    <string name="mabiao">码表</string>
+	<string name="music">音乐</string>
+	<string name="mainpage">主页</string>
+	<string name="surroundings">周边信息</string>
+	<string name="pathoverlook">线路概览</string>
+    <string name="loadedmap">离线地图</string>
+    <string name="pathsetting">线路设置</string>
+    <string name="screenshot">截图</string>
+    <string name="gallery">图库</string>
+    <string name="back">返回</string>
+    
+    <!-- 设置页面 -->
+    <string name="settings">设置</string>
+    <string name="wheelsize">轮圈大小</string>
+    <string name="selfdefine">自定义</string>
+    <string name="theme">主题</string>
+    
+    <!-- user页面 -->
+    <string name="mine">我的</string>
+    <string	name="ridemaster">骑行大师</string>
+    <string	name="totalride">累计骑行</string>
+    <string	name="time">时间</string>
+    <string	name="mileage">里程</string>
+    
+    <!-- more设置 -->
+    <string name="more">更多</string>
+    <string name="weatherinformation">天气消息</string>
+    <string name="recommendedpath">推荐路线</string>
+    <string name="onlinestore">在线商店</string>
+    <string name="commmonquestion">常见问题</string>
+    <string name="aboutus">关于我们</string>
+    <string name="wait">待续…</string>
+    
+    <!-- weather页面 -->
+    <string name="date">日期</string>
+    <string name="weather">天气</string>
+
+    <!-- 在线商店 -->
+   <string name="storeexplain">所有的骑行路上自行车产品都可以在淘宝—骑行路上网店获取</string>
+   
+   <!-- aboutus -->
+   <string name="appintroduction">马蹄铁是一个集软件、产品和服务于一体的创新套件，帮助骑行用户获得个人良好体验，保持健康并改善身体状况</string>
+   <string name="contactus">联系我们：19082737@163.com</string>
+   <string name="company">马蹄铁智能硬件公司</string>
+   <string name="checkupdate">检查更新</string>
+   <string name="feedback">意见反馈</string>
+   
+   <!-- 推荐路线 -->
+   <string name="path0">云南-西藏</string>
+   <string name="path0_content">云南-西藏 内容~</string>
+   <string name="path1">凤凰-张家界</string>
+   <string name="path1_content">凤凰-张家界 内容~</string>
+   <string name="path2">西直门-香山</string>
+   <string name="path2_content">西直门-香山 内容~</string>
+   <string name="path3">壶口瀑布-五台山</string>
+   <string name="path3_content">壶口瀑布-五台山 内容~</string>
+   
+   <!-- 常见问题 -->
+   <string name="cq0">骑行速度</string>
+   <string name="cq0_content">骑行速度内容~</string>
+   <string name="cq1">蓝牙适配</string>
+   <string name="cq1_content">蓝牙适配内容~</string>
+   <string name="cq2">电量显示</string>
+   <string name="cq2_content">电量显示内容~</string>
+   <string name="cq3">数据缺陷</string>
+   <string name="cq3_content">数据缺陷内容~</string>
+</resources>

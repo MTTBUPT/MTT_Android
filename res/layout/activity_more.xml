@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" 
+    android:weightSum="10">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="#222C36" >
+
+        <Button
+            android:id="@+id/btn_user_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="#222C36"
+            android:onClick="backmain"
+            android:text="@string/back"
+            android:textColor="#FF8B2E" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/btn_user_back"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@id/btn_user_back"
+            android:text="@string/more"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+    </RelativeLayout>
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:orientation="horizontal"
+        >
+        
+        <LinearLayout 
+	        android:layout_width="0dp"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:background="@drawable/borderstyle"
+	        >
+	        
+            <Button 
+	            android:id="@+id/btn_more_weather"
+	            android:layout_width="fill_parent"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="1"
+	            android:background="#FFFFFF"
+	            android:onClick="openWeather"
+	            android:text="@string/weatherinformation"
+	            android:textColor="#222C36"
+	            android:textSize="20sp"/>
+            
+        </LinearLayout>
+        <LinearLayout 
+	        android:layout_width="0dp"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:background="@drawable/borderstyle"
+	        >
+            
+            <Button 
+	            android:id="@+id/btn_more_recommendedpath"
+            	android:layout_width="fill_parent"
+            	android:layout_height="fill_parent"
+            	android:background="#FFFFFF"
+            	android:onClick="openRecommendedpath"
+	            android:text="@string/recommendedpath"
+	            android:textColor="#222C36"
+	            android:textSize="20sp"/>
+            
+        </LinearLayout>
+        <LinearLayout 
+	        android:layout_width="0dp"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:background="@drawable/borderstyle"
+	        >
+            
+            <Button 
+	            android:id="@+id/btn_more_onlinestore"
+	            android:layout_width="fill_parent"
+            	android:layout_height="fill_parent"
+            	android:background="#FFFFFF"
+            	android:onClick="openOnlinestore"
+	            android:text="@string/onlinestore"
+	            android:textColor="#222C36"
+	            android:textSize="20sp"/>
+            
+        </LinearLayout>
+        
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:orientation="horizontal"
+        >
+        
+        <LinearLayout 
+	        android:layout_width="0dp"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:background="@drawable/borderstyle"
+	        >
+            
+            <Button 
+	            android:id="@+id/btn_more_commmonquestion"
+	            android:layout_width="fill_parent"
+            	android:layout_height="fill_parent"
+            	android:background="#FFFFFF"
+            	android:onClick="openCommonq"
+	            android:text="@string/commmonquestion"
+	            android:textColor="#222C36"
+	            android:textSize="20sp"/>
+            
+        </LinearLayout>
+        <LinearLayout 
+	        android:layout_width="0dp"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:background="@drawable/borderstyle"
+	        >
+            
+            <Button 
+	            android:id="@+id/btn_more_aboutus"
+	            android:layout_width="fill_parent"
+            	android:layout_height="fill_parent"
+            	android:background="#FFFFFF"
+            	android:onClick="openAboutus"
+	            android:text="@string/aboutus"
+	            android:textColor="#222C36"
+	            android:textSize="20sp"/>
+            
+        </LinearLayout>
+        <LinearLayout 
+	        android:layout_width="0dp"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        >
+            
+            <Button 
+	            android:id="@+id/btn_more_wait"
+	            android:layout_width="fill_parent"
+            	android:layout_height="fill_parent"
+            	android:background="#FFFFFF"
+	            android:text="@string/wait"
+	            android:textColor="#222C36"
+	            android:textSize="20sp"/>
+            
+        </LinearLayout>
+        
+    </LinearLayout>
+
+</LinearLayout>
