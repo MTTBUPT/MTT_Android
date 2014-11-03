@@ -1,6 +1,5 @@
 package com.mtt.customview;
 
-
 import com.mtt.R;
 
 import android.content.Context;
@@ -15,9 +14,12 @@ import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-
+/** 
+ * 自定义圆盘View，定义了接口实现圆盘按钮的操作
+ * @author zhangke
+ * */
 public class RoundView extends View{
-	
+
 	private Paint mPaint = new Paint();
 
 	/** stone列表 */
