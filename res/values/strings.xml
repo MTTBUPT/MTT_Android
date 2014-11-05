@@ -76,4 +76,7 @@
    <string name="cq2_content">电量显示内容~</string>
    <string name="cq3">数据缺陷</string>
    <string name="cq3_content">数据缺陷内容~</string>
+   
+   <!--  子功能页面-->
+   <string name="home_back">返回主页</string>
 </resources>

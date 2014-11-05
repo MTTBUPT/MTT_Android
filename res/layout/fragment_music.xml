@@ -1,0 +1,67 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mymusic.view.MusicActivity" >
+
+    <TextView
+        android:id="@+id/mysic_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="我不愿让你一个人"
+        android:layout_centerInParent="true" />
+    
+    <TextView
+        android:id="@+id/music_artist" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="歌手：五月天"
+        android:layout_centerHorizontal="true"/>
+    
+    <Button 
+        android:id="@+id/music_toPrevious"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="后退"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"/>
+   
+    <Button 
+        android:id="@+id/music_toNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="前进"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"/>
+    
+    <TextView 
+        android:id="@+id/tvDurationTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"/>
+    
+    <TextView 
+        android:id="@+id/tvInterval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" / "
+        android:layout_toLeftOf="@id/tvDurationTime"/>
+    
+    <TextView 
+        android:id="@+id/tvCurrentTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:layout_toLeftOf="@id/tvInterval"/>
+
+    <Button
+        android:id="@+id/music_btStartStop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mysic_title"
+        android:layout_centerHorizontal="true"
+        android:text="START" />
+
+</RelativeLayout>

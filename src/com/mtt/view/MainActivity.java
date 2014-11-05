@@ -70,21 +70,33 @@ public class MainActivity extends Activity implements RoundViewOnTouchListener{
 		if (i == 1) {
 			//跳转导航页面
 			Toast.makeText(this, "导航2", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(MainActivity.this,SubFunctionActivity.class);
+			startActivity(intent);
 		}else if (i ==2) {
 			//跳转码表页面
 			Toast.makeText(this, "码表2", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(MainActivity.this,SubFunctionActivity.class);
+			startActivity(intent);
 		}else if (i ==3) {
 			//跳转轨迹页面
 			Toast.makeText(this, "轨迹2", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(MainActivity.this,SubFunctionActivity.class);
+			startActivity(intent);
 		}else if (i ==4) {
 			//跳转音乐页面
 			Toast.makeText(this, "音乐2", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(MainActivity.this,SubFunctionActivity.class);
+			startActivity(intent);
 		}else if (i ==5) {
 			//跳转相机页面
 			Toast.makeText(this, "相机2", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(MainActivity.this,SubFunctionActivity.class);
+			startActivity(intent);
 		}else if (i ==6) {
 			//跳转秒表页面
 			Toast.makeText(this, "秒表2", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(MainActivity.this,SubFunctionActivity.class);
+			startActivity(intent);
 		}
 		return true;
 	}
