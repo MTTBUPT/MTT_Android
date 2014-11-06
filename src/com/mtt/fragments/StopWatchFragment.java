@@ -30,15 +30,12 @@ public class StopWatchFragment extends Fragment{
 	/** 当前秒数*/
 	private long mlCount = 0;
 	
-	private ImageView time_pause,time_stop,time_trash;
-	
 	private TextView mytime;
 	private Button btnStartStop,btnCountReset;
 	private TextView tv_jici_userdata1,tv_danwei_userdata1,tv_leiji_userdata1;
 	private TextView tv_jici_userdata2,tv_danwei_userdata2,tv_leiji_userdata2;
 	private TextView tv_jici_userdata3,tv_danwei_userdata3,tv_leiji_userdata3;
 
-	
 	private Timer timer = null;
 	private TimerTask task = null;
 	private Handler handler = null;
@@ -112,7 +109,7 @@ public class StopWatchFragment extends Fragment{
 		tv_leiji_userdata2 = (TextView) view.findViewById(R.id.tv_leiji_userdata2);
 		tv_leiji_userdata3 = (TextView) view.findViewById(R.id.tv_leiji_userdata3);
 		
-		mytime = (TextView) view.findViewById(R.id.mytime);
+		mytime = (TextView) view.findViewById(R.id.myTime);
 		btnStartStop = (Button) view.findViewById(R.id.btnStartStop);
 		btnCountReset = (Button) view.findViewById(R.id.btnCountReset);
 		
@@ -152,6 +149,7 @@ public class StopWatchFragment extends Fragment{
 			if (!IsRunningFlg) {
 				IsRunningFlg = true;
 				btnStartStop.setText("暂停");
+				btnCountReset.setText("计次");
 			} else { // pause
 				try{
 					IsRunningFlg = false;
@@ -162,6 +160,7 @@ public class StopWatchFragment extends Fragment{
 					timer = null;
 					handler.removeMessages(msg.what);
 					btnStartStop.setText("开始");
+					btnCountReset.setText("复位");
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -182,32 +181,75 @@ public class StopWatchFragment extends Fragment{
 			int min = (totalSec / 60);
 			int sec = (totalSec % 60);
 			
-			switch (timeFlg) {
-			case 0:
-				tv_jici_userdata1.setText("1");
-				tv_danwei_userdata1.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
-				tv_leiji_userdata1.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
-				break;
-			case 1:
-				tv_jici_userdata2.setText("2");
-				tv_danwei_userdata2.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
-				tv_leiji_userdata2.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
-				break;
-			case 2:
-				tv_jici_userdata3.setText("3");
-				tv_danwei_userdata3.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
-				tv_leiji_userdata3.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
-				break;
-			}
+			if(IsRunningFlg){
+				switch (timeFlg) {
+				case 0:
+					tv_jici_userdata1.setText("1");
+					tv_danwei_userdata1.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
+					tv_leiji_userdata1.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
+					break;
+				case 1:
+					tv_jici_userdata2.setText("2");
+					tv_danwei_userdata2.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
+					tv_leiji_userdata2.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
+					break;
+				case 2:
+					tv_jici_userdata3.setText("3");
+					tv_danwei_userdata3.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
+					tv_leiji_userdata3.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
+					break;
+				}
 			
-			if(timeFlg < 2){
-				timeFlg++;
-			}else {
-				timeFlg=0;
+				if(timeFlg < 2){
+					timeFlg++;
+				}else {
+					timeFlg=0;
+				}
+				
+			}else{
+				tv_danwei_userdata1.setText("");
+				tv_danwei_userdata2.setText("");
+				tv_danwei_userdata3.setText("");
+				tv_jici_userdata1.setText("");
+				tv_jici_userdata2.setText("");
+				tv_jici_userdata3.setText("");
+				tv_leiji_userdata1.setText("");
+				tv_leiji_userdata2.setText("");
+				tv_leiji_userdata3.setText("");
+				
+				mytime.setText("00:00:00");
+				
+				if (null != timer) {
+					task.cancel();
+					task = null;
+					timer.cancel(); // Cancel timer
+					timer.purge();
+					timer = null;
+					handler.removeMessages(msg.what);
+				}
+				
+				mlCount = 0;
+				timeFlg = 0;
+				IsRunningFlg = false;
+				btnCountReset.setText("计次");
 			}
 			
 		}
 	};
 
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		task.cancel();
+		task = null;
+		timer.cancel();
+		timer.purge();
+		timer = null;
+		handler.removeMessages(msg.what);
+		handler = null;
+	}
+	
+	
 }
 

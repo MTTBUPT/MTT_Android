@@ -12,7 +12,7 @@
         android:layout_weight="4">
         
         <TextView 
-             android:id="@+id/mytime"
+             android:id="@+id/myTime"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_centerInParent="true"
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/btnStartStop"
-            android:text="复位"/>
+            android:text="计次"/>
         
         <TextView 
             android:id="@+id/tv_jici"
@@ -66,20 +66,17 @@
             android:id="@+id/tv_jici_userdata1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3"
             android:layout_below="@id/tv_jici"/>
         <TextView 
             android:id="@+id/tv_danwei_userdata1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00:00:00"
             android:layout_toRightOf="@id/tv_jici_userdata1"
             android:layout_below="@id/tv_jici"/>
         <TextView 
             android:id="@+id/tv_leiji_userdata1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00:00:00"
             android:layout_toRightOf="@id/tv_danwei_userdata1"
             android:layout_below="@id/tv_jici"/>    
             
@@ -87,20 +84,17 @@
             android:id="@+id/tv_jici_userdata2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2"
             android:layout_below="@id/tv_jici_userdata1"/>
         <TextView 
             android:id="@+id/tv_danwei_userdata2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00:00:00"
             android:layout_toRightOf="@id/tv_jici_userdata2"
             android:layout_below="@id/tv_jici_userdata1"/>
         <TextView 
             android:id="@+id/tv_leiji_userdata2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00:00:00"
             android:layout_toRightOf="@id/tv_danwei_userdata2"
             android:layout_below="@id/tv_jici_userdata1"/>  
             
@@ -108,20 +102,17 @@
             android:id="@+id/tv_jici_userdata3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
             android:layout_below="@id/tv_jici_userdata2"/>
         <TextView 
             android:id="@+id/tv_danwei_userdata3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00:00:00"
             android:layout_toRightOf="@id/tv_jici_userdata3"
             android:layout_below="@id/tv_jici_userdata2"/>
         <TextView 
             android:id="@+id/tv_leiji_userdata3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00:00:00"
             android:layout_toRightOf="@id/tv_danwei_userdata3"
             android:layout_below="@id/tv_jici_userdata2"/>  
     </RelativeLayout>
