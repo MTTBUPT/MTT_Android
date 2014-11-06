@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,24 +25,29 @@ public class StopWatchFragment extends Fragment{
 
 	public static final String TAG = "com.mtt.fragment.StopWatchFragment";
 
+	/** Fragment View*/
 	private View view;
+	/** 当前秒数*/
 	private long mlCount = 0;
-	private TextView tv_time1,tv_time2,tv_time3,tv_time4,tv_time5,tv_time6;
+	
 	private ImageView time_pause,time_stop,time_trash;
-	private TextView mytime,time_start;
+	
+	private TextView mytime;
+	private Button btnStartStop,btnCountReset;
+	private TextView tv_jici_userdata1,tv_danwei_userdata1,tv_leiji_userdata1;
+	private TextView tv_jici_userdata2,tv_danwei_userdata2,tv_leiji_userdata2;
+	private TextView tv_jici_userdata3,tv_danwei_userdata3,tv_leiji_userdata3;
+
+	
 	private Timer timer = null;
 	private TimerTask task = null;
 	private Handler handler = null;
 	private Message msg = null;
-	private boolean IsRunningFlg = false;
-	private int timeFlg = 0;
-	private static final String MYTIMER_TAG = "MYTIMER_LOG"; 
 	
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-	}
+	/** 是否在计数*/
+	private boolean IsRunningFlg = false;
+	/** 计次次数*/
+	private int timeFlg = 0;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,8 +56,6 @@ public class StopWatchFragment extends Fragment{
         view = inflater.inflate(R.layout.fragment_stopwatch, container, false);  
         
 		initView();  // 初始化 
-		time_pause.setVisibility(time_pause.INVISIBLE);
-		time_stop.setVisibility(time_stop.INVISIBLE);
 		
         // Handle timer message
         handler = new Handler(){
@@ -90,55 +94,37 @@ public class StopWatchFragment extends Fragment{
     		}
     	};
  
-        time_start.setOnClickListener(startListener);
-        time_pause.setOnClickListener(pausestartListener);
-        time_stop.setOnClickListener(stopListener);
-        time_trash.setOnClickListener(trashListener);
+        btnStartStop.setOnClickListener(startStopListener);
+        btnCountReset.setOnClickListener(countResetListener);
         return view;
 	}
 
 	/** 资源初始化*/
 	private void initView() {
 		// TODO Auto-generated method stub
-		tv_time1 = (TextView) view.findViewById(R.id.time_1);
-		tv_time2 = (TextView) view.findViewById(R.id.time_2);
-		tv_time3 = (TextView) view.findViewById(R.id.time_3);
-		tv_time4 = (TextView) view.findViewById(R.id.time_4);
-		tv_time5 = (TextView) view.findViewById(R.id.time_5);
-		tv_time6 = (TextView) view.findViewById(R.id.time_6);
-		
-		time_pause = (ImageView) view.findViewById(R.id.time_pause);
-		time_stop = (ImageView) view.findViewById(R.id.time_stop);
-		time_trash = (ImageView) view.findViewById(R.id.time_trash);
+		tv_jici_userdata1 = (TextView) view.findViewById(R.id.tv_jici_userdata1);
+		tv_jici_userdata2 = (TextView) view.findViewById(R.id.tv_jici_userdata2);
+		tv_jici_userdata3 = (TextView) view.findViewById(R.id.tv_jici_userdata3);
+		tv_danwei_userdata1 = (TextView) view.findViewById(R.id.tv_danwei_userdata1);
+		tv_danwei_userdata2 = (TextView) view.findViewById(R.id.tv_danwei_userdata2);
+		tv_danwei_userdata3 = (TextView) view.findViewById(R.id.tv_danwei_userdata3);
+		tv_leiji_userdata1 = (TextView) view.findViewById(R.id.tv_leiji_userdata1);
+		tv_leiji_userdata2 = (TextView) view.findViewById(R.id.tv_leiji_userdata2);
+		tv_leiji_userdata3 = (TextView) view.findViewById(R.id.tv_leiji_userdata3);
 		
 		mytime = (TextView) view.findViewById(R.id.mytime);
-		time_start= (TextView) view.findViewById(R.id.time_start);
+		btnStartStop = (Button) view.findViewById(R.id.btnStartStop);
+		btnCountReset = (Button) view.findViewById(R.id.btnCountReset);
 		
-		mytime.setText("00:00:0");
-		time_stop.setImageResource(R.drawable.time_stop);
+		mytime.setText("00:00:00");
 	}
 	
-    // trash
-    View.OnClickListener trashListener = new View.OnClickListener() {
-
+	// Start/STOP事件监听器
+	View.OnClickListener startStopListener = new View.OnClickListener() {
+		
 		@Override
 		public void onClick(View v) {
-			tv_time1.setText("");
-			tv_time2.setText("");
-			tv_time3.setText("");
-			tv_time4.setText("");
-			tv_time5.setText("");
-			tv_time6.setText("");
-			
-			timeFlg = 0;
-		}
-    };	
-
-    // start
-    View.OnClickListener startListener = new View.OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
+			// TODO Auto-generated method stub
 			if (null == timer) {
 				if (null == task) {
 					task = new TimerTask() {
@@ -162,46 +148,10 @@ public class StopWatchFragment extends Fragment{
 				timer.schedule(task, 100, 100); // set timer duration
 			}
 			
-			IsRunningFlg = true;
-			time_start.setVisibility(time_start.INVISIBLE);
-			time_pause.setVisibility(time_pause.VISIBLE);
-			time_pause.setImageResource(R.drawable.time_pause);	
-			time_stop.setVisibility(time_stop.VISIBLE);
-		}
-    };
-    
-    // pause
-    View.OnClickListener pausestartListener = new View.OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			
-			if (null == timer) {
-				if (null == task) {
-					task = new TimerTask() {
-	
-						@Override
-						public void run() {
-							// TODO Auto-generated method stub
-							if (null == msg) {
-								msg = new Message();
-							} else {
-								msg = Message.obtain();
-							}
-							msg.what = 1;
-							handler.sendMessage(msg);
-						}
-						
-					};
-				}
-				
-				timer = new Timer(true);
-				timer.schedule(task, 100, 100); // set timer duration
-			}
 			// start
 			if (!IsRunningFlg) {
 				IsRunningFlg = true;
-				time_pause.setImageResource(R.drawable.time_pause);
+				btnStartStop.setText("暂停");
 			} else { // pause
 				try{
 					IsRunningFlg = false;
@@ -211,19 +161,20 @@ public class StopWatchFragment extends Fragment{
 					timer.purge();
 					timer = null;
 					handler.removeMessages(msg.what);
-					time_pause.setImageResource(R.drawable.time_start);
+					btnStartStop.setText("开始");
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
 			}
-		}
-    };
+		}			
+	};
 
-    // stop
-    View.OnClickListener stopListener = new View.OnClickListener() {
-
+	// 计次/复位事件监听器
+	View.OnClickListener countResetListener = new View.OnClickListener() {
+		
 		@Override
 		public void onClick(View v) {
+			// TODO Auto-generated method stub
 			int totalSec = 0;
 			int yushu = 0;
 			totalSec = (int)(mlCount / 10);
@@ -231,49 +182,32 @@ public class StopWatchFragment extends Fragment{
 			int min = (totalSec / 60);
 			int sec = (totalSec % 60);
 			
-			switch(timeFlg){
+			switch (timeFlg) {
 			case 0:
-				tv_time1.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
-				timeFlg ++;
+				tv_jici_userdata1.setText("1");
+				tv_danwei_userdata1.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
+				tv_leiji_userdata1.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
 				break;
 			case 1:
-				tv_time2.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
-				timeFlg ++;
+				tv_jici_userdata2.setText("2");
+				tv_danwei_userdata2.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
+				tv_leiji_userdata2.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
 				break;
 			case 2:
-				tv_time3.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
-				timeFlg ++;
-				break;
-			case 3:
-				tv_time4.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
-				timeFlg ++;
-				break;
-			case 4:
-				tv_time5.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
-				timeFlg ++;
-				break;
-			case 5:
-				tv_time6.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
+				tv_jici_userdata3.setText("3");
+				tv_danwei_userdata3.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
+				tv_leiji_userdata3.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
 				break;
 			}
 			
-			if (null != timer) {
-				task.cancel();
-				task = null;
-				timer.cancel(); // Cancel timer
-				timer.purge();
-				timer = null;
-				handler.removeMessages(msg.what);
+			if(timeFlg < 2){
+				timeFlg++;
+			}else {
+				timeFlg=0;
 			}
 			
-			mlCount = 0;
-			IsRunningFlg = false;
-			time_start.setVisibility(time_start.VISIBLE);
-			time_pause.setVisibility(time_pause.INVISIBLE);
-			time_stop.setVisibility(time_stop.INVISIBLE);
-			
-			mytime.setText("00:00:0");
 		}
-    };
+	};
+
 }
 
