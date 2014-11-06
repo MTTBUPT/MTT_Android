@@ -21,6 +21,9 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
+/**音乐播放service
+ * @author Kerry 
+ * */
 public class MusicService extends Service{
 	private static final String TAG = "com.mymusic.service.MUSIC_SERVICE";
 	/** 音乐播放器*/
