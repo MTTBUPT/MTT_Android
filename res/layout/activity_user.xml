@@ -33,6 +33,7 @@
             android:text="@string/mine"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
+        
     </RelativeLayout>
 
     <LinearLayout

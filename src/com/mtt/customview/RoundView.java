@@ -81,12 +81,10 @@ public class RoundView extends View{
 
 	public RoundView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		// TODO Auto-generated method stub
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 		
 		// 获取圆心坐标
@@ -101,7 +99,6 @@ public class RoundView extends View{
 
 	@Override
 	protected void onDraw(Canvas canvas) {
-		// TODO Auto-generated method stub
 		super.onDraw(canvas);
 
 		canvas.drawARGB(255, 34, 44, 54);
