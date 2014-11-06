@@ -130,8 +130,8 @@ public class SubFunctionActivity extends FragmentActivity{
 		mPager = (ViewPager) findViewById(R.id.vPager);
 		
 		fragments.add(new MabiaoFragment());
-		fragments.add(new MusicFragment());
 		fragments.add(new CameraFragment());
+		fragments.add(new MusicFragment());
 		fragments.add(new StopWatchFragment());
 		
 		adapter = new MyPagerAdapter(getSupportFragmentManager(),fragments);

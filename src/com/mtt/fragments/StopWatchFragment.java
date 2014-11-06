@@ -237,19 +237,5 @@ public class StopWatchFragment extends Fragment{
 		}
 	};
 
-	@Override
-	public void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-		task.cancel();
-		task = null;
-		timer.cancel();
-		timer.purge();
-		timer = null;
-		handler.removeMessages(msg.what);
-		handler = null;
-	}
-	
-	
 }
 

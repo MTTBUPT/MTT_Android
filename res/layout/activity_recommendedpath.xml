@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical" 
-    android:weightSum="10">
+    android:weightSum="10.15">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -12,7 +12,7 @@
         android:layout_weight="2"
         android:background="#222C36" >
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_user_back"
             android:onClick="backmore"
             android:layout_width="wrap_content"
@@ -20,20 +20,26 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:background="#222C36"
+            android:src="@drawable/arrow"
             android:text="@string/back"
             android:textColor="#FF8B2E" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/btn_user_back"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="50dp"
             android:layout_toRightOf="@id/btn_user_back"
             android:text="@string/recommendedpath"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
     </RelativeLayout>
-
+	<LinearLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="0.15"
+	    android:background="#EB131E">
+	</LinearLayout>
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
