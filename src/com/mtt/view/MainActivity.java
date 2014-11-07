@@ -11,6 +11,9 @@ import android.widget.Toast;
 import com.mtt.customview.RoundViewOnTouchListener;
 import com.mtt.customview.RoundView;
 
+/**软件首页面
+ * @author Kerry 
+ * */
 public class MainActivity extends Activity implements RoundViewOnTouchListener{
 
 	@Override
