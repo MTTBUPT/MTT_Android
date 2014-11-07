@@ -2,37 +2,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#212B35"
     tools:context="com.mymusic.view.MusicActivity" >
+
+    <ImageView
+        android:id="@+id/img_run"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/music_run"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp" />
 
     <TextView
         android:id="@+id/mysic_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="我不愿让你一个人"
-        android:layout_centerInParent="true" />
-    
+        android:layout_marginTop="80dp"
+        android:layout_toRightOf="@id/img_run"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="歌手："
+        android:layout_toLeftOf="@id/music_artist"
+        android:layout_centerHorizontal="true"/>
     <TextView
         android:id="@+id/music_artist" 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="歌手：五月天"
         android:layout_centerHorizontal="true"/>
-    
-    <Button 
-        android:id="@+id/music_toPrevious"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="后退"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"/>
-   
-    <Button 
-        android:id="@+id/music_toNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="前进"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"/>
     
     <TextView 
         android:id="@+id/tvDurationTime"
@@ -63,5 +62,21 @@
         android:layout_below="@+id/mysic_title"
         android:layout_centerHorizontal="true"
         android:text="START" />
+    
+    <Button 
+        android:id="@+id/music_toPrevious"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="后退"
+        android:layout_toLeftOf="@id/music_btStartStop"
+        android:layout_alignBottom="@id/music_btStartStop"/>
+   
+    <Button 
+        android:id="@+id/music_toNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="前进"
+        android:layout_toRightOf="@id/music_btStartStop"
+        android:layout_alignBottom="@id/music_btStartStop"/>
 
 </RelativeLayout>
