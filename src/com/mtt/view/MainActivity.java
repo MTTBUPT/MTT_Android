@@ -72,33 +72,39 @@ public class MainActivity extends Activity implements RoundViewOnTouchListener{
 		// TODO Auto-generated method stub
 		if (i == 1) {
 			//跳转导航页面
-			Toast.makeText(this, "导航2", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "导航", Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(MainActivity.this,SubFunctionActivity.class);
+			intent.putExtra("subpage", 0);
 			startActivity(intent);
 		}else if (i ==2) {
 			//跳转码表页面
-			Toast.makeText(this, "码表2", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "码表", Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(MainActivity.this,SubFunctionActivity.class);
+			intent.putExtra("subpage", 0);
 			startActivity(intent);
 		}else if (i ==3) {
 			//跳转轨迹页面
-			Toast.makeText(this, "轨迹2", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "轨迹", Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(MainActivity.this,SubFunctionActivity.class);
+			intent.putExtra("subpage", 0);
 			startActivity(intent);
 		}else if (i ==4) {
 			//跳转音乐页面
-			Toast.makeText(this, "音乐2", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "音乐", Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(MainActivity.this,SubFunctionActivity.class);
+			intent.putExtra("subpage", 2);
 			startActivity(intent);
 		}else if (i ==5) {
 			//跳转相机页面
-			Toast.makeText(this, "相机2", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "相机", Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(MainActivity.this,SubFunctionActivity.class);
+			intent.putExtra("subpage", 1);
 			startActivity(intent);
 		}else if (i ==6) {
 			//跳转秒表页面
-			Toast.makeText(this, "秒表2", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "秒表", Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(MainActivity.this,SubFunctionActivity.class);
+			intent.putExtra("subpage", 3);
 			startActivity(intent);
 		}
 		return true;

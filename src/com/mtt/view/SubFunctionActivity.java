@@ -7,6 +7,7 @@ import com.mtt.R;
 import com.mtt.fragments.*;
 import com.mtt.customview.*;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -37,11 +38,19 @@ public class SubFunctionActivity extends FragmentActivity{
 	/** 自定义对话框*/
 	private DialogView dialog_view;
 	
+	/**　传值*/
+	private Intent intent;
+	/**　子功能页面参数*/
+	private int subpage=0;
+	
 	@Override
 	protected void onCreate(Bundle arg0) {
 		// TODO Auto-generated method stub
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_sub_functions);
+		intent = getIntent();
+		subpage = intent.getIntExtra("subpage",1);
+		
 		InitViewPager();
 		
 		view_mask = findViewById(R.id.view_mask);
@@ -62,6 +71,7 @@ public class SubFunctionActivity extends FragmentActivity{
 				view_mask.setVisibility(View.GONE);
 			}
 		});
+		
 	}
 	
 	
@@ -114,12 +124,12 @@ public class SubFunctionActivity extends FragmentActivity{
 			return fragments.get(arg0);
 		}
 
-		@Override
+/*		@Override
 		public void destroyItem(View container, int position, Object object) {
 			// TODO Auto-generated method stub
 			// 这里Destroy的是Fragment的视图层次，而不是Destroy Fragment的对象
 			super.destroyItem(container, position, object);
-		}
+		}*/
 		
 	}
 	
@@ -135,8 +145,8 @@ public class SubFunctionActivity extends FragmentActivity{
 		fragments.add(new StopWatchFragment());
 		
 		adapter = new MyPagerAdapter(getSupportFragmentManager(),fragments);
-		mPager.setCurrentItem(0);
 		mPager.setAdapter(adapter);
+		mPager.setCurrentItem(subpage);
 		mPager.setOnPageChangeListener(new OnPageChangeListener() {
 			
 			@Override
