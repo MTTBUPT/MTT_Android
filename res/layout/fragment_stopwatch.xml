@@ -10,15 +10,22 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="4">
-        <ImageView 
-            android:id="@+id/stopwatch_bg"/>
+
+        <ImageView
+            android:id="@+id/stopwatch_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/stopwatch_bg" />
+
         <TextView 
              android:id="@+id/myTime"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_centerInParent="true"
              android:text="00:00:00"
-             android:textSize="55sp"
+             android:textSize="40sp"
+             android:textStyle="bold"
              android:textColor="#FFFFFF"/>
         
     </RelativeLayout>
@@ -28,25 +35,35 @@
         android:layout_height="match_parent"
         android:layout_weight="5">
         
-        <Button
+        <ImageButton
             android:id="@+id/btnStartStop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="开始"/>
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/stopwatch_start"
+            android:background="#212B35"/>
         
-        <Button 
+        <ImageButton 
             android:id="@+id/btnCountReset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/btnStartStop"
-            android:text="计次"/>
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:layout_alignTop="@id/btnStartStop"
+            android:layout_alignBottom="@id/btnStartStop"
+            android:src="@drawable/stopwatch_count"
+            android:background="#212B35"/>
         
         <TextView 
             android:id="@+id/tv_jici"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="计次"
-            android:layout_below="@id/btnStartStop"/>
+            android:layout_below="@id/btnStartStop"
+            android:layout_alignLeft="@id/btnStartStop"/>
         
         <TextView 
             android:id="@+id/tv_danwei"
@@ -54,67 +71,74 @@
             android:layout_height="wrap_content"
             android:text="单位"
             android:layout_toRightOf="@id/tv_jici"
-            android:layout_below="@id/btnStartStop"/>
+            android:layout_alignBottom="@id/tv_jici"
+            android:layout_marginLeft="60dp"/>
         
         <TextView 
+            android:id="@+id/tv_lj"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="累计"
             android:layout_toRightOf="@id/tv_danwei"
-            android:layout_below="@id/btnStartStop"/>
+            android:layout_below="@id/btnStartStop"
+            android:layout_alignBottom="@id/tv_jici"
+            android:layout_marginLeft="90dp"/>
         
         <TextView 
             android:id="@+id/tv_jici_userdata1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_jici"/>
+            android:layout_below="@id/tv_jici"
+            android:layout_alignLeft="@id/tv_jici"/>
         <TextView 
             android:id="@+id/tv_danwei_userdata1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/tv_jici_userdata1"
+            android:layout_alignLeft="@id/tv_danwei"
             android:layout_below="@id/tv_jici"/>
         <TextView 
             android:id="@+id/tv_leiji_userdata1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/tv_danwei_userdata1"
+            android:layout_alignLeft="@id/tv_lj"
             android:layout_below="@id/tv_jici"/>    
             
         <TextView 
             android:id="@+id/tv_jici_userdata2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="wrap_content"            
+            android:layout_alignLeft="@id/tv_jici"
             android:layout_below="@id/tv_jici_userdata1"/>
         <TextView 
             android:id="@+id/tv_danwei_userdata2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/tv_jici_userdata2"
+            android:layout_alignLeft="@id/tv_danwei"
             android:layout_below="@id/tv_jici_userdata1"/>
         <TextView 
             android:id="@+id/tv_leiji_userdata2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/tv_danwei_userdata2"
+            android:layout_alignLeft="@id/tv_lj"
             android:layout_below="@id/tv_jici_userdata1"/>  
             
         <TextView 
             android:id="@+id/tv_jici_userdata3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="wrap_content"       
+            android:layout_alignLeft="@id/tv_jici"
             android:layout_below="@id/tv_jici_userdata2"/>
         <TextView 
             android:id="@+id/tv_danwei_userdata3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/tv_jici_userdata3"
+            android:layout_alignLeft="@id/tv_danwei"
             android:layout_below="@id/tv_jici_userdata2"/>
         <TextView 
             android:id="@+id/tv_leiji_userdata3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/tv_danwei_userdata3"
+            android:layout_alignLeft="@id/tv_lj"
             android:layout_below="@id/tv_jici_userdata2"/>  
     </RelativeLayout>
     

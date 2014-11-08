@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,7 +32,7 @@ public class StopWatchFragment extends Fragment{
 	private long mlCount = 0;
 	
 	private TextView mytime;
-	private Button btnStartStop,btnCountReset;
+	private ImageButton btnStartStop,btnCountReset;
 	private TextView tv_jici_userdata1,tv_danwei_userdata1,tv_leiji_userdata1;
 	private TextView tv_jici_userdata2,tv_danwei_userdata2,tv_leiji_userdata2;
 	private TextView tv_jici_userdata3,tv_danwei_userdata3,tv_leiji_userdata3;
@@ -110,8 +111,8 @@ public class StopWatchFragment extends Fragment{
 		tv_leiji_userdata3 = (TextView) view.findViewById(R.id.tv_leiji_userdata3);
 		
 		mytime = (TextView) view.findViewById(R.id.myTime);
-		btnStartStop = (Button) view.findViewById(R.id.btnStartStop);
-		btnCountReset = (Button) view.findViewById(R.id.btnCountReset);
+		btnStartStop = (ImageButton) view.findViewById(R.id.btnStartStop);
+		btnCountReset = (ImageButton) view.findViewById(R.id.btnCountReset);
 		
 		mytime.setText("00:00:00");
 	}
@@ -148,8 +149,8 @@ public class StopWatchFragment extends Fragment{
 			// start
 			if (!IsRunningFlg) {
 				IsRunningFlg = true;
-				btnStartStop.setText("暂停");
-				btnCountReset.setText("计次");
+				btnStartStop.setImageResource(R.drawable.stopwatch_stop);
+				btnCountReset.setImageResource(R.drawable.stopwatch_count);
 			} else { // pause
 				try{
 					IsRunningFlg = false;
@@ -159,8 +160,8 @@ public class StopWatchFragment extends Fragment{
 					timer.purge();
 					timer = null;
 					handler.removeMessages(msg.what);
-					btnStartStop.setText("开始");
-					btnCountReset.setText("复位");
+					btnStartStop.setImageResource(R.drawable.stopwatch_start);
+					btnCountReset.setImageResource(R.drawable.stopwatch_reset);
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -231,7 +232,7 @@ public class StopWatchFragment extends Fragment{
 				mlCount = 0;
 				timeFlg = 0;
 				IsRunningFlg = false;
-				btnCountReset.setText("计次");
+				btnCountReset.setImageResource(R.drawable.stopwatch_count);
 			}
 			
 		}
