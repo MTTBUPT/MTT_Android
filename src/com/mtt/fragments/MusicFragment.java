@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 /** 
@@ -43,11 +44,11 @@ public class MusicFragment extends Fragment implements OnClickListener{
 	/** 歌曲时间*/
 	private TextView tvDurationTime;  
 	/** 往后*/
-	private Button btToPrevious; 
+	private ImageButton btToPrevious; 
 	/** 往前*/
-	private Button btToNext; 
+	private ImageButton btToNext; 
 	/** 开始/暂停*/
-	private Button btStartStop; 
+	private ImageButton btStartStop; 
 	/** 音乐列表*/
 	private List<MusicInfo> musicList;
 	
@@ -128,7 +129,7 @@ public class MusicFragment extends Fragment implements OnClickListener{
 	/** 初始化组件*/
 	private void initComponents() {
 		// TODO Auto-generated method stub
-		tvCurrentMusic = (TextView) view.findViewById(R.id.mysic_title);
+		tvCurrentMusic = (TextView) view.findViewById(R.id.music_title);
 		tvCurrentArtist = (TextView) view.findViewById(R.id.music_artist);
 		tvCurrentTime = (TextView) view.findViewById(R.id.tvCurrentTime);
 		tvDurationTime = (TextView) view.findViewById(R.id.tvDurationTime);
@@ -138,13 +139,13 @@ public class MusicFragment extends Fragment implements OnClickListener{
 		tvCurrentMusic.setText(musicList.get(currentMusic).getTitle());
 		tvCurrentArtist.setText(musicList.get(currentMusic).getArtist());
 		
-		btToPrevious = (Button) view.findViewById(R.id.music_toPrevious);
+		btToPrevious = (ImageButton) view.findViewById(R.id.music_toPrevious);
 		btToPrevious.setOnClickListener(this);
 		
-		btToNext = (Button) view.findViewById(R.id.music_toNext);
+		btToNext = (ImageButton) view.findViewById(R.id.music_toNext);
 		btToNext.setOnClickListener(this);
 		
-		btStartStop = (Button) view.findViewById(R.id.music_btStartStop);
+		btStartStop = (ImageButton) view.findViewById(R.id.music_btStartStop);
 		btStartStop.setOnClickListener(this);
 	}
 
@@ -177,10 +178,10 @@ public class MusicFragment extends Fragment implements OnClickListener{
 	private void play(int position, int resId){		
 		if(musicBinder.isPlaying()){
 			musicBinder.stopPlay();
-			btStartStop.setText("START");
+//			btStartStop.setText("START");
 		}else{
 			musicBinder.startPlay(position,currentPosition);
-			btStartStop.setText("STOP");
+//			btStartStop.setText("STOP");
 		}
 	}
 	
@@ -196,7 +197,7 @@ public class MusicFragment extends Fragment implements OnClickListener{
 				tvCurrentMusic.setText(musicList.get(currentMusic).getTitle());
 				tvCurrentArtist.setText(musicList.get(currentMusic).getArtist());
 				tvDurationTime.setText(FormatHelper.formatDuration(musicList.get(currentMusic).getDuration()));
-				btStartStop.setText("STOP");
+//				btStartStop.setText("STOP");
 			}else if (MusicService.ACTION_UPDATE_PROGRESS.equals(action)) {
 				// 更新进度
 				int progress = intent.getIntExtra(MusicService.ACTION_UPDATE_PROGRESS, 0);

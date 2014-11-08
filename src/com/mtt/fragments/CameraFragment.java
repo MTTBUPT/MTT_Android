@@ -33,7 +33,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.SurfaceHolder.Callback;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -50,7 +49,7 @@ public class CameraFragment extends Fragment{
 	private SurfaceView sView;
 	private SurfaceHolder holder;
 	/** 摄像按钮*/
-	private Button mBtStartStop;
+	private ImageButton mBtStartStop;
 	/** 拍照按钮*/
 	private ImageButton capture;
 	/** 录像时间*/
@@ -98,7 +97,7 @@ public class CameraFragment extends Fragment{
 		// 获取界面中SurfaceView组件
 		sView = (SurfaceView) view.findViewById(R.id.sView);
 		
-		mBtStartStop = (Button) view.findViewById(R.id.btStartStop);
+		mBtStartStop = (ImageButton) view.findViewById(R.id.btStartStop);
 		mBtStartStop.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -297,7 +296,7 @@ public class CameraFragment extends Fragment{
                     
 			        mRecorder.start();   // Recording is now started
 			        mStartedFlg = true;
-			        mBtStartStop.setText("Stop");
+			        mBtStartStop.setImageResource(R.drawable.camera_videoing);
 		        }
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -311,7 +310,7 @@ public class CameraFragment extends Fragment{
                     mVideoTime.setText(format(hour) + ":" + format(minute) + ":"
                             + format(second));
 			        mRecorder.reset();   // You can reuse the object by going back to setAudioSource() step
-			        mBtStartStop.setText("Start");
+			        mBtStartStop.setImageResource(R.drawable.camera_video);
 					Toast.makeText(getActivity().getApplicationContext(), "录像已保存", Toast.LENGTH_SHORT).show();
 			        initCamera();
 				} catch (Exception e) {

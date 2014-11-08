@@ -14,17 +14,17 @@
 	    android:id="@+id/ibCapture"
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
-		android:src="@drawable/capture"
+		android:src="@drawable/camera_capture"
 		android:layout_alignParentLeft="true"
 		android:layout_centerVertical="true"/>
 	
-	<Button
+	<ImageButton
 	    android:id="@+id/btStartStop"
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
 		android:layout_alignParentRight="true"
 		android:layout_centerVertical="true"
-		android:text="START"/>
+		android:src="@drawable/camera_video"/>
 	
 	<TextView 
 	    android:id="@+id/video_time"
