@@ -79,6 +79,6 @@ public class LeftFragment extends ListFragment {
 		super.onListItemClick(listView, view, position, id);
 		// 激发mCallbacks的onItemSelected方法
 		mCallbacks.onItemSelected(position);
-	}
+	}  
 
 }
