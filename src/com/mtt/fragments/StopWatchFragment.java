@@ -1,5 +1,9 @@
 package com.mtt.fragments;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,11 +20,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 /** 
  * 秒表功能页面
- * @author Kerry
+ * @author Kerry Zhouyoqin
  * */
 public class StopWatchFragment extends Fragment{
 
@@ -36,6 +42,9 @@ public class StopWatchFragment extends Fragment{
 	private TextView tv_jici_userdata1,tv_danwei_userdata1,tv_leiji_userdata1;
 	private TextView tv_jici_userdata2,tv_danwei_userdata2,tv_leiji_userdata2;
 	private TextView tv_jici_userdata3,tv_danwei_userdata3,tv_leiji_userdata3;
+	private ListView stopwatch_record;
+	List<Map<String, String>> listItems = new ArrayList<Map<String, String>>();;
+	SimpleAdapter simpleAdapter;
 
 	private Timer timer = null;
 	private TimerTask task = null;
@@ -99,16 +108,7 @@ public class StopWatchFragment extends Fragment{
 
 	/** 资源初始化*/
 	private void initView() {
-		// TODO Auto-generated method stub
-		tv_jici_userdata1 = (TextView) view.findViewById(R.id.tv_jici_userdata1);
-		tv_jici_userdata2 = (TextView) view.findViewById(R.id.tv_jici_userdata2);
-		tv_jici_userdata3 = (TextView) view.findViewById(R.id.tv_jici_userdata3);
-		tv_danwei_userdata1 = (TextView) view.findViewById(R.id.tv_danwei_userdata1);
-		tv_danwei_userdata2 = (TextView) view.findViewById(R.id.tv_danwei_userdata2);
-		tv_danwei_userdata3 = (TextView) view.findViewById(R.id.tv_danwei_userdata3);
-		tv_leiji_userdata1 = (TextView) view.findViewById(R.id.tv_leiji_userdata1);
-		tv_leiji_userdata2 = (TextView) view.findViewById(R.id.tv_leiji_userdata2);
-		tv_leiji_userdata3 = (TextView) view.findViewById(R.id.tv_leiji_userdata3);
+		stopwatch_record = (ListView) view.findViewById(R.id.lv_stopwatch_records);
 		
 		mytime = (TextView) view.findViewById(R.id.myTime);
 		btnStartStop = (ImageButton) view.findViewById(R.id.btnStartStop);
@@ -183,40 +183,17 @@ public class StopWatchFragment extends Fragment{
 			int sec = (totalSec % 60);
 			
 			if(IsRunningFlg){
-				switch (timeFlg) {
-				case 0:
-					tv_jici_userdata1.setText("1");
-					tv_danwei_userdata1.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
-					tv_leiji_userdata1.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
-					break;
-				case 1:
-					tv_jici_userdata2.setText("2");
-					tv_danwei_userdata2.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
-					tv_leiji_userdata2.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
-					break;
-				case 2:
-					tv_jici_userdata3.setText("3");
-					tv_danwei_userdata3.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
-					tv_leiji_userdata3.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
-					break;
-				}
-			
-				if(timeFlg < 2){
-					timeFlg++;
-				}else {
-					timeFlg=0;
-				}
-				
+				AddItem(timeFlg+"",
+						String.format("%1$02d:%2$02d:%3$d", min, sec, yushu),
+						String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
+				timeFlg++;				
 			}else{
-				tv_danwei_userdata1.setText("");
-				tv_danwei_userdata2.setText("");
-				tv_danwei_userdata3.setText("");
-				tv_jici_userdata1.setText("");
-				tv_jici_userdata2.setText("");
-				tv_jici_userdata3.setText("");
-				tv_leiji_userdata1.setText("");
-				tv_leiji_userdata2.setText("");
-				tv_leiji_userdata3.setText("");
+				listItems = new ArrayList<Map<String, String>>();
+				simpleAdapter = new SimpleAdapter(getActivity(), listItems,
+						R.layout.fragment_stopwatch_listitem, 
+						new String[] { "jici", "danwei" , "leiji"},
+						new int[] { R.id.item_tv_jici, R.id.item_tv_danwei, R.id.item_tv_leiji});
+				stopwatch_record.setAdapter(simpleAdapter);	
 				
 				mytime.setText("00:00:00");
 				
@@ -237,6 +214,26 @@ public class StopWatchFragment extends Fragment{
 			
 		}
 	};
+	
+	/**
+	 * 添加元素,更新listview
+	 * @param v
+	 */
+	public void AddItem(String jici, String danwei, String leiji)
+	{
+		Map<String, String> listItem = new HashMap<String, String>();
+		listItem.put("jici", jici);
+		listItem.put("danwei", danwei);
+		listItem.put("leiji", leiji);
+		listItems.add(listItem);
+		simpleAdapter = new SimpleAdapter(getActivity(), listItems,
+				R.layout.fragment_stopwatch_listitem, 
+				new String[] { "jici", "danwei" , "leiji"},
+				new int[] { R.id.item_tv_jici, R.id.item_tv_danwei, R.id.item_tv_leiji});
+			
+		// 为ListView设置Adapter
+		stopwatch_record.setAdapter(simpleAdapter);	
+	}
 
 }
 

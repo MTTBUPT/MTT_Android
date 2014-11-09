@@ -99,63 +99,15 @@
 	            android:layout_toRightOf="@id/tv_danwei"
 	            android:layout_alignBottom="@id/tv_danwei"
 	            android:layout_marginLeft="70dp"/>
+	       
+	        <ListView 
+	            android:id="@+id/lv_stopwatch_records"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@id/iv_listbg"
+	            android:layout_marginBottom="50dp"
+	            ></ListView>
 	        
-	        <TextView 
-	            android:id="@+id/tv_jici_userdata1"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_below="@id/tv_jici"
-	            android:layout_alignLeft="@id/tv_jici"/>
-	        <TextView 
-	            android:id="@+id/tv_danwei_userdata1"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_below="@id/tv_jici"
-	            android:layout_alignLeft="@id/tv_danwei"/>
-	        <TextView 
-	            android:id="@+id/tv_leiji_userdata1"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_below="@id/tv_jici"
-	            android:layout_alignLeft="@id/tv_lj"/>   
-	            
-	        <TextView 
-	            android:id="@+id/tv_jici_userdata2"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"            
-	            android:layout_alignLeft="@id/tv_jici"
-	            android:layout_below="@id/tv_jici_userdata1"/>
-	        <TextView 
-	            android:id="@+id/tv_danwei_userdata2"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@id/tv_danwei"
-	            android:layout_below="@id/tv_jici_userdata1"/>
-	        <TextView 
-	            android:id="@+id/tv_leiji_userdata2"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@id/tv_lj"
-	            android:layout_below="@id/tv_jici_userdata1"/>  
-	        
-	        <TextView 
-	            android:id="@+id/tv_jici_userdata3"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"       
-	            android:layout_alignLeft="@id/tv_jici"
-	            android:layout_below="@id/tv_jici_userdata2"/>
-	        <TextView 
-	            android:id="@+id/tv_danwei_userdata3"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@id/tv_danwei"
-	            android:layout_below="@id/tv_jici_userdata2"/>
-	        <TextView 
-	            android:id="@+id/tv_leiji_userdata3"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@id/tv_lj"
-	            android:layout_below="@id/tv_jici_userdata2"/> 
         </RelativeLayout>
     </LinearLayout>
     

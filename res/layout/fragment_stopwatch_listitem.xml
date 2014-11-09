@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <TextView 	        
+        android:id="@+id/item_tv_danwei"
+        android:text="单位"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_centerHorizontal="true"/>
+    <TextView 
+	    android:id="@+id/item_tv_jici"
+	    android:text="计次"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_toLeftOf="@id/item_tv_danwei"
+	    android:layout_alignBottom="@id/item_tv_danwei"
+	    android:layout_marginRight="70dp"/>
+	 <TextView 
+	    android:id="@+id/item_tv_leiji"
+	    android:text="累计"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_toRightOf="@id/item_tv_danwei"
+	    android:layout_alignBottom="@id/item_tv_danwei"
+	    android:layout_marginLeft="70dp"/>
+	 <ImageView 
+	     android:src="@drawable/stopwatch_listline"
+	     android:layout_width="fill_parent"
+	     android:layout_height="wrap_content"
+	     android:layout_below="@id/item_tv_danwei"/>    
+	            
+
+</RelativeLayout>
