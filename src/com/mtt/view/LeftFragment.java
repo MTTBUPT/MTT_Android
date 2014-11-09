@@ -34,12 +34,6 @@ public class LeftFragment extends ListFragment {
 		Bundle b1 = getArguments();
 		data = (List<String>)b1.getStringArrayList("data");
 		
-//		data = new ArrayList<String>();
-		
-//		data.add(getString(R.string.path0));
-//		data.add(getString(R.string.path1));
-//		data.add(getString(R.string.path2));
-//		data.add(getString(R.string.path3));
 		manager = getFragmentManager();
 		adapter = new ArrayAdapter<String>(getActivity(),
 				R.layout.fragment_list_item
@@ -86,22 +80,5 @@ public class LeftFragment extends ListFragment {
 		// 激发mCallbacks的onItemSelected方法
 		mCallbacks.onItemSelected(position);
 	}
-//	@Override
-//	public void onListItemClick(ListView l, View v, int position, long id) {
-//		
-//		super.onListItemClick(l, v, position, id);
-//		String str = adapter.getItem(position);
-//		transaction = manager.beginTransaction();
-//
-//		DetailFragment detailFragment = new DetailFragment();
-//		/**
-//		 * 使用Bundle类存储传递数据
-//		 */
-//		Bundle bundle = new Bundle();
-//		bundle.putInt("id", position);
-//		detailFragment.setArguments(bundle);
-//		transaction.replace(R.id.ll_right, detailFragment, "right");
-//		transaction.commit();
-//		Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
-//	}
+
 }
