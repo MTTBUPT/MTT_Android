@@ -36,12 +36,11 @@ public class StopWatchFragment extends Fragment{
 	private View view;
 	/** 当前秒数*/
 	private long mlCount = 0;
+	/** 计次时秒数*/
+	private long mCurrentCount = 0;
 	
-	private TextView mytime;
+	private TextView mytime,myCurrentTime;
 	private ImageButton btnStartStop,btnCountReset;
-	private TextView tv_jici_userdata1,tv_danwei_userdata1,tv_leiji_userdata1;
-	private TextView tv_jici_userdata2,tv_danwei_userdata2,tv_leiji_userdata2;
-	private TextView tv_jici_userdata3,tv_danwei_userdata3,tv_leiji_userdata3;
 	private ListView stopwatch_record;
 	List<Map<String, String>> listItems = new ArrayList<Map<String, String>>();;
 	SimpleAdapter simpleAdapter;
@@ -82,9 +81,20 @@ public class StopWatchFragment extends Fragment{
     				// Set time display
     				int min = (totalSec / 60);
     				int sec = (totalSec % 60);
+    				
+    				// 设置计次后时间
+    				long mThisCount = mlCount - mCurrentCount;
+    				int current_totalSec = 0;
+    				int current_yushu = 0;
+    				
+    				current_totalSec = (int)(mThisCount/10);
+    				current_yushu = (int)(mThisCount%10);
+    				int current_min = (current_totalSec/60);
+    				int current_sec = (current_totalSec%60);
     				try{
 
     					mytime.setText(String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
+    					myCurrentTime.setText(String.format("%1$02d:%2$02d:%3$d", current_min, current_sec, current_yushu));
     					
     				} catch(Exception e) {
     					mytime.setText("" + min + ":" + sec + ":" + yushu);
@@ -111,6 +121,7 @@ public class StopWatchFragment extends Fragment{
 		stopwatch_record = (ListView) view.findViewById(R.id.lv_stopwatch_records);
 		
 		mytime = (TextView) view.findViewById(R.id.myTime);
+		myCurrentTime = (TextView) view.findViewById(R.id.myCurrentTime);
 		btnStartStop = (ImageButton) view.findViewById(R.id.btnStartStop);
 		btnCountReset = (ImageButton) view.findViewById(R.id.btnCountReset);
 		
@@ -182,12 +193,25 @@ public class StopWatchFragment extends Fragment{
 			int min = (totalSec / 60);
 			int sec = (totalSec % 60);
 			
+			// 设置计次后时间
+			long mThisCount = mlCount - mCurrentCount;
+			int current_totalSec = 0;
+			int current_yushu = 0;
+			
+			current_totalSec = (int)(mThisCount/10);
+			current_yushu = (int)(mThisCount%10);
+			int current_min = (current_totalSec/60);
+			int current_sec = (current_totalSec%60);
+			
+			mCurrentCount = mlCount;
 			if(IsRunningFlg){
+				// 计次
 				AddItem(timeFlg+"",
-						String.format("%1$02d:%2$02d:%3$d", min, sec, yushu),
+						String.format("%1$02d:%2$02d:%3$d", current_min, current_sec, current_yushu),
 						String.format("%1$02d:%2$02d:%3$d", min, sec, yushu));
 				timeFlg++;				
 			}else{
+				// 复位
 				listItems = new ArrayList<Map<String, String>>();
 				simpleAdapter = new SimpleAdapter(getActivity(), listItems,
 						R.layout.fragment_stopwatch_listitem, 
@@ -196,6 +220,7 @@ public class StopWatchFragment extends Fragment{
 				stopwatch_record.setAdapter(simpleAdapter);	
 				
 				mytime.setText("00:00:00");
+				myCurrentTime.setText("00:00:00");
 				
 				if (null != timer) {
 					task.cancel();
@@ -207,6 +232,7 @@ public class StopWatchFragment extends Fragment{
 				}
 				
 				mlCount = 0;
+				mCurrentCount = 0;
 				timeFlg = 0;
 				IsRunningFlg = false;
 				btnCountReset.setImageResource(R.drawable.stopwatch_count);

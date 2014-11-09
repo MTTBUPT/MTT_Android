@@ -50,17 +50,27 @@
 	            android:layout_marginTop="30dp"
 	            android:src="@drawable/stopwatch_start"
 	            android:background="#212B35"/>
-        
-        <ImageButton 
-            android:id="@+id/btnCountReset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="30dp"
-            android:layout_alignTop="@id/btnStartStop"
-            android:layout_alignBottom="@id/btnStartStop"
-            android:src="@drawable/stopwatch_count"
-            android:background="#212B35"/>
+
+             <TextView 
+             	android:id="@+id/myCurrentTime"
+             	android:layout_width="wrap_content"
+             	android:layout_height="wrap_content"
+             	android:layout_centerInParent="true"
+	            android:text="00:00:00"
+	            android:textSize="25sp"
+	            android:textStyle="bold"
+	            android:textColor="#FFFFFF"/>
+             
+	        <ImageButton 
+	            android:id="@+id/btnCountReset"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentRight="true"
+	            android:layout_marginRight="30dp"
+	            android:layout_alignTop="@id/btnStartStop"
+	            android:layout_alignBottom="@id/btnStartStop"
+	            android:src="@drawable/stopwatch_count"
+	            android:background="#212B35"/>
             
         </RelativeLayout>
         <RelativeLayout 
@@ -77,7 +87,7 @@
             
             <TextView 
 	            android:id="@+id/tv_danwei"
-	            android:text="单位"
+	            android:text="单次"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"	            
 	            android:layout_alignTop="@id/iv_listbg"
@@ -98,7 +108,7 @@
 	            android:layout_height="wrap_content"
 	            android:layout_toRightOf="@id/tv_danwei"
 	            android:layout_alignBottom="@id/tv_danwei"
-	            android:layout_marginLeft="70dp"/>
+	            android:layout_marginLeft="80dp"/>
 	       
 	        <ListView 
 	            android:id="@+id/lv_stopwatch_records"
@@ -106,6 +116,7 @@
 	            android:layout_height="wrap_content"
 	            android:layout_below="@id/iv_listbg"
 	            android:layout_marginBottom="50dp"
+	            android:divider="#00000000"
 	            ></ListView>
 	        
         </RelativeLayout>

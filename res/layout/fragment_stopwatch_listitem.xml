@@ -23,7 +23,7 @@
 	    android:layout_height="wrap_content"
 	    android:layout_toRightOf="@id/item_tv_danwei"
 	    android:layout_alignBottom="@id/item_tv_danwei"
-	    android:layout_marginLeft="70dp"/>
+	    android:layout_marginLeft="60dp"/>
 	 <ImageView 
 	     android:src="@drawable/stopwatch_listline"
 	     android:layout_width="fill_parent"
