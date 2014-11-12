@@ -101,6 +101,7 @@ public final class R {
         public static final int ll_right=0x7f080013;
         public static final int ll_slope=0x7f080023;
         public static final int lv_stopwatch_records=0x7f08003b;
+        public static final int mabiaofragment_mysteepview=0x7f080024;
         public static final int music_artist=0x7f08002b;
         public static final int music_artisttag=0x7f08002a;
         public static final int music_btStartStop=0x7f08002c;
@@ -129,7 +130,6 @@ public final class R {
         public static final int tv_lj=0x7f08003a;
         public static final int tv_mabiao_distance=0x7f080026;
         public static final int tv_mabiao_speed=0x7f080021;
-        public static final int tv_slope=0x7f080024;
         public static final int tv_tapin=0x7f080022;
         public static final int vPager=0x7f080015;
         public static final int video_time=0x7f08001b;

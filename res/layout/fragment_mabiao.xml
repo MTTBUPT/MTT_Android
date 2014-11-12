@@ -38,7 +38,7 @@
         		        android:layout_width="wrap_content"
         		        android:layout_height="wrap_content"/>
         		</LinearLayout>
-        		<LinearLayout       		    
+        		<RelativeLayout       		    
         		    android:layout_width="fill_parent"
         		    android:layout_height="fill_parent"
         		    android:layout_weight="2">
@@ -47,8 +47,8 @@
         		        android:layout_width="wrap_content"
         		        android:layout_height="wrap_content"
         		        android:src="@drawable/compassface" />
-        		</LinearLayout>
-             
+             	</RelativeLayout>
+        		    
              </LinearLayout>
              <LinearLayout
                  android:layout_width="fill_parent"
@@ -320,20 +320,16 @@
 	                     android:layout_width="wrap_content"        
 	                     android:layout_height="wrap_content"/>
                  </LinearLayout>
-                 <LinearLayout       		    
+                 <RelativeLayout       		    
         		    android:layout_width="fill_parent"
         		    android:layout_height="fill_parent"
         		    android:layout_weight="1">
-        		    	<TextView 
-        		    	    android:id="@+id/tv_slope"
-        		    	    android:textSize="50dp"
-        		    	    android:textColor="#FFFFFF"
-        		        	android:layout_width="wrap_content"
-        		        	android:layout_height="wrap_content"
-        		        	android:layout_gravity="center_vertical"
-        		        	android:paddingLeft="42dp"
-        		        	android:text="0"/>    		   
-        		</LinearLayout>
+                     <com.mtt.customview.SteepView 
+                         android:id="@+id/mabiaofragment_mysteepview"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_centerInParent="true"/>
+    		   </RelativeLayout>
                  
              </LinearLayout>
              <LinearLayout         

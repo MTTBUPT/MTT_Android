@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.RectF;
 import android.graphics.Paint.Align;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -22,6 +23,7 @@ import android.widget.Scroller;
 public class DialogView extends View{
 
 	private Paint mPaint = new Paint();
+	
 	/** Scroller 拖动类 */
     private Scroller mScroller;
 	/** 点击时候Y的坐标*/
@@ -74,84 +76,67 @@ public class DialogView extends View{
 		mPaint.setAntiAlias(true);
 		mPaint.setStyle(Paint.Style.FILL);
 		mPaint.setARGB(255, 255, 255, 255);
-		// 绘制矩形
-		canvas.drawRect(mPointX*3/2-mWidth, mPointY-mHeight/2+mPointY*3/2, mPointX*3/2, mPointY+mHeight/2+mPointY*3/2, mPaint);
+		// 绘制矩形（正中）
+		canvas.drawRect(mPointX*1/2, mPointY/2+mPointY*3/2, mPointX*3/2, mPointY*3/2+mPointY*3/2, mPaint);
 		
-		// 定义一个Path对象，封闭成一个四角形
+		// 绘制小矩形（上中）
 		mPaint.setARGB(255, 232, 25, 41);
-		Path path1 = new Path();
-		path1.moveTo(mPointX-0.13f*mPointX, mPointY/2+mPointY*3/2);
-		path1.lineTo(mPointX-0.2f*mPointX, mPointY*4/16+mPointY*3/2);
-		path1.lineTo(mPointX+0.2f*mPointX, mPointY*4/16+mPointY*3/2);
-		path1.lineTo(mPointX+0.13f*mPointX, mPointY/2+mPointY*3/2);
-		path1.close();
-		canvas.drawPath(path1, mPaint);
+		canvas.drawRect(0.8f*mPointX, mPointY/4+mPointY*3/2, 1.2f*mPointX, mPointY/2+mPointY*3/2, mPaint);
 		
-		// 定义一个Path对象，封闭三个弧形
+		// -------------------绘制上边框-----------------------------------
 		mPaint.setARGB(255, 255, 255, 255);
-		Path path2 = new Path();
-		path2.moveTo(mPointX/2, mPointY/2+mPointY*3/2);
-        path2.quadTo(mPointX-0.4f*mPointX, mPointY*4/16+mPointY*3/2, mPointX-0.3f*mPointX, mPointY*4/16+mPointY*3/2);
-        path2.lineTo(mPointX-0.2f*mPointX, mPointY*4/16+mPointY*3/2);
-        path2.lineTo(mPointX-0.13f*mPointX, mPointY/2+mPointY*3/2);
-        path2.close();
-        canvas.drawPath(path2, mPaint);
-        
-		Path path3 = new Path();
-		path3.moveTo(mPointX*3/2, mPointY/2+mPointY*3/2);
-        path3.quadTo(1.4f*mPointX, mPointY*4/16+mPointY*3/2, mPointX+0.3f*mPointX, mPointY*4/16+mPointY*3/2);
-        path3.lineTo(mPointX+0.2f*mPointX, mPointY*4/16+mPointY*3/2);
-		path3.lineTo(mPointX+0.13f*mPointX, mPointY/2+mPointY*3/2);
-		path3.close();
-		canvas.drawPath(path3, mPaint);
+		// 绘制小矩形(上左)
+		canvas.drawRect(mPointX/2+mPointY/4, mPointY/4+mPointY*3/2, 0.8f*mPointX, mPointY/2+mPointY*3/2, mPaint);
+		// 绘制扇形（上左）
+		RectF oval_top_left = new RectF(mPointX/2, mPointY/4+mPointY*3/2, mPointX/2+mPointY/2, mPointY*3/4+mPointY*3/2);
+		canvas.drawArc(oval_top_left, 180, 90, true, mPaint);
+				
+		// 绘制小矩形（上右）
+		canvas.drawRect(1.2f*mPointX, mPointY/4+mPointY*3/2, 1.5f*mPointX-mPointY/4, mPointY/2+mPointY*3/2, mPaint);
+		// 绘制扇形（上右）
+		RectF oval_top_right = new RectF(mPointX*3/2-mPointY/2, mPointY/4+mPointY*3/2, mPointX*3/2, mPointY*3/4+mPointY*3/2);
+		canvas.drawArc(oval_top_right, 270, 90, true, mPaint);
 		
-		Path path4 = new Path();
-		path4.moveTo(mPointX/2, mPointY*1.5f+mPointY*3/2);
-		path4.quadTo(mPointX-0.4f*mPointX, mPointY*28/16+mPointY*3/2, mPointX-0.3f*mPointX, mPointY*28/16+mPointY*3/2);
-		path4.lineTo(mPointX+0.3f*mPointX, mPointY*28/16+mPointY*3/2);
-		path4.quadTo(1.4f*mPointX, mPointY*28/16+mPointY*3/2, mPointX*3/2, mPointY*1.5f+mPointY*3/2);
-		path4.close();
-		canvas.drawPath(path4, mPaint);
+		// -------------------绘制下边框-----------------------------------
+		// 绘制矩形（下中）
+		canvas.drawRect(mPointX/2+mPointY/4, mPointY*3/2+mPointY*3/2, 1.5f*mPointX-mPointY/4, mPointY*7/4+mPointY*3/2, mPaint);
 		
-		// ----------设置后绘制直线----------
-		mPaint.setARGB(255, 184, 184, 184);
+		// 绘制扇形（下左）
+		RectF oval_bottom_left = new RectF(mPointX*1/2, mPointY*5/4+mPointY*3/2, mPointX/2+mPointY/2, mPointY*7/4+mPointY*3/2);
+		canvas.drawArc(oval_bottom_left, 90, 90, true, mPaint);
+		// 绘制扇形（下右）
+		RectF oval_bottom_right = new RectF(1.5f*mPointX-mPointY/2, mPointY*5/4+mPointY*3/2, mPointX*3/2, mPointY*7/4+mPointY*3/2);
+		canvas.drawArc(oval_bottom_right, 0, 90, true, mPaint);
+		
+		// -------------------------设置后绘制直线-------------------------
+		mPaint.setARGB(255, 186, 185, 185);
 		mPaint.setStyle(Paint.Style.STROKE);
-		mPaint.setStrokeWidth(3);
+		mPaint.setStrokeWidth(2);
 		
+		// 矩形上边
 		Path patha = new Path();
-		patha.moveTo(mPointX,mPointY-mHeight/2+mPointY*3/2);
-		patha.lineTo(mPointX,mPointY+mHeight/2+mPointY*3/2);
+		patha.moveTo(mPointX/2,mPointY/2+mPointY*3/2);
+		patha.lineTo(mPointX*3/2,mPointY/2+mPointY*3/2);
 		patha.close();
 		canvas.drawPath(patha, mPaint);
 		
+		// 矩形下边
 		Path pathb = new Path();
-		pathb.moveTo(mPointX-mWidth/2,mPointY+mPointY*3/2);
-		pathb.lineTo(mPointX+mWidth/2,mPointY+mPointY*3/2);
+		pathb.moveTo(mPointX/2,mPointY*3/2+mPointY*3/2);
+		pathb.lineTo(mPointX*3/2,mPointY*3/2+mPointY*3/2);
 		pathb.close();
 		canvas.drawPath(pathb, mPaint);
 		
-		Path pathc = new Path();
-		pathc.moveTo(mPointX/2,mPointY/2+mPointY*3/2);
-		pathc.lineTo(mPointX*3/2, mPointY/2+mPointY*3/2);
-		pathc.close();
-		canvas.drawPath(pathc,mPaint);
-		
-		Path pathd = new Path();
-		pathd.moveTo(mPointX/2,mPointY*1.5f+mPointY*3/2);
-		pathd.lineTo(mPointX*3/2, mPointY*1.5f+mPointY*3/2);
-		pathd.close();
-		canvas.drawPath(pathd,mPaint);
-		
 		// ----------设置字符大小后绘制字符----------
-		mPaint.setStrokeWidth(5);
-		mPaint.setARGB(255, 232, 25, 41);
-		mPaint.setStyle(Paint.Style.FILL);
-		mPaint.setTextSize(60);
-		mPaint.setFakeBoldText(true); //true为粗体，false为非粗体
-		mPaint.setShader(null);
-		mPaint.setTextAlign(Align.CENTER);
-		
-		canvas.drawText(getResources().getString(R.string.home_back), mPointX, mPointY*13/8+mPointY*3/2, mPaint);
+//		mPaint.setStrokeWidth(5);
+//		mPaint.setARGB(255, 232, 25, 41);
+//		mPaint.setStyle(Paint.Style.FILL);
+//		mPaint.setTextSize(60);
+//		mPaint.setFakeBoldText(true); //true为粗体，false为非粗体
+//		mPaint.setShader(null);
+//		mPaint.setTextAlign(Align.CENTER);
+//		
+//		canvas.drawText(getResources().getString(R.string.home_back), mPointX, mPointY*13/8+mPointY*3/2, mPaint);
 	}
 
 	@Override
