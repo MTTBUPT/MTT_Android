@@ -178,10 +178,10 @@ public class MusicFragment extends Fragment implements OnClickListener{
 	private void play(int position, int resId){		
 		if(musicBinder.isPlaying()){
 			musicBinder.stopPlay();
-//			btStartStop.setText("START");
+			btStartStop.setImageResource(R.drawable.music_start);
 		}else{
 			musicBinder.startPlay(position,currentPosition);
-//			btStartStop.setText("STOP");
+			btStartStop.setImageResource(R.drawable.music_stop);
 		}
 	}
 	
@@ -197,7 +197,7 @@ public class MusicFragment extends Fragment implements OnClickListener{
 				tvCurrentMusic.setText(musicList.get(currentMusic).getTitle());
 				tvCurrentArtist.setText(musicList.get(currentMusic).getArtist());
 				tvDurationTime.setText(FormatHelper.formatDuration(musicList.get(currentMusic).getDuration()));
-//				btStartStop.setText("STOP");
+				btStartStop.setImageResource(R.drawable.music_stop);
 			}else if (MusicService.ACTION_UPDATE_PROGRESS.equals(action)) {
 				// 更新进度
 				int progress = intent.getIntExtra(MusicService.ACTION_UPDATE_PROGRESS, 0);
