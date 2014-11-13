@@ -1,424 +1,274 @@
 <!-- 需要drawable里面的maibiaostyle.xml -->
 <!-- 在配置文件的activity里面加android:screenOrientation="landscape" android:theme="@android:style/Theme.NoTitleBar" -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:weightSum="30"
     android:background="#222C36"
+    android:orientation="horizontal"
     tools:context=".MainActivity" >
 
-     <LinearLayout 
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"			   		
-        android:layout_weight="3"
-        android:orientation="horizontal">
-         
-         <LinearLayout        
-             android:layout_width="fill_parent"        
-             android:layout_height="fill_parent"		
-             android:layout_weight="1"
-             android:orientation="vertical">
-             
-             <LinearLayout         
-                 android:layout_width="fill_parent"
-                 android:layout_height="fill_parent"
-                 android:layout_weight="2"
-                 android:orientation="horizontal"
-                 android:background="@drawable/mabiaostyle">
-                 
-        		<LinearLayout  
-        		    android:layout_width="fill_parent"
-        		    android:layout_height="fill_parent"
-        		    android:layout_weight="4">
-        		    <TextView
-        		        android:text="罗盘"
-        		        android:textSize="22sp"
-        		        android:textColor="#90959B"
-        		        android:layout_width="wrap_content"
-        		        android:layout_height="wrap_content"/>
-        		</LinearLayout>
-        		<RelativeLayout       		    
-        		    android:layout_width="fill_parent"
-        		    android:layout_height="fill_parent"
-        		    android:layout_weight="2">
-        		    <ImageView
-        		        android:id="@+id/iv_compass"
-        		        android:layout_width="wrap_content"
-        		        android:layout_height="wrap_content"
-        		        android:src="@drawable/compassface" />
-             	</RelativeLayout>
-        		    
-             </LinearLayout>
-             <LinearLayout
-                 android:layout_width="fill_parent"
-                 android:layout_height="fill_parent"   
-                 android:layout_weight="3"
-                 android:orientation="horizontal"
-                 android:background="@drawable/mabiaostyle">
-        		
-        		<LinearLayout  
-        		    android:layout_width="fill_parent"
-        		    android:layout_height="fill_parent"
-        		    android:layout_weight="3">
-        		    <TextView      
-                     android:text="海拔"        
-                     android:textSize="22sp"    
-                     android:textColor="#90959B"    
-                     android:layout_width="wrap_content"        
-                     android:layout_height="wrap_content"/>
-        		</LinearLayout>
-        		<LinearLayout  
-        		    android:layout_width="fill_parent"
-        		    android:layout_height="fill_parent"
-        		    android:layout_weight="2"
-        		    android:orientation="horizontal">"
-        		    <TextView   
-        		        android:id="@+id/Mabiao_Height"
-        		        android:text="5138"
-        		        android:textSize="35sp"                         
-        		        android:textColor="#FFFFFF"
-        		        android:layout_gravity="center_vertical"
-        		        android:layout_width="wrap_content"                       
-        		        android:layout_height="wrap_content"/>
-        		</LinearLayout>
-        		<LinearLayout 
-        		    android:layout_width="fill_parent"        
-        		    android:layout_height="fill_parent"			       
-        		    android:layout_weight="3"
-        		    android:orientation="vertical">
-        		    
-        		    <LinearLayout  
-        		        android:layout_width="fill_parent"
-        		        android:layout_height="fill_parent"
-        		        android:layout_weight="1"></LinearLayout>
-        		    <LinearLayout 
-        		        android:layout_width="fill_parent"
-        		        android:layout_height="fill_parent"
-        		        android:layout_weight="2" 
-        		        android:orientation="vertical">        		    
-        		        <TextView           		        
-        		            android:text="m"        		        
-        		            android:textSize="14sp" 
-        		            android:textColor="#FFFFFF"
-        		            android:layout_gravity="center_horizontal"
-        		            android:layout_width="wrap_content" 
-        		            android:layout_height="wrap_content"/>        		
-        		    </LinearLayout>
-        		    
-        		</LinearLayout>
-        		
-        	</LinearLayout>
-            <LinearLayout 
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"	
-                android:layout_weight="3"
-                android:orientation="horizontal"
-                android:background="@drawable/mabiaostyle">
-        		
-        		<LinearLayout  
-        		    android:layout_width="fill_parent"
-        		    android:layout_height="fill_parent"
-        		    android:layout_weight="3">
-        		    <TextView      
-                     android:text="均速"        
-                     android:textSize="22sp"    
-                     android:textColor="#90959B"    
-                     android:layout_width="wrap_content"        
-                     android:layout_height="wrap_content"/>
-        		</LinearLayout>
-        		<LinearLayout  
-        		    android:layout_width="fill_parent"
-        		    android:layout_height="fill_parent"
-        		    android:orientation="horizontal"
-        		    android:layout_weight="3">
-        		    <TextView   
-        		        android:id="@+id/Mabiao_Tapin"
-        		        android:text="78"
-        		        android:textSize="35sp"                         
-        		        android:textColor="#FFFFFF"
-        		        android:layout_gravity="center_vertical"
-        		        android:layout_width="wrap_content"                       
-        		        android:layout_height="wrap_content"/>
-        		</LinearLayout>
-        		<LinearLayout 
-        		    android:layout_width="fill_parent"        
-        		    android:layout_height="fill_parent"			       
-        		    android:layout_weight="3"
-        		    android:orientation="vertical">
-        		    
-        		    <LinearLayout
-        		        android:layout_width="fill_parent"
-        		        android:layout_height="fill_parent"
-        		        android:layout_weight="1"></LinearLayout>
-        		    <LinearLayout
-        		        android:layout_width="fill_parent"
-        		        android:layout_height="fill_parent"
-        		        android:layout_weight="2">        		    
-        		        <TextView   
-        		            android:text="km/h"
-        		            android:textSize="14sp" 
-        		            android:textColor="#FFFFFF"
-        		            android:layout_width="wrap_content"
-        		            android:layout_height="wrap_content"/>
-        		    </LinearLayout>
-        		    
-        		</LinearLayout>
-        		
-             </LinearLayout>
-             
-         </LinearLayout>
-         
-         <LinearLayout        
-             android:layout_width="fill_parent"        
-             android:layout_height="fill_parent"
-             android:layout_weight="1"
-             android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="10"
+        android:orientation="vertical" >
+        
+        <RelativeLayout 
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:background="@drawable/mabiaostyle">   
             
-             <LinearLayout
-                 android:layout_width="fill_parent"
-                 android:layout_height="fill_parent"
-                 android:layout_weight="3"
-                 android:orientation="vertical"
-                 android:background="@drawable/mabiaostyle">
-        		
-                 <LinearLayout  
-        		    android:layout_width="fill_parent"
-        		    android:layout_height="fill_parent"
-        		    android:layout_weight="3"> 
-        		    <TextView       
-                     	android:text="速度"        
-                    	android:textSize="22sp"    
-                     	android:textColor="#90959B"    
-                     	android:layout_width="wrap_content"        
-                     	android:layout_height="wrap_content"/>
-                 </LinearLayout>
-                 <LinearLayout  
-        		    android:layout_width="fill_parent"
-        		    android:layout_height="fill_parent"
-        		    android:orientation="vertical"
-        		    android:layout_weight="2">
-                     <TextView       
-                         android:id="@+id/tv_mabiao_speed"                     
-                         android:text="20.4"
-                         android:textSize="28sp"
-                         android:textColor="#FFFFFF"              
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_gravity="center"/>"
-                 </LinearLayout>
-                 <LinearLayout  
-        		    android:layout_width="fill_parent"
-        		    android:layout_height="fill_parent"
-        		    android:layout_weight="3"
-        		    android:orientation="horizontal">
-                 		
-                 		<LinearLayout  
-        		    		android:layout_width="fill_parent"
-        		    		android:layout_height="fill_parent"
-        		   		 	android:layout_weight="1"></LinearLayout>
-                 		<LinearLayout  
-        		    		android:layout_width="fill_parent"
-        		    		android:layout_height="fill_parent"
-        		    		android:layout_weight="2"
-        		    		android:orientation="vertical">
-                 		     <TextView
-                 		         android:text="km/h"                    
-                 		         android:textSize="12sp"
-                 		         android:textColor="#FFFFFF"
-                 		         android:layout_gravity="center"
-                 		         android:layout_width="wrap_content"
-                 		         android:layout_height="wrap_content"/>
-                 		</LinearLayout>
-                 		
-                 </LinearLayout>
-             
-             </LinearLayout>
-             <LinearLayout 
-        		android:layout_width="fill_parent"
-        		android:layout_height="fill_parent"			   		
-        		android:layout_weight="2"
-        		android:orientation="horizontal"
-        		android:background="@drawable/mabiaostyle">
-        		
-        		<LinearLayout  
-        		    android:layout_width="fill_parent"
-        		    android:layout_height="fill_parent"
-        		    android:layout_weight="4">
-        		    <TextView      
-                     	android:text="踏频"        
-                    	android:textSize="22sp"    
-                     	android:textColor="#90959B"    
-                     	android:layout_width="wrap_content"        
-                     	android:layout_height="wrap_content"/>
-        		</LinearLayout>
-        		<LinearLayout  
-        		    android:layout_width="fill_parent"
-        		    android:layout_height="fill_parent"
-        		    android:orientation="horizontal"
-        		    android:layout_weight="3">
-        		    <TextView   
-        		        android:id="@+id/tv_tapin"
-        		        android:text="135.68"
-        		        android:textSize="28sp"                         
-        		        android:textColor="#FFFFFF"
-        		        android:layout_gravity="center_vertical"
-        		        android:layout_width="wrap_content"                       
-        		        android:layout_height="wrap_content"/>
-        		</LinearLayout>
-        		<LinearLayout 
-        		    android:layout_width="fill_parent"        
-        		    android:layout_height="fill_parent"			       
-        		    android:layout_weight="5"
-        		    android:orientation="vertical">
-        		    
-        		    <LinearLayout  
-        		    	android:layout_width="fill_parent"
-        		    	android:layout_height="fill_parent"
-        		    	android:layout_weight="1"></LinearLayout>
-        		    <LinearLayout  
-        		    	android:layout_width="fill_parent"
-        		    	android:layout_height="fill_parent"
-        		   	 	android:layout_weight="2">
-        		    	<TextView   
-        		        	android:text="次/min"
-        		        	android:textSize="14sp"                         
-        		        	android:textColor="#FFFFFF"
-        		        	android:layout_width="wrap_content"                       
-        		        	android:layout_height="wrap_content"/>
-        			</LinearLayout>
-        			
-        		</LinearLayout>
-        		
-             </LinearLayout>
+            <TextView
+                android:text="罗盘"
+                android:textColor="#90959B"
+                android:textSize="22sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true" />    
+            <ImageView
+                android:id="@+id/iv_compass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/compassface" />
+            
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="fill_parent"                
+            android:layout_height="0dp"                
+            android:layout_weight="3"                
+            android:background="@drawable/mabiaostyle" >
+            
+            <TextView
+                android:text="海拔"
+                android:textColor="#90959B"
+                android:textSize="22sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true" />
+            <TextView
+                android:id="@+id/Mabiao_Height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="5138"
+                android:textColor="#FFFFFF"
+                android:textSize="35sp" />
+             <TextView
+                 android:text="m"
+                 android:textColor="#FFFFFF"
+                 android:textSize="14sp"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentRight="true"
+                 android:layout_alignParentBottom="true"
+                 android:layout_marginRight="20dp"
+                 android:layout_marginBottom="10dp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="fill_parent"                
+            android:layout_height="0dp"                
+            android:layout_weight="3"                
+            android:background="@drawable/mabiaostyle">
+            
+            <TextView
+                android:text="均速"
+                android:textColor="#90959B"
+                android:textSize="22sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true" />
+            <TextView
+                android:id="@+id/Mabiao_Tapin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="78"
+                android:textColor="#FFFFFF"
+                android:textSize="35sp" />
+            <TextView
+                android:text="km/h"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp" />
+            
+            </RelativeLayout>          
+              
+        </LinearLayout>
+  
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="10"
+        android:orientation="vertical" >
 
-             
-         </LinearLayout>
-         
-         <LinearLayout 
-	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent"			   		
-	        android:layout_weight="1"
-	        android:orientation="vertical">
-             
-             <LinearLayout 
-                android:id="@+id/ll_slope"
-		        android:layout_width="fill_parent"
-		        android:layout_height="fill_parent"			   		
-		        android:layout_weight="2"
-		        android:orientation="horizontal"
-		        android:background="@drawable/mabiaostyle">
-        		
-                 <LinearLayout  
-        		    android:layout_width="fill_parent"
-        		    android:layout_height="fill_parent"
-        		    android:layout_weight="3">
-                     <TextView      
-	                     android:text="坡度"        
-	                     android:textSize="22sp"    
-	                     android:textColor="#90959B"    
-	                     android:layout_width="wrap_content"        
-	                     android:layout_height="wrap_content"/>
-                 </LinearLayout>
-                 <RelativeLayout       		    
-        		    android:layout_width="fill_parent"
-        		    android:layout_height="fill_parent"
-        		    android:layout_weight="1">
-                     <com.mtt.customview.SteepView 
-                         android:id="@+id/mabiaofragment_mysteepview"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_centerInParent="true"/>
-    		   </RelativeLayout>
-                 
-             </LinearLayout>
-             <LinearLayout         
-                 android:layout_width="fill_parent"
-                 android:layout_height="fill_parent"  
-                 android:layout_weight="3"
-                 android:orientation="horizontal"
-                 android:background="@drawable/mabiaostyle">
-                 
-        		<LinearLayout  
-        		    android:layout_width="fill_parent"
-        		    android:layout_height="fill_parent"
-        		    android:layout_weight="4">
-        		    <TextView      
-	                     android:text="时间"        
-	                     android:textSize="22sp"    
-	                     android:textColor="#90959B"    
-	                     android:layout_width="wrap_content"        
-	                     android:layout_height="wrap_content"/>
-        		    <Button 
-        		        android:id="@+id/bt_bluetooth_setting"
-        		        android:text="next"
-        		        android:layout_height="wrap_content"
-        		        android:layout_width="wrap_content"/>
-        		</LinearLayout>
-             </LinearLayout>
-             <LinearLayout 
-		        android:layout_width="fill_parent"
-		        android:layout_height="fill_parent"			   		
-		        android:layout_weight="3"
-		        android:orientation="horizontal"
-		        android:background="@drawable/mabiaostyle">
-        		
-        		<LinearLayout  
-        		    android:layout_width="fill_parent"
-        		    android:layout_height="fill_parent"
-        		    android:layout_weight="2">
-        		    <TextView      
-	                     android:text="里程"        
-	                     android:textSize="22sp"    
-	                     android:textColor="#90959B"    
-	                     android:layout_width="wrap_content"        
-	                     android:layout_height="wrap_content"/>
-        		</LinearLayout>
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:background="@drawable/mabiaostyle" >
+            
+            <TextView
+                android:text="速度"
+                android:textColor="#90959B"
+                android:textSize="22sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true" />
+            <TextView
+                android:id="@+id/tv_mabiao_speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="20.4"
+                android:textColor="#FFFFFF"
+                android:textSize="28sp" />
+            <TextView
+                android:layout_gravity="center"
+                android:text="km/h"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp" />
+            
+       </RelativeLayout>
+       <RelativeLayout                
+           android:layout_width="fill_parent"                
+           android:layout_height="0dp"                
+           android:layout_weight="6"                
+           android:background="@drawable/mabiaostyle" >
+            
+            <TextView
+                android:text="踏频"
+                android:textColor="#90959B"
+                android:textSize="22sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true" />
+            <TextView
+                android:id="@+id/tv_tapin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="135.68"
+                android:textColor="#FFFFFF"
+                android:textSize="28sp" />
+            <TextView
+                android:text="次/min"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_tapin"
+                android:layout_below="@id/tv_tapin" />
+            
+        </RelativeLayout>
+        
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="10"
+        android:orientation="vertical" >
+       
+       <RelativeLayout
+           android:id="@+id/ll_slope"                
+           android:layout_width="fill_parent"
+           android:layout_height="0dp"
+           android:layout_weight="4"
+           android:background="@drawable/mabiaostyle">
+           
+           <TextView
+               android:text="坡度"
+               android:textColor="#90959B"
+               android:textSize="22sp"
+               android:layout_width="wrap_content" 
+	           android:layout_height="wrap_content"
+	           android:layout_alignParentLeft="true"
+	           android:layout_alignParentTop="true" />  
+           <com.mtt.customview.SteepView
+               android:id="@+id/mabiaofragment_mysteepview"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_centerInParent="true" />
+                
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"                            
+            android:layout_weight="3"                
+            android:background="@drawable/mabiaostyle" >
+            
+            <TextView
+                android:text="时间"
+                android:textColor="#90959B"
+                android:textSize="22sp"
+                android:layout_width="wrap_content" 
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentTop="true" />
+            <Button
+                android:id="@+id/bt_bluetooth_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="next" />                
+                    
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:background="@drawable/mabiaostyle">
+            
+	        <TextView
+	            android:text="里程"
+	            android:textColor="#90959B"
+	            android:textSize="22sp"
+	            android:layout_width="wrap_content" 
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentTop="true" />
+	        <TextView
+	            android:id="@+id/tv_mabiao_distance"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerInParent="true"
+	            android:text="20.4"
+	            android:textColor="#FFFFFF"
+	            android:textSize="28sp" />
+	       <TextView
+	           android:text="km"
+	           android:textColor="#FFFFFF"
+	           android:textSize="14sp"
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:layout_alignParentRight="true"
+	           android:layout_alignParentBottom="true"
+	           android:layout_marginRight="20dp"
+	           android:layout_marginBottom="10dp" />
+        
+        </RelativeLayout>
+        
+    </LinearLayout>
 
-        		<LinearLayout  
-        		    android:layout_width="fill_parent"
-        		    android:layout_height="fill_parent"
-        		    android:orientation="horizontal"
-        		    android:layout_weight="2">
-        		     <TextView       
-                         android:id="@+id/tv_mabiao_distance"                     
-                         android:text="20.4"
-                         android:textSize="28sp"
-                         android:textColor="#FFFFFF"              
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_gravity="center"/>"
-        		</LinearLayout>
-        		<LinearLayout 
-        		    android:layout_width="fill_parent"        
-        		    android:layout_height="fill_parent"			       
-        		    android:layout_weight="2"
-        		    android:orientation="vertical">
-        		    
-        		    <LinearLayout  
-	        		    android:layout_width="fill_parent"
-	        		    android:layout_height="fill_parent"
-	        		    android:layout_weight="1"></LinearLayout>
-        		    <LinearLayout  
-	        		    android:layout_width="fill_parent"
-	        		    android:layout_height="fill_parent"
-	        		    android:layout_weight="2"
-	        		    android:orientation="vertical">"
-	        		    <TextView   
-	        		        android:text="km"
-	        		        android:textSize="14sp"                         
-	        		        android:textColor="#FFFFFF"
-	        		        android:layout_gravity="center"
-	        		        android:layout_width="wrap_content"                       
-	        		        android:layout_height="wrap_content"/>
-        			</LinearLayout>
-        			
-        		</LinearLayout>
-        		
-             </LinearLayout>
-             
-         </LinearLayout>
-         
-     </LinearLayout>
-     
-</RelativeLayout>
+</LinearLayout>
+    
