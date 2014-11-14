@@ -6,30 +6,40 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Paint.Align;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 
 public class SteepView extends View{
 	
 	private Paint mPaint = new Paint();
 	
-	/** 屏幕宽度和长度*/
+	/** 屏幕的宽度和高度*/
+	private int ScreenWidth,ScreenHeight;
+	
+	/** 父类控件的宽度和长度*/
 	private int mWidth,mHeight;
 	/** 坡度view半径*/
-	private int mRadius;
+	private float mRadius;
 	/** 坡度第二个环半径*/
-	private int mSecondRadius;
+	private float mSecondRadius;
 	/** 坡度第三个环半径*/
-	private int mThirdRadius;
+	private float mThirdRadius;
 	
 	/** 坡度*/
 	private int mSteep = 0;
 	/** 是否为上坡*/
 	private boolean isUp;
-	
+	/** 字体大小*/
+	private int mTextSize;
 	
 	public SteepView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// TODO Auto-generated constructor stub
+		ScreenWidth = this.getWindowWidth(context);
+		ScreenHeight = this.getWindowHeigh(context);
+		
+		mTextSize = 150*ScreenHeight/1080;
 	}
 
 	@Override
@@ -37,13 +47,13 @@ public class SteepView extends View{
 		// TODO Auto-generated method stub
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 	      
-		mWidth = this.getMeasuredWidth();
-		mHeight = this.getMeasuredHeight();
-		mRadius = mHeight/6;
-		mSecondRadius = mHeight/7;
-		mThirdRadius = mHeight/8;
+		mWidth = getMeasuredWidth();
+		mHeight = getMeasuredHeight();
+		mRadius = mHeight*0.42f;
+		mSecondRadius = mHeight*0.35f;
+		mThirdRadius = mHeight*0.3f;
 		
-	    setMeasuredDimension(mRadius*2, mRadius*2);  
+	    setMeasuredDimension((int)(mRadius*2), (int)(mRadius*2));  
 	}
 
 	@Override
@@ -91,21 +101,22 @@ public class SteepView extends View{
 		
 		// 绘制坡度
 		// ----------设置字符大小后绘制字符----------
-		mPaint.setStrokeWidth(8);
-		mPaint.setARGB(255, 255, 255, 55);
-		mPaint.setStyle(Paint.Style.FILL);
-		mPaint.setTextSize(70);
-		mPaint.setFakeBoldText(true); //true为粗体，false为非粗体
-		mPaint.setTextAlign(Align.CENTER);
+		Paint mPaint2 = new Paint();
+		mPaint2.setFlags(Paint.ANTI_ALIAS_FLAG); // 取消锯齿
+		mPaint2.setARGB(255, 255, 255, 255);
+		mPaint2.setStyle(Paint.Style.FILL);
+		mPaint2.setTextSize(mTextSize);
+//		mPaint2.setStrokeWidth((float)50.0);
+		mPaint2.setFakeBoldText(true);
+		mPaint2.setTextAlign(Align.CENTER);
 		if(isUp){
-			canvas.drawText(mSteep+" °", mRadius, mRadius, mPaint);
+			canvas.drawText(mSteep+"", mRadius, mRadius+mTextSize/3, mPaint2);
 		}else {
-			canvas.drawText("-"+mSteep+" °", mRadius, mRadius, mPaint);
+			canvas.drawText("-"+mSteep, mRadius, mRadius+mTextSize/3, mPaint2);
 		}
 	}
 	
     public void setSteep(int steep,boolean b){
-
     	mSteep = steep;
     	isUp = b;
     	invalidate();
@@ -115,6 +126,28 @@ public class SteepView extends View{
     public double changeArc(int arc){
     	return arc*Math.PI/180;
     }
+    
+	/** 获取屏幕的宽度*/
+	public int getWindowWidth(Context context) {
+		// 获取屏幕分辨率
+		WindowManager wm = (WindowManager) (context
+				.getSystemService(Context.WINDOW_SERVICE));
+		DisplayMetrics dm = new DisplayMetrics();
+		wm.getDefaultDisplay().getMetrics(dm);
+		int mScreenWidth = dm.widthPixels;
+		return mScreenWidth;
+	}
+
+	/** 获取屏幕的高度*/
+	public int getWindowHeigh(Context context) {
+		// 获取屏幕分辨率
+		WindowManager wm = (WindowManager) (context
+				.getSystemService(Context.WINDOW_SERVICE));
+		DisplayMetrics dm = new DisplayMetrics();
+		wm.getDefaultDisplay().getMetrics(dm);
+		int mScreenHeigh = dm.heightPixels;
+		return mScreenHeigh;
+	}
     
 }
 

@@ -3,6 +3,7 @@ package com.mtt.fragments;
 import java.util.List;
 
 import com.mtt.R;
+import com.mtt.customview.CompassView;
 import com.mtt.customview.SteepView;
 
 import android.content.Context;
@@ -16,9 +17,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
 
 /** 
  * 码表功能页面
@@ -28,16 +26,16 @@ public class MabiaoFragment extends Fragment implements SensorEventListener{
 	public static final String TAG = "com.mtt.fragment.MabiaoFragment";
 
 	private View view;
+	/** 坡度view*/
 	private SteepView mSteepView;
-	/** 罗盘图标*/
-	private ImageView iv_compass =null;  
+	/** 罗盘view*/
+	private CompassView mCompassView;
 	
 	/** 传感器*/
 	private SensorManager mMgr;   
 	private List<Sensor> mSensorList;
 	/** 指南针图片转过的角度*/
 	float currentDegree = 0f; 
-	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,7 +50,7 @@ public class MabiaoFragment extends Fragment implements SensorEventListener{
 	/** 资源初始化*/
 	private void initView() {
 		// TODO Auto-generated method stub
-		iv_compass = (ImageView) view.findViewById(R.id.iv_compass);
+		mCompassView = (CompassView) view.findViewById(R.id.mabiaofragment_mycompassview);
 		mSteepView = (SteepView) view.findViewById(R.id.mabiaofragment_mysteepview);
 	    Context context = getActivity();
 	    mMgr = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
@@ -102,12 +100,7 @@ public class MabiaoFragment extends Fragment implements SensorEventListener{
 			  
 			  float degree = event.values[0]; //获取z转过的角度
 			  degree = degree + 90.0F;
-			  //创建旋转动画
-			  RotateAnimation ra = new RotateAnimation(currentDegree,-degree,Animation.RELATIVE_TO_SELF,0.5f
-			  		,Animation.RELATIVE_TO_SELF,0.5f);
-			  ra.setDuration(100);//动画持续时间
-			  iv_compass.startAnimation(ra);
-			  currentDegree = -degree;
+			  mCompassView.setArc(degree);
 			  break;
 		  }
 	}

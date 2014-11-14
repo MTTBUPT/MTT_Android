@@ -30,12 +30,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true" />    
-            <ImageView
-                android:id="@+id/iv_compass"
+            <com.mtt.customview.CompassView
+                android:id="@+id/mabiaofragment_mycompassview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/compassface" />
+                android:layout_centerInParent="true"/>
             
         </RelativeLayout>
         <RelativeLayout

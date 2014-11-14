@@ -1,13 +1,10 @@
 package com.mtt.customview;
 
-import com.mtt.R;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
-import android.graphics.Paint.Align;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -248,6 +245,7 @@ public class DialogView extends View{
 		}
 	}
 	
+	/** 获取屏幕的宽度*/
 	public int getWindowWidth(Context context) {
 		// 获取屏幕分辨率
 		WindowManager wm = (WindowManager) (context
@@ -258,6 +256,7 @@ public class DialogView extends View{
 		return mScreenWidth;
 	}
 
+	/** 获取屏幕的高度*/
 	public int getWindowHeigh(Context context) {
 		// 获取屏幕分辨率
 		WindowManager wm = (WindowManager) (context
