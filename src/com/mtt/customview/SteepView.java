@@ -127,7 +127,7 @@ public class SteepView extends View{
     	return arc*Math.PI/180;
     }
     
-	/** 获取屏幕的宽度*/
+	/** 获取屏幕的宽度（px）*/
 	public int getWindowWidth(Context context) {
 		// 获取屏幕分辨率
 		WindowManager wm = (WindowManager) (context
@@ -138,7 +138,7 @@ public class SteepView extends View{
 		return mScreenWidth;
 	}
 
-	/** 获取屏幕的高度*/
+	/** 获取屏幕的高度（px）*/
 	public int getWindowHeigh(Context context) {
 		// 获取屏幕分辨率
 		WindowManager wm = (WindowManager) (context
