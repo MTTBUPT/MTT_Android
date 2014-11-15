@@ -1,10 +1,16 @@
 package com.mtt.customview;
 
+import com.amap.api.mapcore.y;
+import com.amap.api.mapcore.util.x;
+import com.mtt.R;
+
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -37,10 +43,31 @@ public class DialogView extends View{
 	/** 圆心坐标 */
 	public int mPointX = 0, mPointY = 0;
 	/** 矩形的长和宽*/
-	public int mWidth = 0, mHeight = 0;
+	public float mWidth = 0, mHeight = 0;
+	/** 头标高度*/
+	public float tabHeight = 0;
 	
 	/** view的展示状态*/
 	private boolean isShow = false;	
+	/** view所在的页面*/
+	private int pageNum = 0;
+	
+	// 读取InputStream并得到位图
+	/** 弹窗头标*/
+	BitmapDrawable bmpDraw_mabiao=(BitmapDrawable)getResources().getDrawable(R.drawable.subfunction_mabiao);
+	Bitmap bmp_mabiao=bmpDraw_mabiao.getBitmap();
+	BitmapDrawable bmpDraw_camera=(BitmapDrawable)getResources().getDrawable(R.drawable.subfunction_camera);
+	Bitmap bmp_camera=bmpDraw_camera.getBitmap();
+	BitmapDrawable bmpDraw_music=(BitmapDrawable)getResources().getDrawable(R.drawable.subfunction_music);
+	Bitmap bmp_music=bmpDraw_music.getBitmap();
+	BitmapDrawable bmpDraw_stopwatch=(BitmapDrawable)getResources().getDrawable(R.drawable.subfunction_stopwatch);
+	Bitmap bmp_stopwatch=bmpDraw_stopwatch.getBitmap();
+	BitmapDrawable bmpDraw_guide=(BitmapDrawable)getResources().getDrawable(R.drawable.subfunction_guide);
+	Bitmap bmp_guide=bmpDraw_guide.getBitmap();
+	BitmapDrawable bmpDraw_path=(BitmapDrawable)getResources().getDrawable(R.drawable.subfunction_path);
+	Bitmap bmp_path=bmpDraw_path.getBitmap();
+	/** 位图的宽度*/
+	private int bmp_width = bmp_mabiao.getWidth();
 	
 	public DialogView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -50,8 +77,9 @@ public class DialogView extends View{
 		mPointX = this.getWindowWidth(context)/2;
 		mPointY = this.getWindowHeigh(context)/2;
 		// 获取矩形长和宽
-		mWidth = this.getWindowWidth(context)/2;
-		mHeight = this.getWindowHeigh(context)/2;
+		mWidth = this.getWindowWidth(context)*0.47f;
+		mHeight = this.getWindowHeigh(context)*0.57f;
+		tabHeight = this.getWindowHeigh(context)*0.107f;
 		
 		mScroller = new Scroller(context);
 		
@@ -72,68 +100,167 @@ public class DialogView extends View{
 		// 去锯齿
 		mPaint.setAntiAlias(true);
 		mPaint.setStyle(Paint.Style.FILL);
-		mPaint.setARGB(255, 255, 255, 255);
+		mPaint.setARGB(255, 52, 52, 52);
+		// -------------------绘制中间-----------------------------------
 		// 绘制矩形（正中）
-		canvas.drawRect(mPointX*1/2, mPointY/2+mPointY*3/2, mPointX*3/2, mPointY*3/2+mPointY*3/2, mPaint);
-		
-		// 绘制小矩形（上中）
-		mPaint.setARGB(255, 232, 25, 41);
-		canvas.drawRect(0.8f*mPointX, mPointY/4+mPointY*3/2, 1.2f*mPointX, mPointY/2+mPointY*3/2, mPaint);
+		canvas.drawRect(mPointX-mWidth/2, mPointY-mHeight/2+mPointY+mHeight/2, mPointX+mWidth/2, mPointY+mHeight/2+mPointY+mHeight/2, mPaint);
 		
 		// -------------------绘制上边框-----------------------------------
-		mPaint.setARGB(255, 255, 255, 255);
+		// 绘制小矩形（上中）
+		mPaint.setARGB(255, 232, 25, 41);
+		canvas.drawRect(mPointX-0.25f*mWidth, mPointY-mHeight/2-tabHeight+mPointY+mHeight/2, mPointX+0.25f*mWidth, mPointY-mHeight/2+mPointY+mHeight/2, mPaint);
+		
+		mPaint.setARGB(255, 52, 52, 52);
 		// 绘制小矩形(上左)
-		canvas.drawRect(mPointX/2+mPointY/4, mPointY/4+mPointY*3/2, 0.8f*mPointX, mPointY/2+mPointY*3/2, mPaint);
+		canvas.drawRect(mPointX-mWidth/2+tabHeight, mPointY-mHeight/2-tabHeight+mPointY+mHeight/2, mPointX-0.25f*mWidth, mPointY-mHeight/2+mPointY+mHeight/2, mPaint);
 		// 绘制扇形（上左）
-		RectF oval_top_left = new RectF(mPointX/2, mPointY/4+mPointY*3/2, mPointX/2+mPointY/2, mPointY*3/4+mPointY*3/2);
+		RectF oval_top_left = new RectF(mPointX-mWidth/2, mPointY-mHeight/2-tabHeight+mPointY+mHeight/2, mPointX-mWidth/2+tabHeight*2, mPointY-mHeight/2+tabHeight+mPointY+mHeight/2);
 		canvas.drawArc(oval_top_left, 180, 90, true, mPaint);
 				
 		// 绘制小矩形（上右）
-		canvas.drawRect(1.2f*mPointX, mPointY/4+mPointY*3/2, 1.5f*mPointX-mPointY/4, mPointY/2+mPointY*3/2, mPaint);
+		canvas.drawRect(mPointX+0.25f*mWidth, mPointY-mHeight/2-tabHeight+mPointY+mHeight/2, mPointX+mWidth/2-tabHeight, mPointY-mHeight/2+mPointY+mHeight/2, mPaint);
 		// 绘制扇形（上右）
-		RectF oval_top_right = new RectF(mPointX*3/2-mPointY/2, mPointY/4+mPointY*3/2, mPointX*3/2, mPointY*3/4+mPointY*3/2);
+		RectF oval_top_right = new RectF(mPointX+mWidth/2-tabHeight*2, mPointY-mHeight/2-tabHeight+mPointY+mHeight/2, mPointX+mWidth/2, mPointY-mHeight/2+tabHeight+mPointY+mHeight/2);
 		canvas.drawArc(oval_top_right, 270, 90, true, mPaint);
 		
 		// -------------------绘制下边框-----------------------------------
 		// 绘制矩形（下中）
-		canvas.drawRect(mPointX/2+mPointY/4, mPointY*3/2+mPointY*3/2, 1.5f*mPointX-mPointY/4, mPointY*7/4+mPointY*3/2, mPaint);
+		canvas.drawRect(mPointX-mWidth/2+tabHeight, mPointY+mHeight/2+mPointY+mHeight/2, mPointX+mWidth/2-tabHeight, mPointY+mHeight/2+tabHeight+mPointY+mHeight/2, mPaint);
 		
 		// 绘制扇形（下左）
-		RectF oval_bottom_left = new RectF(mPointX*1/2, mPointY*5/4+mPointY*3/2, mPointX/2+mPointY/2, mPointY*7/4+mPointY*3/2);
+		RectF oval_bottom_left = new RectF(mPointX-mWidth/2, mPointY+mHeight/2-tabHeight+mPointY+mHeight/2, mPointX-mWidth/2+tabHeight*2, mPointY+mHeight/2+tabHeight+mPointY+mHeight/2);
 		canvas.drawArc(oval_bottom_left, 90, 90, true, mPaint);
 		// 绘制扇形（下右）
-		RectF oval_bottom_right = new RectF(1.5f*mPointX-mPointY/2, mPointY*5/4+mPointY*3/2, mPointX*3/2, mPointY*7/4+mPointY*3/2);
+		RectF oval_bottom_right = new RectF(mPointX+mWidth/2-tabHeight*2, mPointY+mHeight/2-tabHeight+mPointY+mHeight/2, mPointX+mWidth/2, mPointY+mHeight/2+tabHeight+mPointY+mHeight/2);
 		canvas.drawArc(oval_bottom_right, 0, 90, true, mPaint);
 		
 		// -------------------------设置后绘制直线-------------------------
-		mPaint.setARGB(255, 186, 185, 185);
+		mPaint.setARGB(255, 86, 86, 86);
 		mPaint.setStyle(Paint.Style.STROKE);
-		mPaint.setStrokeWidth(2);
+		mPaint.setStrokeWidth(1);
 		
 		// 矩形上边
 		Path patha = new Path();
-		patha.moveTo(mPointX/2,mPointY/2+mPointY*3/2);
-		patha.lineTo(mPointX*3/2,mPointY/2+mPointY*3/2);
+		patha.moveTo(mPointX-mWidth/2,mPointY-mHeight/2+mPointY+mHeight/2);
+		patha.lineTo(mPointX+mWidth/2,mPointY-mHeight/2+mPointY+mHeight/2);
 		patha.close();
 		canvas.drawPath(patha, mPaint);
 		
 		// 矩形下边
 		Path pathb = new Path();
-		pathb.moveTo(mPointX/2,mPointY*3/2+mPointY*3/2);
-		pathb.lineTo(mPointX*3/2,mPointY*3/2+mPointY*3/2);
+		pathb.moveTo(mPointX-mWidth/2,mPointY+mHeight/2+mPointY+mHeight/2);
+		pathb.lineTo(mPointX+mWidth/2,mPointY+mHeight/2+mPointY+mHeight/2);
 		pathb.close();
 		canvas.drawPath(pathb, mPaint);
 		
-		// ----------设置字符大小后绘制字符----------
-//		mPaint.setStrokeWidth(5);
-//		mPaint.setARGB(255, 232, 25, 41);
-//		mPaint.setStyle(Paint.Style.FILL);
-//		mPaint.setTextSize(60);
-//		mPaint.setFakeBoldText(true); //true为粗体，false为非粗体
-//		mPaint.setShader(null);
-//		mPaint.setTextAlign(Align.CENTER);
-//		
-//		canvas.drawText(getResources().getString(R.string.home_back), mPointX, mPointY*13/8+mPointY*3/2, mPaint);
+		// 横边
+		Path pathc = new Path();
+		pathc.moveTo(mPointX,mPointY-mHeight/2+mPointY+mHeight/2);
+		pathc.lineTo(mPointX,mPointY+mHeight/2+mPointY+mHeight/2);
+		pathc.close();
+		canvas.drawPath(pathc, mPaint);
+		
+		// 竖边
+		Path pathd = new Path();
+		pathd.moveTo(mPointX-mWidth/2,mPointY+mPointY+mHeight/2);
+		pathd.lineTo(mPointX+mWidth/2,mPointY+mPointY+mHeight/2);
+		pathd.close();
+		canvas.drawPath(pathd, mPaint);
+		
+		// 图标中点
+		// 上左
+		float t_x1 = mPointX-mWidth/2+tabHeight;
+		float t_y1 = mPointY-mHeight/2-tabHeight/2;
+		// 上中
+		float t_x2 = mPointX;
+		float t_y2 = mPointY-mHeight/2-tabHeight/2;
+		// 上右
+		float t_x3 = mPointX+mWidth/2-tabHeight;
+		float t_y3 = mPointY-mHeight/2-tabHeight/2;
+		
+		
+		// 中1
+		float m_x1 = mPointX-mWidth/4;
+		float m_y1 = mPointY-mHeight/4;
+		// 中2
+		float m_x2 = mPointX+mWidth/4;
+		float m_y2 = mPointY-mHeight/4;
+		// 中3
+		float m_x3 = mPointX-mWidth/4;
+		float m_y3 = mPointY+mHeight/4;
+		// 中4
+		float m_x4 = mPointX+mWidth/4;
+		float m_y4 = mPointY+mHeight/4;
+		
+		// 左头标
+		RectF dst_t1 = new RectF(t_x1-bmp_width/2, t_y1-bmp_width/2+mPointY+mHeight/2, t_x1+bmp_width/2, t_y1+bmp_width/2+mPointY+mHeight/2);
+		// 中头标
+		RectF dst_t2 = new RectF(t_x2-bmp_width/2, t_y2-bmp_width/2+mPointY+mHeight/2, t_x2+bmp_width/2, t_y2+bmp_width/2+mPointY+mHeight/2);
+		// 右头标
+		RectF dst_t3 = new RectF(t_x3-bmp_width/2, t_y3-bmp_width/2+mPointY+mHeight/2, t_x3+bmp_width/2, t_y3+bmp_width/2+mPointY+mHeight/2);
+//		// 中间图标1
+//		RectF dst_m1 = new RectF(m_x1, top, right, bottom);
+//		// 中间图标2
+//		RectF dst_m2 = new RectF(left, top, right, bottom);
+//		// 中间图标3
+//		RectF dst_m3 = new RectF(left, top, right, bottom);
+//		// 中间图标4
+//		RectF dst_m4 = new RectF();
+
+		switch (pageNum) {
+		case 0:
+			// 码表页面
+			
+			// 绘制头标
+			canvas.drawBitmap(bmp_path, null, dst_t1, mPaint);
+			canvas.drawBitmap(bmp_mabiao, null, dst_t2, mPaint);
+			canvas.drawBitmap(bmp_camera, null, dst_t3, mPaint);
+			break;
+		case 1:
+			// 相机页面
+			
+			// 绘制头标
+			canvas.drawBitmap(bmp_mabiao, null, dst_t1, mPaint);
+			canvas.drawBitmap(bmp_camera, null, dst_t2, mPaint);
+			canvas.drawBitmap(bmp_music, null, dst_t3, mPaint);
+			
+			break;
+		case 2:
+			// 音乐页面
+			
+			// 绘制头标
+			canvas.drawBitmap(bmp_camera, null, dst_t1, mPaint);
+			canvas.drawBitmap(bmp_music, null, dst_t2, mPaint);
+			canvas.drawBitmap(bmp_stopwatch, null, dst_t3, mPaint);
+			break;
+		case 3:
+			// 秒表页面
+			
+			// 绘制头标
+			canvas.drawBitmap(bmp_music, null, dst_t1, mPaint);
+			canvas.drawBitmap(bmp_stopwatch, null, dst_t2, mPaint);
+			canvas.drawBitmap(bmp_guide, null, dst_t3, mPaint);
+			break;
+		case 4:
+			// 导航页面
+			
+			// 绘制头标
+			canvas.drawBitmap(bmp_stopwatch, null, dst_t1, mPaint);
+			canvas.drawBitmap(bmp_guide, null, dst_t2, mPaint);
+			canvas.drawBitmap(bmp_path, null, dst_t3, mPaint);
+			break;
+		case 5:
+			// 轨迹页面
+			
+			// 绘制头标
+			canvas.drawBitmap(bmp_guide, null, dst_t1, mPaint);
+			canvas.drawBitmap(bmp_path, null, dst_t2, mPaint);
+			canvas.drawBitmap(bmp_mabiao, null, dst_t3, mPaint);
+			break;
+		default:
+			break;
+		}
+		
 	}
 
 	@Override
@@ -188,7 +315,7 @@ public class DialogView extends View{
 				} else {
 						if( this.getScrollY() >= mPointY*4/5){
 							Log.d("DialogView","ScrollX = " + getScrollX() +"ScrollY = " + getScrollY() );
-							startMoveAnim(this.getScrollY(),mPointY*3/2 - this.getScrollY(), mDuration);
+							startMoveAnim(this.getScrollY(),(int)(mPointY+mHeight/2) - this.getScrollY(), mDuration);
 							isShow = true;
 							changed();
 						} else {
@@ -198,7 +325,7 @@ public class DialogView extends View{
 								isShow = false;
 								changed();
 							}else{
-								startMoveAnim(this.getScrollY(), mPointY*3/2 - this.getScrollY(), mDuration);
+								startMoveAnim(this.getScrollY(), (int)(mPointY+mHeight/2) - this.getScrollY(), mDuration);
 								isShow = true;
 								changed();
 							}
@@ -221,28 +348,33 @@ public class DialogView extends View{
 		}
 	}
 	
-	/** 判断点击点是否在可触发范围内，如果在则可通过drag关闭dialog
-	 * @param x x点位置
-	 * @param y y点位置
-	 * @return true/false*/
-	public boolean couldDragClose(int x,int y){
-		if(x<mPointX*3/2 && x>mPointX/2 && y>mPointY*1/4 && y<mPointY/2){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	
 	/** 判断点击点是否在可触发范围内，如果在则可通过点击关闭dialog
 	 * @param x x点位置
 	 * @param y y点位置
 	 * @return true/false*/
 	public boolean couldTouchClose(int x,int y){
-		if(x<mPointX*3/2 && x>mPointX/2 && y<mPointY*7/4 && y>mPointY/4){
+		if(x<mPointX+mWidth/2 && x>mPointX-mWidth/2 && y>mPointY-mHeight/2 && y<mPointY+mHeight/2+tabHeight){
 			return false;
 		}else{
 			return true;
 		}
+	}
+	
+	/** 判断点击点是中间tab中的哪个*/
+	public int touchMidTab(int x, int y){
+		int i = 0;
+		if(x>mPointX-mWidth/2 && x<mPointX && y<mPointY && y>mPointY-mHeight/2){
+			i=1;
+		}else if (x>mPointX && x<mPointX+mWidth/2 && y<mPointY && y>mPointY-mHeight/2) {
+			i=2;
+		}else if (x>mPointX-mWidth/2 && x<mPointX && y>mPointY && y<mPointY+mHeight/2) {
+			i=3;
+		}else if (x>mPointX && x<mPointX+mWidth/2 && y>mPointY && y<mPointY+mHeight/2) {
+			i=4;
+		}else if (x>mPointX-mWidth/2 && x<mPointX+mWidth/2 && y>mPointY+mHeight/2 && y<mPointY+mHeight/2+tabHeight) {
+			i=5;
+		}
+		return i;
 	}
 	
 	/** 获取屏幕的宽度*/
@@ -292,7 +424,7 @@ public class DialogView extends View{
 	/** 开打界面 */
 	public void show(){
 		if(!isShow){
-			DialogView.this.startMoveAnim(0, mPointY*3/2, mDuration);
+			DialogView.this.startMoveAnim(0, (int)(mPointY+mHeight/2), mDuration);
 			isShow = true;
 			changed();
 		}
@@ -301,10 +433,9 @@ public class DialogView extends View{
 	/** 关闭界面 */
 	public void dismiss(){
 		if(isShow){
-			DialogView.this.startMoveAnim(mPointY*3/2, -mPointY*3/2, mDuration);
+			DialogView.this.startMoveAnim((int)(mPointY+mHeight/2), -(int)(mPointY+mHeight/2), mDuration);
 			isShow = false;
 			changed();
-			
 		}
 	}
 	
@@ -341,12 +472,20 @@ public class DialogView extends View{
 		}
 	}
 	
+	/** 是否展开*/
 	public boolean isShow(){
 		return isShow;
 	}
 	
+	/** 设置展开状态*/
 	public void setShow(boolean b){
 		isShow = b;
+	}
+	
+	/** 设置展开状态*/
+	public void setPageNum(int page){
+		pageNum = page;
+		invalidate();
 	}
 	
 }

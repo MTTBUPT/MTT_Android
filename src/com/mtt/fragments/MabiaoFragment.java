@@ -5,14 +5,19 @@ import java.util.List;
 import com.mtt.R;
 import com.mtt.customview.CompassView;
 import com.mtt.customview.SteepView;
+import com.mtt.util.ToastUtil;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +40,9 @@ public class MabiaoFragment extends Fragment implements SensorEventListener{
 	private SensorManager mMgr;   
 	private List<Sensor> mSensorList;
 	/** 指南针图片转过的角度*/
-	float currentDegree = 0f; 
+	float currentDegree = 0f;
+	
+	public final static String ACTION_STEEP_INITIAL = "com.mtt.mabiao.ACTION_STEEP_INITIAL";
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,13 +67,13 @@ public class MabiaoFragment extends Fragment implements SensorEventListener{
 	 /** 将输入的字符转换为角度，并显示出来*/
 	private void setScreenForAngle(float paramFloat)
 	{		
-	    int i = Math.abs(Math.round(paramFloat));
-	    Log.d("MySteep", i + "");
+	    int i = Math.round(paramFloat);
+	    Log.d("MySteep", i + "  " + paramFloat);
 	    if (paramFloat < 0.0F)
 	    { 
 	    	mSteepView.setSteep(i,false);
 	    }
-	    if (paramFloat < 90.0F && paramFloat > 0.0F)
+	    if (paramFloat > 0.0F)
 	    {
 	    	mSteepView.setSteep(i,true);
 	    }
@@ -124,5 +131,32 @@ public class MabiaoFragment extends Fragment implements SensorEventListener{
 		super.onResume();
 		startSensing();
 	}
+	
+	
+    @Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onActivityCreated(savedInstanceState);
+		LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(getActivity());
+		broadcastManager.registerReceiver(mSteepInitialReceiver, SteepInitialIntentFilter());
+	}
+
+
+	private final BroadcastReceiver mSteepInitialReceiver = new BroadcastReceiver() {
+    	@Override
+    	public void onReceive(Context context, Intent intent) {
+    		final String action = intent.getAction();
+    		if (ACTION_STEEP_INITIAL.equals(action)){
+    			mSteepView.resetSteep(mSteepView.realSteep);
+    			ToastUtil.show(getActivity(), "Reset sucess!");
+    		}
+    	}
+    };
+    
+    private static IntentFilter SteepInitialIntentFilter() {
+        final IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_STEEP_INITIAL);
+        return intentFilter;
+    }
 	
 }

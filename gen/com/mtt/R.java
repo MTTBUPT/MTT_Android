@@ -64,13 +64,19 @@ public final class R {
         public static final int stopwatch_stop=0x7f020027;
         public static final int stopwatches_touch=0x7f020028;
         public static final int stopwatches_untouch=0x7f020029;
-        public static final int time_line=0x7f02002a;
-        public static final int time_pause=0x7f02002b;
-        public static final int time_round=0x7f02002c;
-        public static final int time_start=0x7f02002d;
-        public static final int time_stop=0x7f02002e;
-        public static final int time_trash=0x7f02002f;
-        public static final int timestyle=0x7f020030;
+        public static final int subfunction_camera=0x7f02002a;
+        public static final int subfunction_guide=0x7f02002b;
+        public static final int subfunction_mabiao=0x7f02002c;
+        public static final int subfunction_music=0x7f02002d;
+        public static final int subfunction_path=0x7f02002e;
+        public static final int subfunction_stopwatch=0x7f02002f;
+        public static final int time_line=0x7f020030;
+        public static final int time_pause=0x7f020031;
+        public static final int time_round=0x7f020032;
+        public static final int time_start=0x7f020033;
+        public static final int time_stop=0x7f020034;
+        public static final int time_trash=0x7f020035;
+        public static final int timestyle=0x7f020036;
     }
     public static final class id {
         public static final int Mabiao_Height=0x7f080024;

@@ -26,12 +26,20 @@ public class SteepView extends View{
 	/** 坡度第三个环半径*/
 	private float mThirdRadius;
 	
-	/** 坡度*/
+	/** 相对坡度*/
 	private int mSteep = 0;
-	/** 是否为上坡*/
-	private boolean isUp;
+	/** 初始化坡度*/
+	private int initSteep = 0;
+	/** 当前实际坡度*/
+	public int realSteep = 0;
 	/** 字体大小*/
 	private int mTextSize;
+	
+
+	// 重设坡度零点
+	public void resetSteep(int steep){
+		initSteep = steep;
+	}
 	
 	public SteepView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -61,6 +69,10 @@ public class SteepView extends View{
 		// TODO Auto-generated method stub
 		super.onDraw(canvas);
 
+		// 重置相对坡度
+		mSteep = realSteep - initSteep;
+		int m = Math.abs(mSteep);
+		
 		canvas.drawARGB(0, 0, 0, 0);
 		// 去锯齿
 		mPaint.setAntiAlias(true);
@@ -81,20 +93,20 @@ public class SteepView extends View{
 		// 绘制扇形
 		mPaint.setARGB(255, 226, 24, 39);
 		RectF oval = new RectF(mRadius-mThirdRadius, mRadius-mThirdRadius, mRadius+mThirdRadius, mRadius+mThirdRadius);
-		if(isUp){
-			canvas.drawArc(oval, -mSteep*2, 180+mSteep*4, true, mPaint);
-		}else if(!isUp && mSteep<45){
-			canvas.drawArc(oval, mSteep*2, 180-mSteep*4, true, mPaint);
+		if(mSteep>=0){
+			canvas.drawArc(oval, -m*2, 180+m*4, true, mPaint);
+		}else if(mSteep<0 && mSteep>-45){
+			canvas.drawArc(oval, m*2, 180-m*4, true, mPaint);
 		}
 		
 		// 绘制矩形
-		float x1 = mRadius-(float)(mThirdRadius*Math.cos(changeArc(2*mSteep)));
-		float y1 = mRadius-(float)(mThirdRadius*Math.sin(changeArc(2*mSteep)));
-		float x2 = mRadius+(float) (mThirdRadius*Math.cos(changeArc(2*mSteep)));
-		float y2 = mRadius+(float)(mThirdRadius*Math.sin(changeArc(2*mSteep)));
-		if(isUp){
+		float x1 = mRadius-(float)(mThirdRadius*Math.cos(changeArc(2*m)));
+		float y1 = mRadius-(float)(mThirdRadius*Math.sin(changeArc(2*m)));
+		float x2 = mRadius+(float) (mThirdRadius*Math.cos(changeArc(2*m)));
+		float y2 = mRadius+(float)(mThirdRadius*Math.sin(changeArc(2*m)));
+		if(mSteep>=0){
 			canvas.drawRect(x1, y1, x2, mRadius, mPaint);
-		}else if(!isUp && mSteep<45){
+		}else if(mSteep<0 && mSteep>-45){
 			mPaint.setARGB(255, 34, 44, 54);
 			canvas.drawRect(x1, mRadius, x2, y2, mPaint);
 		}
@@ -109,16 +121,16 @@ public class SteepView extends View{
 //		mPaint2.setStrokeWidth((float)50.0);
 		mPaint2.setFakeBoldText(true);
 		mPaint2.setTextAlign(Align.CENTER);
-		if(isUp){
+		
+		if(mSteep>=0){
 			canvas.drawText(mSteep+"", mRadius, mRadius+mTextSize/3, mPaint2);
-		}else {
-			canvas.drawText("-"+mSteep, mRadius, mRadius+mTextSize/3, mPaint2);
+		}else{
+			canvas.drawText(""+mSteep, mRadius, mRadius+mTextSize/3, mPaint2);
 		}
 	}
 	
     public void setSteep(int steep,boolean b){
-    	mSteep = steep;
-    	isUp = b;
+    	realSteep = steep;
     	invalidate();
     }
     

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.mtt.R;
 import com.mtt.fragments.*;
+import com.mtt.util.ToastUtil;
 import com.mtt.customview.*;
 
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.MotionEvent;
@@ -25,7 +27,7 @@ import android.view.View;
  * @author Kerry
  * 
  */
-public class SubFunctionActivity extends FragmentActivity{
+public class SubFunctionActivity extends FragmentActivity{ 
 	/** 页卡内容*/
 	private ViewPager mPager;
 	/** Fragment列表*/
@@ -41,7 +43,7 @@ public class SubFunctionActivity extends FragmentActivity{
 	/**　传值*/
 	private Intent intent;
 	/**　子功能页面参数*/
-	private int subpage=0;
+	private int subpage=1;
 	
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -85,11 +87,188 @@ public class SubFunctionActivity extends FragmentActivity{
 			y = (int) ev.getY();
 			if(dialog_view.isShow()){
 				if(dialog_view.couldTouchClose(x, y)){
-					dialog_view.startMoveAnim(dialog_view.mPointY*3/2, - dialog_view.mPointY*3/2, dialog_view.mDuration);
-					dialog_view.setShow(false);
-					dialog_view.changed();
+					// 关闭dialog_view
+					dialog_view.dismiss();
 					return false;
 				}
+				
+				switch(subpage){
+				case 0:
+					// 码表页面
+					switch (dialog_view.touchMidTab(x, y)) {
+					case 1:
+						ToastUtil.show(this, "tab1");
+						dialog_view.dismiss();
+						return false;
+					case 2:
+						ToastUtil.show(this, "tab2");
+						dialog_view.dismiss();
+						return false;
+					case 3:
+						ToastUtil.show(this, "tab3");
+						dialog_view.dismiss();
+						return false;
+					case 4:
+						ToastUtil.show(this, "坡度清零");
+				        final Intent initIntent = new Intent(MabiaoFragment.ACTION_STEEP_INITIAL);
+				        LocalBroadcastManager.getInstance(this).sendBroadcast(initIntent);
+						dialog_view.dismiss();
+						return false;
+					case 5:
+						dialog_view.dismiss();
+						Intent intent = new Intent(SubFunctionActivity.this,MainActivity.class);
+						startActivity(intent);
+						return false;
+					default:
+						break;
+					}
+					break;
+				case 1:
+					// 相机页面
+					switch (dialog_view.touchMidTab(x, y)) {
+					case 1:
+						ToastUtil.show(this, "tab11");
+						dialog_view.dismiss();
+						return false;
+					case 2:
+						ToastUtil.show(this, "tab21");
+                        Intent i = new Intent();
+                        i.setType("image/*");
+                        i.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivity(i);
+						dialog_view.dismiss();
+						return false;
+					case 3:
+						ToastUtil.show(this, "tab31");
+						dialog_view.dismiss();
+						return false;
+					case 4:
+						ToastUtil.show(this, "tab41");
+						dialog_view.dismiss();
+						return false;
+					case 5:
+						dialog_view.dismiss();
+						Intent intent = new Intent(SubFunctionActivity.this,MainActivity.class);
+						startActivity(intent);
+						return false;
+					default:
+						break;
+					}
+					break;
+				case 2:
+					// 音乐
+					switch (dialog_view.touchMidTab(x, y)) {
+					case 1:
+						ToastUtil.show(this, "tab12");
+						dialog_view.dismiss();
+						return false;
+					case 2:
+						ToastUtil.show(this, "tab22");
+						dialog_view.dismiss();
+						return false;
+					case 3:
+						ToastUtil.show(this, "tab32");
+						dialog_view.dismiss();
+						return false;
+					case 4:
+						ToastUtil.show(this, "tab42");
+						dialog_view.dismiss();
+						return false;
+					case 5:
+						dialog_view.dismiss();
+						Intent intent = new Intent(SubFunctionActivity.this,MainActivity.class);
+						startActivity(intent);
+						return false;
+					default:
+						break;
+					}
+					break;
+				case 3:
+					// 秒表页面
+					switch (dialog_view.touchMidTab(x, y)) {
+					case 1:
+						ToastUtil.show(this, "tab1");
+						dialog_view.dismiss();
+						return false;
+					case 2:
+						ToastUtil.show(this, "tab2");
+						dialog_view.dismiss();
+						return false;
+					case 3:
+						ToastUtil.show(this, "tab3");
+						dialog_view.dismiss();
+						return false;
+					case 4:
+						ToastUtil.show(this, "tab4");
+						dialog_view.dismiss();
+						return false;
+					case 5:
+						dialog_view.dismiss();
+						Intent intent = new Intent(SubFunctionActivity.this,MainActivity.class);
+						startActivity(intent);
+						return false;
+					default:
+						break;
+					}
+					break;
+				case 4:
+					// 导航页面
+					switch (dialog_view.touchMidTab(x, y)) {
+					case 1:
+						ToastUtil.show(this, "tab1");
+						dialog_view.dismiss();
+						return false;
+					case 2:
+						ToastUtil.show(this, "tab2");
+						dialog_view.dismiss();
+						return false;
+					case 3:
+						ToastUtil.show(this, "tab3");
+						dialog_view.dismiss();
+						return false;
+					case 4:
+						ToastUtil.show(this, "tab4");
+						dialog_view.dismiss();
+						return false;
+					case 5:
+						dialog_view.dismiss();
+						Intent intent = new Intent(SubFunctionActivity.this,MainActivity.class);
+						startActivity(intent);
+						return false;
+					default:
+						break;
+					}
+					break;
+				case 5:
+					// 轨迹页面
+					switch (dialog_view.touchMidTab(x, y)) {
+					case 1:
+						ToastUtil.show(this, "tab1");
+						dialog_view.dismiss();
+						return false;
+					case 2:
+						ToastUtil.show(this, "tab2");
+						dialog_view.dismiss();
+						return false;
+					case 3:
+						ToastUtil.show(this, "tab3");
+						dialog_view.dismiss();
+						return false;
+					case 4:
+						ToastUtil.show(this, "tab4");
+						dialog_view.dismiss();
+						return false;
+					case 5:
+						dialog_view.dismiss();
+						Intent intent = new Intent(SubFunctionActivity.this,MainActivity.class);
+						startActivity(intent);
+						return false;
+					default:
+						break;
+					}
+					break;
+				}
+				
 			}
 			break;
 		}
@@ -154,7 +333,8 @@ public class SubFunctionActivity extends FragmentActivity{
 			@Override
 			public void onPageSelected(int arg0) {
 				// TODO Auto-generated method stub
-				
+				subpage = arg0;
+				dialog_view.setPageNum(subpage);
 			}
 			
 			@Override
@@ -169,6 +349,7 @@ public class SubFunctionActivity extends FragmentActivity{
 				
 			}
 		});
+
 	}
 	
 }

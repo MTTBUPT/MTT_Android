@@ -23,11 +23,6 @@ public class RoundView extends View{
 
 	private Paint mPaint = new Paint();
 
-	/** stone列表 */
-	private BigStone[] mStones;
-	/** stone数目 */
-	private static final int STONE_COUNT = 6;
-	
 	/** 圆心坐标 */
 	private int mPointX = 0, mPointY = 0;
 	/** 外层半径 */
@@ -194,14 +189,15 @@ public class RoundView extends View{
 		pathf.close();
 		canvas.drawPath(pathf, mPaint);
 		
-		// ----------设置字符大小后绘制字符----------
+		// ----------设置字符大小后绘制字符---------------------------
 		mPaint.setStrokeWidth(1);
 		mPaint.setColor(Color.WHITE);
 		mPaint.setStyle(Paint.Style.FILL);
 		mPaint.setTextSize(40);
 		mPaint.setShader(null);
 		mPaint.setTextAlign(Align.CENTER);
-		// 绘制6个字符串和图片
+		
+		// ------------------绘制6个字符串和图片----------------------
 		// 码表
 		canvas.translate(mPointX, mPointY);
 		if(isTouchDown ==2){
@@ -296,7 +292,6 @@ public class RoundView extends View{
 		
 		if(isTouchDown == 1){
 			canvas.drawBitmap(bmp_guide_touch, - btmap_guide_width/2, -inRadius*(2.6f), mPaint);
-
 		}else{
 			canvas.drawBitmap(bmp_guide_untouch, - btmap_guide_width/2, -inRadius*(2.6f), mPaint);
 		}
@@ -440,20 +435,9 @@ public class RoundView extends View{
 	    return b; 
 	}
 	
-	class BigStone {
-
-		// 图片
-		Bitmap bitmap;
-
-		// 角度
-		int angle;
-
-		// x坐标
-		float x;
-
-		// y坐标
-		float y;
-
+	/** 重置按钮*/
+	public void resetTouch(){
+		isTouchDown = 0;
 	}
 	
 }

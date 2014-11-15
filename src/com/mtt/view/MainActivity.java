@@ -15,16 +15,24 @@ import com.mtt.customview.RoundView;
  * @author Kerry 
  * */
 public class MainActivity extends Activity implements RoundViewOnTouchListener{
-
+	RoundView rv;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		RoundView rv = (RoundView) findViewById(R.id.roundview);
+		rv = (RoundView) findViewById(R.id.roundview);
 		rv.setOnTouchListener(this);
 	}
 	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		rv.resetTouch();
+	}
+
 	/**
 	 * 打开设置页面
 	 */
@@ -72,37 +80,31 @@ public class MainActivity extends Activity implements RoundViewOnTouchListener{
 		// TODO Auto-generated method stub
 		if (i == 1) {
 			//跳转导航页面
-			Toast.makeText(this, "导航", Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(MainActivity.this,SubFunctionActivity.class);
-			intent.putExtra("subpage", 0);
+			intent.putExtra("subpage", 4);
 			startActivity(intent);
 		}else if (i ==2) {
 			//跳转码表页面
-			Toast.makeText(this, "码表", Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(MainActivity.this,SubFunctionActivity.class);
 			intent.putExtra("subpage", 0);
 			startActivity(intent);
 		}else if (i ==3) {
 			//跳转轨迹页面
-			Toast.makeText(this, "轨迹", Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(MainActivity.this,SubFunctionActivity.class);
-			intent.putExtra("subpage", 0);
+			intent.putExtra("subpage", 5);
 			startActivity(intent);
 		}else if (i ==4) {
 			//跳转音乐页面
-			Toast.makeText(this, "音乐", Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(MainActivity.this,SubFunctionActivity.class);
 			intent.putExtra("subpage", 2);
 			startActivity(intent);
 		}else if (i ==5) {
 			//跳转相机页面
-			Toast.makeText(this, "相机", Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(MainActivity.this,SubFunctionActivity.class);
 			intent.putExtra("subpage", 1);
 			startActivity(intent);
 		}else if (i ==6) {
 			//跳转秒表页面
-			Toast.makeText(this, "秒表", Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(MainActivity.this,SubFunctionActivity.class);
 			intent.putExtra("subpage", 3);
 			startActivity(intent);
