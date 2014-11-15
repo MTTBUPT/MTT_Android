@@ -3,6 +3,7 @@ package com.mtt.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.amap.api.navi.model.NaviLatLng;
 import com.mtt.R;
 import com.mtt.fragments.*;
 import com.mtt.util.ToastUtil;
@@ -215,7 +216,9 @@ public class SubFunctionActivity extends FragmentActivity{
 					// 导航页面
 					switch (dialog_view.touchMidTab(x, y)) {
 					case 1:
-						ToastUtil.show(this, "tab1");
+						ToastUtil.show(this, "路线规划");
+						Intent desIntent = new Intent(SubFunctionActivity.this,DestinationActivity.class);
+						startActivityForResult(desIntent, 1);
 						dialog_view.dismiss();
 						return false;
 					case 2:
@@ -349,7 +352,26 @@ public class SubFunctionActivity extends FragmentActivity{
 				
 			}
 		});
-
 	}
 	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode == 1 && resultCode == 1){
+			ToastUtil.show(SubFunctionActivity.this, "开始规划路径 SubFunction");
+			// 获取Intent中数据
+			Bundle mBundle = data.getExtras();
+			double endLatitude = mBundle.getDouble("mlatitude");
+			double endLongtitude = mBundle.getDouble("mlongtitude");
+			
+			// 向fragment发送广播
+	        final Intent guideIntent = new Intent(GuideFragment.ACTION_GUIDE);
+			Bundle Bundle = new Bundle();
+			Bundle.putDouble("mlatitude", endLatitude);
+			Bundle.putDouble("mlongtitude", endLongtitude);
+			guideIntent.putExtras(Bundle);
+	        LocalBroadcastManager.getInstance(this).sendBroadcast(guideIntent);
+		}
+	}
 }

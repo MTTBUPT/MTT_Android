@@ -2,8 +2,10 @@ package com.mtt.fragments;
 
 import java.util.ArrayList;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -11,6 +13,7 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +41,8 @@ import com.amap.api.navi.model.NaviLatLng;
 import com.amap.api.navi.view.RouteOverLay;
 import com.mtt.R;
 import com.mtt.util.ToastUtil;
+import com.mtt.view.MainActivity;
+import com.mtt.view.SubFunctionActivity;
  
 /**
  * 混合定位示例
@@ -46,6 +51,7 @@ public class GuideFragment extends Fragment implements LocationSource,
 		AMapLocationListener,OnClickListener,SensorEventListener,AMapNaviListener{
 	public static final String TAG = "com.mtt.fragment.GuideFragment";
 
+	public final static String ACTION_GUIDE = "com.mtt.fragment.GuideFragent.ACTION_GUIDE";
 	/** Fragment View*/
 	private View view;
 	/** 系统的Context*/
@@ -153,10 +159,6 @@ public class GuideFragment extends Fragment implements LocationSource,
 		btn_zoom_in.setOnClickListener(this);
 		btn_zoom_out = (Button) view.findViewById(R.id.btn_zoom_out);
 		btn_zoom_out.setOnClickListener(this);
-		btn_guide = (Button) view.findViewById(R.id.btn_guide);
-		btn_guide.setOnClickListener(this);
-		btn_offlinemap = (Button) view.findViewById(R.id.btn_offlinemap);
-		btn_offlinemap.setOnClickListener(this);
 		
 		mRouteOverLay = new RouteOverLay(aMap, null);
 	}
@@ -230,13 +232,6 @@ public class GuideFragment extends Fragment implements LocationSource,
 			new CameraUpdateFactory();
 			aMap.moveCamera(CameraUpdateFactory.zoomIn());
 			break;
-		case R.id.btn_guide:
-//			Intent intent = new Intent(MainActivity.this,EndPositionActivity.class);
-//			startActivityForResult(intent, 1);
-			break;
-		case R.id.btn_offlinemap:
-//			Intent intent2 = new Intent(MainActivity.this, OfflineMapActivity.class);
-//			startActivity(intent2);
 		}
 	}
 	
@@ -484,29 +479,44 @@ public class GuideFragment extends Fragment implements LocationSource,
 	}
 
 	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		super.onActivityResult(requestCode, resultCode, data);
-		if(requestCode == 1 && resultCode == 1){
-			mStartPoints.clear();
-			mEndPoints.clear();
-			// 获取Intent中数据
-			Bundle mBundle = data.getExtras();
-			endLatitude = mBundle.getDouble("mlatitude");
-			endLongtitude = mBundle.getDouble("mlongtitude");
-			ToastUtil.show(mContext, "开始规划路径");
-			// 设置初始点
-			startLatitude = latitude;
-			startLongtitude = longtitude;
-			mNaviStart = new NaviLatLng(startLatitude, startLongtitude);
-			mStartPoints.add(mNaviStart);
-			// 设置终点
-			mNaviEnd = new NaviLatLng(endLatitude,endLongtitude);
-			mEndPoints.add(mNaviEnd);
-			mIsCalculateRouteSuccess = false;
-			calculateDriveRoute();
-		}
+		super.onActivityCreated(savedInstanceState);
+		LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(getActivity());
+		broadcastManager.registerReceiver(mGuideReceiver, GuideIntentFilter());
 	}
 
-	
+	private final BroadcastReceiver mGuideReceiver = new BroadcastReceiver() {
+    	@Override
+    	public void onReceive(Context context, Intent intent) {
+    		final String action = intent.getAction();
+    		if (ACTION_GUIDE.equals(action)){
+    			mStartPoints.clear();
+    			mEndPoints.clear();
+    			
+    			// 获取Intent中数据
+    			Bundle mBundle = intent.getExtras();
+    			endLatitude = mBundle.getDouble("mlatitude");
+    			endLongtitude = mBundle.getDouble("mlongtitude");
+    			ToastUtil.show(mContext, "开始规划路径");
+    			
+    			// 设置初始点
+    			startLatitude = latitude;
+    			startLongtitude = longtitude;
+    			mNaviStart = new NaviLatLng(startLatitude, startLongtitude);
+    			mStartPoints.add(mNaviStart);
+    			// 设置终点
+    			mNaviEnd = new NaviLatLng(endLatitude,endLongtitude);
+    			mEndPoints.add(mNaviEnd);
+    			mIsCalculateRouteSuccess = false;
+    			calculateDriveRoute();
+    		}
+    	}
+    };
+    
+    private static IntentFilter GuideIntentFilter() {
+        final IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_GUIDE);
+        return intentFilter;
+    }
 }
