@@ -1,9 +1,7 @@
 package com.mtt.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.amap.api.navi.model.NaviLatLng;
 import com.mtt.R;
 import com.mtt.fragments.*;
 import com.mtt.util.ToastUtil;
@@ -15,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -31,8 +30,6 @@ import android.view.View;
 public class SubFunctionActivity extends FragmentActivity{ 
 	/** 页卡内容*/
 	private ViewPager mPager;
-	/** Fragment列表*/
-	private List<Fragment> fragments = new ArrayList<Fragment>();
 	/** viewpage适配器*/
 	private MyPagerAdapter adapter;
 	
@@ -45,6 +42,10 @@ public class SubFunctionActivity extends FragmentActivity{
 	private Intent intent;
 	/**　子功能页面参数*/
 	private int subpage=1;
+	private boolean isFirstPage = true;
+	
+	private MabiaoFragment mabiaoFragment = new MabiaoFragment(); 
+	private GuideFragment guideFragment = new GuideFragment(isFirstPage);
 	
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -98,19 +99,18 @@ public class SubFunctionActivity extends FragmentActivity{
 					// 码表页面
 					switch (dialog_view.touchMidTab(x, y)) {
 					case 1:
-						ToastUtil.show(this, "tab1");
+						ToastUtil.show(this, "清除均速");
 						dialog_view.dismiss();
 						return false;
 					case 2:
-						ToastUtil.show(this, "tab2");
+						ToastUtil.show(this, "清除里程");
 						dialog_view.dismiss();
 						return false;
 					case 3:
-						ToastUtil.show(this, "tab3");
+						ToastUtil.show(this, "清除时间");
 						dialog_view.dismiss();
 						return false;
 					case 4:
-						ToastUtil.show(this, "坡度清零");
 				        final Intent initIntent = new Intent(MabiaoFragment.ACTION_STEEP_INITIAL);
 				        LocalBroadcastManager.getInstance(this).sendBroadcast(initIntent);
 						dialog_view.dismiss();
@@ -128,25 +128,25 @@ public class SubFunctionActivity extends FragmentActivity{
 					// 相机页面
 					switch (dialog_view.touchMidTab(x, y)) {
 					case 1:
-						ToastUtil.show(this, "tab11");
+						ToastUtil.show(this, "延时十秒");
 						dialog_view.dismiss();
 						return false;
 					case 2:
-						ToastUtil.show(this, "tab21");
+						ToastUtil.show(this, "图库");
                         Intent i = new Intent();
                         i.setType("image/*");
                         i.setAction(Intent.ACTION_GET_CONTENT);
                         startActivity(i);
 						dialog_view.dismiss();
 						return false;
-					case 3:
-						ToastUtil.show(this, "tab31");
-						dialog_view.dismiss();
-						return false;
-					case 4:
-						ToastUtil.show(this, "tab41");
-						dialog_view.dismiss();
-						return false;
+//					case 3:
+//						ToastUtil.show(this, "tab31");
+//						dialog_view.dismiss();
+//						return false;
+//					case 4:
+//						ToastUtil.show(this, "tab41");
+//						dialog_view.dismiss();
+//						return false;
 					case 5:
 						dialog_view.dismiss();
 						Intent intent = new Intent(SubFunctionActivity.this,MainActivity.class);
@@ -160,21 +160,21 @@ public class SubFunctionActivity extends FragmentActivity{
 					// 音乐
 					switch (dialog_view.touchMidTab(x, y)) {
 					case 1:
-						ToastUtil.show(this, "tab12");
+						ToastUtil.show(this, "单曲循环");
 						dialog_view.dismiss();
 						return false;
 					case 2:
-						ToastUtil.show(this, "tab22");
+						ToastUtil.show(this, "随机播放");
 						dialog_view.dismiss();
 						return false;
-					case 3:
-						ToastUtil.show(this, "tab32");
-						dialog_view.dismiss();
-						return false;
-					case 4:
-						ToastUtil.show(this, "tab42");
-						dialog_view.dismiss();
-						return false;
+//					case 3:
+//						ToastUtil.show(this, "tab32");
+//						dialog_view.dismiss();
+//						return false;
+//					case 4:
+//						ToastUtil.show(this, "tab42");
+//						dialog_view.dismiss();
+//						return false;
 					case 5:
 						dialog_view.dismiss();
 						Intent intent = new Intent(SubFunctionActivity.this,MainActivity.class);
@@ -188,20 +188,12 @@ public class SubFunctionActivity extends FragmentActivity{
 					// 秒表页面
 					switch (dialog_view.touchMidTab(x, y)) {
 					case 1:
-						ToastUtil.show(this, "tab1");
-						dialog_view.dismiss();
 						return false;
 					case 2:
-						ToastUtil.show(this, "tab2");
-						dialog_view.dismiss();
 						return false;
 					case 3:
-						ToastUtil.show(this, "tab3");
-						dialog_view.dismiss();
 						return false;
 					case 4:
-						ToastUtil.show(this, "tab4");
-						dialog_view.dismiss();
 						return false;
 					case 5:
 						dialog_view.dismiss();
@@ -222,15 +214,17 @@ public class SubFunctionActivity extends FragmentActivity{
 						dialog_view.dismiss();
 						return false;
 					case 2:
-						ToastUtil.show(this, "tab2");
+						ToastUtil.show(this, "路线概览");
 						dialog_view.dismiss();
 						return false;
 					case 3:
-						ToastUtil.show(this, "tab3");
+						ToastUtil.show(this, "离线地图");
+						Intent offlineIntent = new Intent(SubFunctionActivity.this,OfflineMapActivity.class);
+						startActivity(offlineIntent);
 						dialog_view.dismiss();
 						return false;
 					case 4:
-						ToastUtil.show(this, "tab4");
+						ToastUtil.show(this, "周边信息");
 						dialog_view.dismiss();
 						return false;
 					case 5:
@@ -246,20 +240,12 @@ public class SubFunctionActivity extends FragmentActivity{
 					// 轨迹页面
 					switch (dialog_view.touchMidTab(x, y)) {
 					case 1:
-						ToastUtil.show(this, "tab1");
-						dialog_view.dismiss();
 						return false;
 					case 2:
-						ToastUtil.show(this, "tab2");
-						dialog_view.dismiss();
 						return false;
 					case 3:
-						ToastUtil.show(this, "tab3");
-						dialog_view.dismiss();
 						return false;
 					case 4:
-						ToastUtil.show(this, "tab4");
-						dialog_view.dismiss();
 						return false;
 					case 5:
 						dialog_view.dismiss();
@@ -282,7 +268,7 @@ public class SubFunctionActivity extends FragmentActivity{
 	/**
 	 * ViewPager适配器
 	 */
-	public class MyPagerAdapter extends FragmentPagerAdapter {
+	public class MyPagerAdapter extends FragmentStatePagerAdapter {
 		public List<Fragment> fragments;
 
 		public MyPagerAdapter(FragmentManager fm){
@@ -297,21 +283,35 @@ public class SubFunctionActivity extends FragmentActivity{
 
 		@Override
 		public int getCount() {
-			return fragments.size();
+			return 300*2;
 		}
 
 		@Override
-		public Fragment getItem(int arg0) {
+		public Fragment getItem(int position) {
 			// TODO Auto-generated method stub
-			return fragments.get(arg0);
+            Fragment f = null;  
+            if(position % 6 == 0){  
+            	f = mabiaoFragment;
+            }else if(position % 6 == 1){  
+                f = new CameraFragment(); 
+            }else if(position % 6 == 2){  
+                f = new MusicFragment();
+            }else if(position % 6 == 3){  
+                f = new StopWatchFragment(); 
+            }else if(position % 6 == 4){  
+            	f = new GuideFragment(isFirstPage);
+            }else if(position % 6 == 5){  
+                f = new PathFragment(isFirstPage);
+            }      
+			dialog_view.setPageNum(subpage);
+			return f;
 		}
 
-/*		@Override
+		@Override
 		public void destroyItem(View container, int position, Object object) {
 			// TODO Auto-generated method stub
 			// 这里Destroy的是Fragment的视图层次，而不是Destroy Fragment的对象
-			super.destroyItem(container, position, object);
-		}*/
+		}
 		
 	}
 	
@@ -321,23 +321,17 @@ public class SubFunctionActivity extends FragmentActivity{
 	private void InitViewPager() {
 		mPager = (ViewPager) findViewById(R.id.vPager);
 		
-		fragments.add(new MabiaoFragment());
-		fragments.add(new CameraFragment());
- 		fragments.add(new MusicFragment());
-		fragments.add(new StopWatchFragment());
-		fragments.add(new GuideFragment());
-		fragments.add(new PathFragment());
-		
-		adapter = new MyPagerAdapter(getSupportFragmentManager(),fragments);
+		adapter = new MyPagerAdapter(getSupportFragmentManager());
 		mPager.setAdapter(adapter);
-		mPager.setCurrentItem(subpage);
+		mPager.setCurrentItem(300+subpage);
 		mPager.setOnPageChangeListener(new OnPageChangeListener() {
 			
 			@Override
 			public void onPageSelected(int arg0) {
 				// TODO Auto-generated method stub
-				subpage = arg0;
+				subpage = arg0%6;
 				dialog_view.setPageNum(subpage);
+				isFirstPage = false;
 			}
 			
 			@Override

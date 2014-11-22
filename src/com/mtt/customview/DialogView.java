@@ -1,7 +1,5 @@
 package com.mtt.customview;
 
-import com.amap.api.mapcore.y;
-import com.amap.api.mapcore.util.x;
 import com.mtt.R;
 
 import android.content.Context;
@@ -68,6 +66,52 @@ public class DialogView extends View{
 	Bitmap bmp_path=bmpDraw_path.getBitmap();
 	/** 位图的宽度*/
 	private int bmp_width = bmp_mabiao.getWidth();
+	
+	/** 弹窗内容图标*/
+	// 码表页面
+	BitmapDrawable bmpDraw_mabiao_resetspeep=(BitmapDrawable)getResources().getDrawable(R.drawable.mabiao_resetspeed);
+	Bitmap bmp_mabiao_resetspeed=bmpDraw_mabiao_resetspeep.getBitmap();
+	BitmapDrawable bmpDraw_mabiao_resetmileage=(BitmapDrawable)getResources().getDrawable(R.drawable.mabiao_resetmileage);
+	Bitmap bmp_mabiao_resetmileage=bmpDraw_mabiao_resetmileage.getBitmap();
+	BitmapDrawable bmpDraw_mabiao_resetsteep=(BitmapDrawable)getResources().getDrawable(R.drawable.mabiao_resetsteep);
+	Bitmap bmp_mabiao_resetsteep=bmpDraw_mabiao_resetsteep.getBitmap();
+	BitmapDrawable bmpDraw_mabiao_resettime=(BitmapDrawable)getResources().getDrawable(R.drawable.mabiao_resettime);
+	Bitmap bmp_mabiao_resettime=bmpDraw_mabiao_resettime.getBitmap();
+	
+	// 相机页面
+	BitmapDrawable bmpDraw_camera_delay=(BitmapDrawable)getResources().getDrawable(R.drawable.camera_delay);
+	Bitmap bmp_camera_delay=bmpDraw_camera_delay.getBitmap();
+	BitmapDrawable bmpDraw_camera_storage=(BitmapDrawable)getResources().getDrawable(R.drawable.camera_storage);
+	Bitmap bmp_camera_storage=bmpDraw_camera_storage.getBitmap();
+	
+	// 音乐页面
+	BitmapDrawable bmpDraw_music_cycle=(BitmapDrawable)getResources().getDrawable(R.drawable.music_cycle);
+	Bitmap bmp_music_cycle=bmpDraw_music_cycle.getBitmap();
+	BitmapDrawable bmpDraw_music_random=(BitmapDrawable)getResources().getDrawable(R.drawable.music_random);
+	Bitmap bmp_music_random=bmpDraw_music_random.getBitmap();
+	
+	// 导航页面
+	BitmapDrawable bmpDraw_guide_setpath=(BitmapDrawable)getResources().getDrawable(R.drawable.guide_setpath);
+	Bitmap bmp_guide_setpath=bmpDraw_guide_setpath.getBitmap();
+	BitmapDrawable bmpDraw_guide_summary=(BitmapDrawable)getResources().getDrawable(R.drawable.guide_summary);
+	Bitmap bmp_guide_summary=bmpDraw_guide_summary.getBitmap();
+	BitmapDrawable bmpDraw_guide_offlinemap=(BitmapDrawable)getResources().getDrawable(R.drawable.guide_offlinemap);
+	Bitmap bmp_guide_offlinemap=bmpDraw_guide_offlinemap.getBitmap();
+	BitmapDrawable bmpDraw_guide_information=(BitmapDrawable)getResources().getDrawable(R.drawable.guide_information);
+	Bitmap bmp_guide_information=bmpDraw_guide_information.getBitmap();	
+	
+	// 轨迹页面
+	BitmapDrawable bmpDraw_path_resetstart=(BitmapDrawable)getResources().getDrawable(R.drawable.path_resetstart);
+	Bitmap bmp_path_resetstart=bmpDraw_path_resetstart.getBitmap();
+	BitmapDrawable bmpDraw_path_save=(BitmapDrawable)getResources().getDrawable(R.drawable.path_save);
+	Bitmap bmp_path_save=bmpDraw_path_save.getBitmap();
+	BitmapDrawable bmpDraw_path_continue=(BitmapDrawable)getResources().getDrawable(R.drawable.path_continue);
+	Bitmap bmp_path_continue=bmpDraw_path_continue.getBitmap();
+	BitmapDrawable bmpDraw_path_share=(BitmapDrawable)getResources().getDrawable(R.drawable.path_share);
+	Bitmap bmp_path_share=bmpDraw_path_share.getBitmap();	
+	
+	/** 位图的宽度*/
+	private int bmp_content_width = bmp_mabiao_resetspeed.getWidth();
 	
 	public DialogView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -198,14 +242,14 @@ public class DialogView extends View{
 		RectF dst_t2 = new RectF(t_x2-bmp_width/2, t_y2-bmp_width/2+mPointY+mHeight/2, t_x2+bmp_width/2, t_y2+bmp_width/2+mPointY+mHeight/2);
 		// 右头标
 		RectF dst_t3 = new RectF(t_x3-bmp_width/2, t_y3-bmp_width/2+mPointY+mHeight/2, t_x3+bmp_width/2, t_y3+bmp_width/2+mPointY+mHeight/2);
-//		// 中间图标1
-//		RectF dst_m1 = new RectF(m_x1, top, right, bottom);
-//		// 中间图标2
-//		RectF dst_m2 = new RectF(left, top, right, bottom);
-//		// 中间图标3
-//		RectF dst_m3 = new RectF(left, top, right, bottom);
-//		// 中间图标4
-//		RectF dst_m4 = new RectF();
+		// 中间图标1
+		RectF dst_m1 = new RectF(m_x1-bmp_content_width/2, m_y1-bmp_content_width/2+mPointY+mHeight/2, m_x1+bmp_content_width/2, m_y1+bmp_content_width/2+mPointY+mHeight/2);
+		// 中间图标2
+		RectF dst_m2 = new RectF(m_x2-bmp_content_width/2, m_y2-bmp_content_width/2+mPointY+mHeight/2, m_x2+bmp_content_width/2, m_y2+bmp_content_width/2+mPointY+mHeight/2);
+		// 中间图标3
+		RectF dst_m3 = new RectF(m_x3-bmp_content_width/2, m_y3-bmp_content_width/2+mPointY+mHeight/2, m_x3+bmp_content_width/2, m_y3+bmp_content_width/2+mPointY+mHeight/2);
+		// 中间图标4
+		RectF dst_m4 = new RectF(m_x4-bmp_content_width/2, m_y4-bmp_content_width/2+mPointY+mHeight/2, m_x4+bmp_content_width/2, m_y4+bmp_content_width/2+mPointY+mHeight/2);
 
 		switch (pageNum) {
 		case 0:
@@ -215,6 +259,11 @@ public class DialogView extends View{
 			canvas.drawBitmap(bmp_path, null, dst_t1, mPaint);
 			canvas.drawBitmap(bmp_mabiao, null, dst_t2, mPaint);
 			canvas.drawBitmap(bmp_camera, null, dst_t3, mPaint);
+			canvas.drawBitmap(bmp_mabiao_resetspeed, null, dst_m1, mPaint);
+			canvas.drawBitmap(bmp_mabiao_resetmileage, null, dst_m2, mPaint);
+			canvas.drawBitmap(bmp_mabiao_resettime, null, dst_m3, mPaint);
+			canvas.drawBitmap(bmp_mabiao_resetsteep, null, dst_m4, mPaint);
+
 			break;
 		case 1:
 			// 相机页面
@@ -223,7 +272,8 @@ public class DialogView extends View{
 			canvas.drawBitmap(bmp_mabiao, null, dst_t1, mPaint);
 			canvas.drawBitmap(bmp_camera, null, dst_t2, mPaint);
 			canvas.drawBitmap(bmp_music, null, dst_t3, mPaint);
-			
+			canvas.drawBitmap(bmp_camera_delay, null, dst_m1, mPaint);
+			canvas.drawBitmap(bmp_camera_storage, null, dst_m2, mPaint);
 			break;
 		case 2:
 			// 音乐页面
@@ -232,6 +282,8 @@ public class DialogView extends View{
 			canvas.drawBitmap(bmp_camera, null, dst_t1, mPaint);
 			canvas.drawBitmap(bmp_music, null, dst_t2, mPaint);
 			canvas.drawBitmap(bmp_stopwatch, null, dst_t3, mPaint);
+			canvas.drawBitmap(bmp_music_cycle, null, dst_m1, mPaint);
+			canvas.drawBitmap(bmp_music_random, null, dst_m2, mPaint);
 			break;
 		case 3:
 			// 秒表页面
@@ -248,6 +300,10 @@ public class DialogView extends View{
 			canvas.drawBitmap(bmp_stopwatch, null, dst_t1, mPaint);
 			canvas.drawBitmap(bmp_guide, null, dst_t2, mPaint);
 			canvas.drawBitmap(bmp_path, null, dst_t3, mPaint);
+			canvas.drawBitmap(bmp_guide_setpath, null, dst_m1, mPaint);
+			canvas.drawBitmap(bmp_guide_summary, null, dst_m2, mPaint);
+			canvas.drawBitmap(bmp_guide_offlinemap, null, dst_m3, mPaint);
+			canvas.drawBitmap(bmp_guide_information, null, dst_m4, mPaint);
 			break;
 		case 5:
 			// 轨迹页面
@@ -256,6 +312,10 @@ public class DialogView extends View{
 			canvas.drawBitmap(bmp_guide, null, dst_t1, mPaint);
 			canvas.drawBitmap(bmp_path, null, dst_t2, mPaint);
 			canvas.drawBitmap(bmp_mabiao, null, dst_t3, mPaint);
+			canvas.drawBitmap(bmp_path_resetstart, null, dst_m1, mPaint);
+			canvas.drawBitmap(bmp_path_save, null, dst_m2, mPaint);
+			canvas.drawBitmap(bmp_path_continue, null, dst_m3, mPaint);
+			canvas.drawBitmap(bmp_path_share, null, dst_m4, mPaint);
 			break;
 		default:
 			break;

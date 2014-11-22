@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 
 import com.mtt.R;
 
@@ -18,6 +19,7 @@ import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.PictureCallback;
 import android.hardware.Camera.ShutterCallback;
+import android.hardware.Camera.Size;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
@@ -76,13 +79,16 @@ public class CameraFragment extends Fragment{
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		
+	    Log.d("Fragment_B", "-------------B-------OnCreate()");
+
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+	    Log.d("Fragment_B", "-------------B-------OnCreateView()");
+
         final View view = inflater.inflate(R.layout.fragment_camera, container, false);
 		
 		// 获取窗口管理器
@@ -127,8 +133,18 @@ public class CameraFragment extends Fragment{
 	
 	
     @Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onActivityCreated(savedInstanceState);
+	    Log.d("Fragment_B", "-------------B-------OnActivityCreated()");
+
+	}
+
+	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
+	    Log.d("Fragment_B", "-------------B-------OnResume()");
+
 		super.onResume();
 
 		// 为surfaceHolder添加一个回调监听器
@@ -164,6 +180,38 @@ public class CameraFragment extends Fragment{
 				mRecorder = null;
 			}
 		});
+	}
+	
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+	    Log.d("Fragment_B", "-------------B-------OnPause()");
+
+	}
+
+	@Override
+	public void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+	    Log.d("Fragment_B", "-------------B-------OnStop()");
+
+	}
+	
+	@Override
+	public void onDestroyView() {
+		// TODO Auto-generated method stub
+		super.onDestroyView();
+	    Log.d("Fragment_B", "-------------B-------OnDestroyView()");
+
+	}
+	
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+	    Log.d("Fragment_B", "-------------B-------OnDestroy()");
+
 	}
 
 
@@ -217,6 +265,7 @@ public class CameraFragment extends Fragment{
 			try
 			{
 				Camera.Parameters parameters = camera.getParameters();
+				
 				// 设置预览照片的大小
 				parameters.setPreviewSize(screenWidth, screenHeight);
 				// 设置预览照片时每秒显示多少帧的最小值和最大值
@@ -283,7 +332,7 @@ public class CameraFragment extends Fragment{
 		        String path = getSDPath();
 		        if (path != null) {
 		        	
-		        	File dir = new File(path + "/MTT");
+		        	File dir = new File(path + "MTT");
 				    if (!dir.exists()) {
 					    dir.mkdir();
 				    }
@@ -404,7 +453,7 @@ public class CameraFragment extends Fragment{
 			ImageView show = (ImageView) saveDialog.findViewById(R.id.show);
 			// 显示刚刚拍得的照片
 			show.setImageBitmap(bm);
-        	File dir = new File(Environment.getExternalStorageDirectory() + "/aaaa");
+        	File dir = new File(Environment.getExternalStorageDirectory() + "aaaa");
 		    if (!dir.exists()) {
 			    dir.mkdir();
 		    }

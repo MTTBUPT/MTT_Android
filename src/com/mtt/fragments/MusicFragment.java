@@ -18,11 +18,11 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -79,16 +79,20 @@ public class MusicFragment extends Fragment implements OnClickListener{
 		getActivity().bindService(intent, serviceConnection, getActivity().BIND_AUTO_CREATE);				
 	}
 	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+	    Log.d("Fragment_C", "-------------C-------OnCreate()");
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+	    Log.d("Fragment_C", "-------------C-------OnCreateView()");
+
         view = inflater.inflate(R.layout.fragment_music, container, false);  
 		// 实例化一个MusicLoader，同时进行查询音乐数据
 		MusicLoader musicLoader = MusicLoader.instance(getActivity().getContentResolver());
@@ -102,28 +106,58 @@ public class MusicFragment extends Fragment implements OnClickListener{
 	}
 	
 	@Override
-	public void onDestroy() {
+	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		super.onDestroy();
-		if(musicBinder != null){
-			getActivity().unbindService(serviceConnection); // 关闭service的绑定
-		}
+		super.onActivityCreated(savedInstanceState);
+	    Log.d("Fragment_C", "-------------C-------OnActivityCreated()");
+	}
+
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_C", "-------------C-------OnResume()");
+
+		super.onResume();
+		// 注册progressReceiver
+		registerReceiver();
 	}
 	
 	@Override
 	public void onPause() {
 		// TODO Auto-generated method stub
+	    Log.d("Fragment_C", "-------------C-------onPause()");
+
 		super.onPause();
 		// 注销progressReceiver
 		getActivity().unregisterReceiver(progressReceiver);
 	}
 	
 	@Override
-	public void onResume() {
+	public void onStop() {
 		// TODO Auto-generated method stub
-		super.onResume();
-		// 注册progressReceiver
-		registerReceiver();
+	    Log.d("Fragment_C", "-------------C-------onStop()");
+
+		super.onStop();
+	}
+
+
+	@Override
+	public void onDestroyView() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_C", "-------------C-------onDestroyView()");
+
+		super.onDestroyView();
+	}
+
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_C", "-------------C-------onDestroy()");
+
+		super.onDestroy();
+		if(musicBinder != null){
+			getActivity().unbindService(serviceConnection); // 关闭service的绑定
+		}
 	}
 	
 	/** 初始化组件*/

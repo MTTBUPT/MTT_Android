@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
@@ -52,14 +53,15 @@ public class DestinationActivity extends FragmentActivity implements
 	private AutoCompleteTextView searchText;// 输入搜索关键字
 	private String keyWord = "";// 要输入的poi搜索关键字
 	private ProgressDialog progDialog = null;// 搜索时进度条
-	private EditText editCity;// 要输入的城市名字或者城市区号
 	private PoiResult poiResult; // poi返回的结果
 	private int currentPage = 0;// 当前页面，从0开始计数
 	private PoiSearch.Query query;// Poi查询条件类
 	private PoiSearch poiSearch;// POI搜索
 
 	/** 地图选点按钮*/
-	private Button mapChoseButton;
+	private ImageButton mapChoseButton;
+	/** 返回上一页*/
+	private ImageButton mapReturn;
 	/** 是否使用地图选点*/
 	private boolean isClickTarget = false;
 	/** 是否在地图上选好了点*/
@@ -82,7 +84,7 @@ public class DestinationActivity extends FragmentActivity implements
 	private void init() {
 		if (aMap == null) {
 			aMap = ((SupportMapFragment) getSupportFragmentManager()
-					.findFragmentById(R.id.map)).getMap();
+					.findFragmentById(R.id.destination_map)).getMap();
 			setUpMap();
 		}
 	}
@@ -92,18 +94,20 @@ public class DestinationActivity extends FragmentActivity implements
 	 */
 	private void setUpMap() {
 		// search按钮
-		Button searButton = (Button) findViewById(R.id.btn_search);
+		ImageButton searButton = (ImageButton) findViewById(R.id.destination_search);
 		searButton.setOnClickListener(this);
 		
-		mapChoseButton = (Button) findViewById(R.id.btn_map_chose);
+		// 地图选点
+		mapChoseButton = (ImageButton) findViewById(R.id.destination_mapchoose);
 		mapChoseButton.setOnClickListener(this);
 		
 		// 搜索输入框
-		searchText = (AutoCompleteTextView) findViewById(R.id.keyWord);
+		searchText = (AutoCompleteTextView) findViewById(R.id.destination_input);
 		searchText.addTextChangedListener(this);// 添加文本输入框监听事件
 		
-		// 城市输入框
-		editCity = (EditText) findViewById(R.id.city);
+		// 返回
+		mapReturn = (ImageButton) findViewById(R.id.destination_return);
+		mapReturn.setOnClickListener(this);
 		
 		registerListener();
 	}
@@ -161,7 +165,7 @@ public class DestinationActivity extends FragmentActivity implements
 	protected void doSearchQuery() {
 		showProgressDialog();// 显示进度框
 		currentPage = 0;
-		query = new PoiSearch.Query(keyWord, "", editCity.getText().toString());// 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
+		query = new PoiSearch.Query(keyWord, "", "");// 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
 		query.setPageSize(10);// 设置每页最多返回多少条poiitem
 		query.setPageNum(currentPage);// 设置查第一页
 
@@ -282,7 +286,7 @@ public class DestinationActivity extends FragmentActivity implements
 				});
 		try {
 			// 发送输入提示请求
-			inputTips.requestInputtips(newText, editCity.getText().toString());// 第一个参数表示提示关键字，第二个参数默认代表全国，也可以为城市区号
+			inputTips.requestInputtips(newText, "");// 第一个参数表示提示关键字，第二个参数默认代表全国，也可以为城市区号
 
 		} catch (AMapException e) {
 			e.printStackTrace();
@@ -355,13 +359,11 @@ public class DestinationActivity extends FragmentActivity implements
 		if(!isClickTarget){
 			ToastUtil.show(DestinationActivity.this, "在地图上点击你的终点");
 			isClickTarget = true;
-			mapChoseButton.setText("搜索选点");
 			aMap.clear();
 			registerListener();
 		}else{
 			ToastUtil.show(DestinationActivity.this, "通过搜索选择你的终点");
 			isClickTarget = false;
-			mapChoseButton.setText("地图选点");
 			if(isMarked){
 				EndMarker.destroy();
 			}
@@ -386,21 +388,27 @@ public class DestinationActivity extends FragmentActivity implements
 		/**
 		 * 点击搜索按钮
 		 */
-		case R.id.btn_search:
+		case R.id.destination_search:
 			if(isMarked){
 				EndMarker.destroy();
 			}
 			if(isClickTarget){
 				isClickTarget = false;
-				mapChoseButton.setText("地图选点");
 			}
 			searchButton();
 			break;
 		/**
 		 * 点击下一页按钮
 		 */
-		case R.id.btn_map_chose:
+		case R.id.destination_mapchoose:
 			getEndPoint();
+			break;
+		/** 
+		 * 点击返回按钮
+		 * */
+		case R.id.destination_return:
+			Intent intent = new Intent(DestinationActivity.this,SubFunctionActivity.class);
+			startActivity(intent);
 			break;
 		default:
 			break;

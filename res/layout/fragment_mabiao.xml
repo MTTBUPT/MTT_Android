@@ -224,12 +224,7 @@
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignParentTop="true" />
-            <Button
-                android:id="@+id/bt_bluetooth_setting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="next" />                
+                            
                     
         </RelativeLayout>
         <RelativeLayout

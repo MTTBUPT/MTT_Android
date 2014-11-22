@@ -17,9 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -56,9 +54,19 @@ public class StopWatchFragment extends Fragment{
 	private int timeFlg = 0;
 
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+	    Log.d("Fragment_D", "-------------D-------OnCreate()");
+
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+	    Log.d("Fragment_D", "-------------D-------OnCreateView()");
+
         view = inflater.inflate(R.layout.fragment_stopwatch, container, false);  
         
 		initView();  // 初始化 
@@ -114,6 +122,54 @@ public class StopWatchFragment extends Fragment{
         btnStartStop.setOnClickListener(startStopListener);
         btnCountReset.setOnClickListener(countResetListener);
         return view;
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_D", "-------------D-------onActivityCreated()");
+
+		super.onActivityCreated(savedInstanceState);
+	}
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_D", "-------------D-------onResume()");
+
+		super.onResume();
+	}
+	
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_D", "-------------D-------onPause()");
+
+		super.onPause();
+	}
+
+	@Override
+	public void onStop() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_D", "-------------D-------onStop()");
+
+		super.onStop();
+	}
+	
+	@Override
+	public void onDestroyView() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_D", "-------------D-------onDestroyView()");
+
+		super.onDestroyView();
+	}
+	
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_D", "-------------D-------onDestroy()");
+
+		super.onDestroy();
 	}
 
 	/** 资源初始化*/

@@ -102,6 +102,11 @@
         	android:screenOrientation="landscape"			
         	android:launchMode="singleTask" 
         	></activity>
+        <activity 
+        	android:name=".view.OfflineMapActivity"
+        	android:screenOrientation="landscape"			
+        	android:launchMode="singleTask" 
+        	></activity>
         <service android:name="com.mtt.service.MusicService">            
         </service>
     </application>

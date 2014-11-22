@@ -35,7 +35,6 @@ public class SteepView extends View{
 	/** 字体大小*/
 	private int mTextSize;
 	
-
 	// 重设坡度零点
 	public void resetSteep(int steep){
 		initSteep = steep;
@@ -129,6 +128,7 @@ public class SteepView extends View{
 		}
 	}
 	
+	/** 设置当前实际坡度*/
     public void setSteep(int steep,boolean b){
     	realSteep = steep;
     	invalidate();

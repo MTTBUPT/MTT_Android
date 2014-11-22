@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EDEDED"
+     >
+    
+    <ImageButton		     
+        android:id="@+id/offlinemap_btn_return"	
+        android:onClick="backtomain"	        
+        android:src="@drawable/pathsettings_return"		        
+        android:background="#EDEDED"		        
+        android:layout_width="40dp"		        
+        android:layout_height="40dp"        		        
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
+	 <EditText
+	     android:id="@+id/offlinemap_et_inputCity"
+	     android:layout_width="300dp"
+	     android:layout_height="30dp"
+	     android:layout_toRightOf="@id/offlinemap_btn_return"
+		 android:layout_alignBottom="@id/offlinemap_btn_return"
+		 android:layout_marginLeft="20dp"
+	     android:background="#FFFFFF"
+	     android:drawableLeft="@drawable/pathsettings_input_img"
+	     android:hint="请输入城市名称或首字母"
+	     android:textSize="20sp" />
+	 <ImageButton 
+	     android:id="@+id/offlinemap_search"
+	     android:src="@drawable/pathsettings_input_search"
+	     android:background="#EDEDED"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:layout_alignBottom="@id/offlinemap_btn_return"
+	     android:layout_toRightOf="@id/offlinemap_et_inputCity"
+	     android:layout_marginLeft="10dp"/>
+	 <ImageView 
+	     android:id="@+id/offlinemap_iv_line"
+	     android:src="@drawable/pathsettings_linethick"
+	     android:layout_width="wrap_content"	            
+	     android:layout_height="wrap_content"	            
+	     android:layout_below="@id/offlinemap_search"
+	     android:layout_alignParentRight="true"
+	     android:layout_alignParentLeft="true"/>
+	 <TextView 
+	     android:id="@+id/offlinemap_tv_cityname"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:text="北京"
+	     android:textSize="30sp"
+	     android:layout_below="@id/offlinemap_iv_line"/>
+	 <TextView 
+	     android:id="@+id/offlinemap_tv_rate"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:layout_below="@id/offlinemap_iv_line"
+	     android:layout_toRightOf="@id/offlinemap_tv_cityname"
+	     android:layout_marginLeft="150dp"
+	     android:text="下载进度"
+	     android:textSize="30sp"/>
+	 <Button 
+	     android:id="@+id/offlinemap_btn_start"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:layout_below="@id/offlinemap_iv_line"
+	     android:layout_toRightOf="@id/offlinemap_tv_rate"
+	     android:text="开始"/>
+	<Button 
+	     android:id="@+id/offlinemap_btn_pause"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:layout_below="@id/offlinemap_iv_line"
+	     android:layout_toRightOf="@id/offlinemap_btn_start"
+	     android:text="暂停"/>
+	<Button 
+	     android:id="@+id/offlinemap_btn_stop"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:layout_below="@id/offlinemap_iv_line"
+	     android:layout_toRightOf="@id/offlinemap_btn_pause"
+	     android:text="停止"/>
+	<Button 
+	     android:id="@+id/offlinemap_btn_delete"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:layout_below="@id/offlinemap_iv_line"
+	     android:layout_toRightOf="@id/offlinemap_btn_stop"
+	     android:text="删除地图"/>
+	 
+	 
+
+
+</RelativeLayout>

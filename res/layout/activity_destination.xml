@@ -1,71 +1,73 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#EDEDED"
+    tools:context="com.mtt.view.DestinationActivity" >
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#000000" >
+    <ImageButton		     
+        android:id="@+id/destination_return"	
+        android:onClick="backtomain"	        
+        android:src="@drawable/pathsettings_return"		        
+        android:background="#EDEDED"		        
+        android:layout_width="40dp"		        
+        android:layout_height="40dp"        		        
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
 
-        <AutoCompleteTextView
-            android:id="@+id/keyWord"
+	 <AutoCompleteTextView
+            android:id="@+id/destination_input"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5.0dip"
             android:background="@drawable/text_search"
             android:completionThreshold="1"
             android:dropDownVerticalOffset="1.0dip" 
-            android:hint="请输入关键字"
+            android:hint="输入终点地点"
+        	android:drawableLeft="@drawable/pathsettings_input_img"
+        	android:layout_toRightOf="@id/destination_return"
+		 	android:layout_alignBottom="@id/destination_return"
             android:imeOptions="actionDone"
             android:inputType="text|textAutoComplete"
             android:maxLength="20"
             android:paddingRight="37.0dip"
             android:singleLine="true"
             android:textColor="#000000"
-            android:textSize="16.0sp" />
-
-      <EditText 
-            android:id="@+id/city"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dip"
-            android:layout_toRightOf="@id/keyWord"
-            android:hint="请输入城市"
-            android:text="北京"
-            android:background="@drawable/text_search"
-            android:imeOptions="actionDone"
-            android:singleLine="true"
-            android:textColor="#000000"
-            android:textSize="16.0sp"
-          />
-    </RelativeLayout>
-
-    <LinearLayout
-		android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#000000" >
-
-        <Button
-            android:id="@+id/btn_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="开始搜索" />
-
-        <Button
-            android:id="@+id/btn_map_chose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="地图选点" />
-    </LinearLayout>
-
-    <fragment
-        android:id="@+id/map"
+            android:textSize="20.0sp" />
+	 <ImageButton 
+	     android:id="@+id/destination_search"
+	     android:src="@drawable/pathsettings_input_search"
+	     android:background="#EDEDED"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:layout_alignBottom="@id/destination_input"
+	     android:layout_toRightOf="@id/destination_input"
+	     android:layout_marginLeft="10dp"/>
+	 <ImageButton 
+	     android:id="@+id/destination_mapchoose"
+	     android:src="@drawable/pathsettings_input_choose"
+	     android:background="#EDEDED"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:layout_marginRight="10dp"
+	     android:layout_alignBottom="@id/destination_input"
+	     android:layout_alignParentRight="true"/>
+	 <ImageView 
+	     android:id="@+id/destination_iv_line"
+	     android:src="@drawable/pathsettings_input_line"
+	     android:layout_width="wrap_content"	            
+	     android:layout_height="wrap_content"	            
+	     android:layout_below="@id/destination_input"
+	     android:layout_alignParentRight="true"
+	     android:layout_alignParentLeft="true"
+	     android:layout_marginTop="10dp"/>
+	 
+	 <fragment
+        android:id="@+id/destination_map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/destination_iv_line"
+        android:layout_alignParentBottom="true"
         class="com.amap.api.maps.SupportMapFragment" />
-
-</LinearLayout>
+	 
+</RelativeLayout>

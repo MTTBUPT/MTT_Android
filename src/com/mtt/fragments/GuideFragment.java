@@ -41,8 +41,6 @@ import com.amap.api.navi.model.NaviLatLng;
 import com.amap.api.navi.view.RouteOverLay;
 import com.mtt.R;
 import com.mtt.util.ToastUtil;
-import com.mtt.view.MainActivity;
-import com.mtt.view.SubFunctionActivity;
  
 /**
  * 混合定位示例
@@ -78,10 +76,6 @@ public class GuideFragment extends Fragment implements LocationSource,
 	
 	/** 缩放按钮*/
 	private Button btn_zoom_in,btn_zoom_out;
-	/** 设置终点按钮*/
-	private Button btn_guide;
-	/** 离线地图按钮*/
-	private Button btn_offlinemap;
 	
 	/** 缩放等级*/
 	private int zoom_level=15;
@@ -97,8 +91,6 @@ public class GuideFragment extends Fragment implements LocationSource,
 	private ArrayList<NaviLatLng> mEndPoints = new ArrayList<NaviLatLng>();
 	/** 规划路线*/
 	private RouteOverLay mRouteOverLay;
-	/** 是否计算成功的标志*/
-	private boolean mIsCalculateRouteSuccess = false;
 	
 	/**  当前定位点的经纬度*/
 	private double latitude; 
@@ -110,25 +102,155 @@ public class GuideFragment extends Fragment implements LocationSource,
 	/** 路线规划 终点经纬度*/
 	double endLatitude = 0;
 	double endLongtitude = 0;
+	private boolean isFirstPage = false;
+
+	public GuideFragment(boolean isFirstPage) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.isFirstPage = isFirstPage;
+	}
+	
+	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		// TODO Auto-generated method stub
+		if(isVisibleToUser && !isFirstPage){
+			init();
+			registerSensorListener(); // 注册传感器
+		}
+		super.setUserVisibleHint(isVisibleToUser);
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+	    Log.d("Fragment_E", "-------------E-------OnCreate()");
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+	    Log.d("Fragment_E", "-------------E-------OnCreateView()");
+
 		view = inflater.inflate(R.layout.fragment_guide, container,false);
 		mContext = getActivity();
-		
-		mAMapNavi = AMapNavi.getInstance(mContext);
-		mAMapNavi.setAMapNaviListener(this);
 
 		mapView = (MapView) view.findViewById(R.id.map);
 		mapView.onCreate(savedInstanceState);// 此方法必须重写
 	   //初始化传感器	
-		mSensorManager = (SensorManager) mContext
-				.getSystemService(Context.SENSOR_SERVICE);
+		mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
 		mSensor = mSensorManager.getSensorList(3).get(0);
-		init();
 		
+		btn_zoom_in = (Button) view.findViewById(R.id.btn_zoom_in);
+		btn_zoom_in.setOnClickListener(this);
+		btn_zoom_out = (Button) view.findViewById(R.id.btn_zoom_out);
+		btn_zoom_out.setOnClickListener(this);
+		
+		return view;
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_E", "-------------E-------OnActivityCreated()");
+
+		super.onActivityCreated(savedInstanceState);
+		LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(getActivity());
+		broadcastManager.registerReceiver(mGuideReceiver, GuideIntentFilter());
+	}
+
+	/**
+	 * 方法必须重写
+	 */
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_E", "-------------E-------OnResume()");
+
+	    if(isFirstPage){
+			init();
+			registerSensorListener(); // 注册传感器
+	    }
+		super.onResume();
+		mapView.onResume();
+	}
+
+	/**
+	 * 方法必须重写
+	 */
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_E", "-------------E-------OnPause()");
+
+		super.onPause();
+		mapView.onPause();
+		deactivate();
+	}
+
+	@Override
+	public void onStop() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_E", "-------------E-------OnStop()");
+
+		super.onStop();
+	}
+
+	/**
+	 * 方法必须重写
+	 */
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+	    Log.d("Fragment_E", "-------------E-------OnSaveInstanceState()");
+
+		super.onSaveInstanceState(outState);
+		mapView.onSaveInstanceState(outState);
+	}
+	
+	@Override
+	public void onDestroyView() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_E", "-------------E-------OnDestroyView()");
+
+		super.onDestroyView();
+	}
+	
+	/**
+	 * 方法必须重写
+	 */
+	@Override
+	public void onDestroy() {
+	    Log.d("Fragment_E", "-------------E-------OnDestroy()");
+
+		super.onDestroy();
+		mapView.onDestroy();
+		//删除监听 
+		AMapNavi.getInstance(mContext).removeAMapNaviListener(this);
+	}
+	
+	/**
+	 * 初始化
+	 */
+	private void init() {
+		if (aMap == null) {
+			aMap = mapView.getMap();
+			setUpMap();
+		}
+		
+		// 获取路径规划
+		mAMapNavi = AMapNavi.getInstance(mContext);
+		mAMapNavi.setAMapNaviListener(this);
+		// 路径
+		mRouteOverLay = new RouteOverLay(aMap, null);
+	}
+
+	/**
+	 * 设置一些amap的属性
+	 */
+	private void setUpMap() {
+		mUiSettings = aMap.getUiSettings(); 
+
         /** 禁用缩放手势*/
         mUiSettings.setZoomGesturesEnabled(false);
         /** 禁用平移手势*/
@@ -140,82 +262,11 @@ public class GuideFragment extends Fragment implements LocationSource,
         /** 关闭默认缩放按钮*/
         mUiSettings.setZoomControlsEnabled(false);
         
-		return view;
-	}
-
-
-	/**
-	 * 初始化
-	 */
-	private void init() {
-		if (aMap == null) {
-			aMap = mapView.getMap();
-			setUpMap();
-		}
-		
-		mUiSettings = aMap.getUiSettings(); 
-		
-		btn_zoom_in = (Button) view.findViewById(R.id.btn_zoom_in);
-		btn_zoom_in.setOnClickListener(this);
-		btn_zoom_out = (Button) view.findViewById(R.id.btn_zoom_out);
-		btn_zoom_out.setOnClickListener(this);
-		
-		mRouteOverLay = new RouteOverLay(aMap, null);
-	}
-
-	/**
-	 * 设置一些amap的属性
-	 */
-	private void setUpMap() {
-		
 		aMap.setLocationSource(this);// 设置定位监听
 		aMap.getUiSettings().setMyLocationButtonEnabled(false);// 设置默认定位按钮是否显示
 		aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
 		// 设置定位的类型为定位模式 ，可以由定位、跟随或地图根据面向方向旋转几种
 		aMap.setMyLocationType(AMap.LOCATION_TYPE_MAP_FOLLOW);
-	}
-
-	/**
-	 * 方法必须重写
-	 */
-	@Override
-	public void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		mapView.onResume();
-		registerSensorListener();
-	}
-
-	/**
-	 * 方法必须重写
-	 */
-	@Override
-	public void onPause() {
-		// TODO Auto-generated method stub
-		super.onPause();
-		mapView.onPause();
-		deactivate();
-	}
-
-
-	/**
-	 * 方法必须重写
-	 */
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		mapView.onSaveInstanceState(outState);
-	}
-
-	/**
-	 * 方法必须重写
-	 */
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		mapView.onDestroy();
-		//删除监听 
-		AMapNavi.getInstance(mContext).removeAMapNaviListener(this);
 	}
 
 	@Override
@@ -271,9 +322,10 @@ public class GuideFragment extends Fragment implements LocationSource,
 				// Camera的定位位置（中心点、缩放等级、倾斜度、旋转角度）
 				CameraPosition mCameraPosition = new CameraPosition(mLatLng, zoom_level, 0, Map_bear);
 				new CameraUpdateFactory();
-				Log.d("My3DMap", "-----------------active location");
+				Log.d("FragmentE", "-----------------active location");
 				// 定位Camera
-				aMap.moveCamera(CameraUpdateFactory.newCameraPosition(mCameraPosition));
+				aMap.animateCamera(CameraUpdateFactory.newCameraPosition(mCameraPosition));
+//				aMap.moveCamera(CameraUpdateFactory.newCameraPosition(mCameraPosition));
 			}
 		}
 	}
@@ -314,7 +366,7 @@ public class GuideFragment extends Fragment implements LocationSource,
 	
 	public void registerSensorListener() {
 		mSensorManager.registerListener(this, mSensor,
-				SensorManager.SENSOR_DELAY_NORMAL);
+				SensorManager.SENSOR_DELAY_UI);
 	}
 
 	public void unRegisterSensorListener() {
@@ -337,7 +389,7 @@ public class GuideFragment extends Fragment implements LocationSource,
 			
 			mAngle = x;
 			
-			Log.d("My3DMap", "mAngle: " +mAngle);
+//			Log.d("My3DMap", "mAngle: " +mAngle);
 			if(mAngle<45 || mAngle>315){
 				new CameraUpdateFactory();
 				aMap.animateCamera(CameraUpdateFactory.changeBearing(90),200,null);
@@ -395,7 +447,6 @@ public class GuideFragment extends Fragment implements LocationSource,
 	public void onCalculateRouteFailure(int arg0) {
 		// TODO Auto-generated method stub
 		ToastUtil.show(mContext, "路径规划出错" + arg0);
-		mIsCalculateRouteSuccess = false;
 	}
 
 	@Override
@@ -409,7 +460,6 @@ public class GuideFragment extends Fragment implements LocationSource,
 		mRouteOverLay.setRouteInfo(naviPath);
 		mRouteOverLay.addToMap();
 		ToastUtil.show(mContext, "路线计算成功");
-		mIsCalculateRouteSuccess = true;
 	}
 
 	@Override
@@ -478,14 +528,7 @@ public class GuideFragment extends Fragment implements LocationSource,
 		
 	}
 
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onActivityCreated(savedInstanceState);
-		LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(getActivity());
-		broadcastManager.registerReceiver(mGuideReceiver, GuideIntentFilter());
-	}
-
+	// -----------------------接收广播------------------------------------
 	private final BroadcastReceiver mGuideReceiver = new BroadcastReceiver() {
     	@Override
     	public void onReceive(Context context, Intent intent) {
@@ -508,7 +551,6 @@ public class GuideFragment extends Fragment implements LocationSource,
     			// 设置终点
     			mNaviEnd = new NaviLatLng(endLatitude,endLongtitude);
     			mEndPoints.add(mNaviEnd);
-    			mIsCalculateRouteSuccess = false;
     			calculateDriveRoute();
     		}
     	}

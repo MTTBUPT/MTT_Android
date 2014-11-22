@@ -17,6 +17,7 @@ import com.amap.api.maps.model.PolylineOptions;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.UiSettings;
 import com.mtt.R;
 import com.mtt.util.MapDatas;
 
@@ -43,6 +44,8 @@ public class PathFragment extends Fragment implements OnMarkerClickListener,Loca
 	/** 地图资源*/
 	private MapView mapView;
 	private AMap aMap;
+    private UiSettings mUiSettings;
+
 	/** 定位*/
 	private OnLocationChangedListener mListener;
 	private LocationManagerProxy mAMapLocationManager;
@@ -68,22 +71,110 @@ public class PathFragment extends Fragment implements OnMarkerClickListener,Loca
 	/** 保存信息文件*/
 	private File file;
 	
+	private boolean isFirstPage = false;
+	
+	public PathFragment(boolean isFirstPage) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.isFirstPage = isFirstPage;
+	}
+	
+	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		// TODO Auto-generated method stub
+		if(isVisibleToUser && !isFirstPage){
+			init();
+		}
+		super.setUserVisibleHint(isVisibleToUser);
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_F", "-------------F-------OnCreate()");
+
+		super.onCreate(savedInstanceState);
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+	    Log.d("Fragment_F", "-------------F-------OnCreateView()");
+
 		view = inflater.inflate(R.layout.fragment_path, container, false);
 		mapView=(MapView) view.findViewById(R.id.map);
 		btn_record = (Button) view.findViewById(R.id.btn_pathfragment_start);
 		btn_record.setOnClickListener(this);
 		
 		mapView.onCreate(savedInstanceState);
-		init();
 		
 		return view;
 	}
 
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_F", "-------------F-------onActivityCreated()");
 
+		super.onActivityCreated(savedInstanceState);
+	}
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_F", "-------------F-------onResume()");
+	    if(isFirstPage){
+	    	init();
+	    }
+		super.onResume();
+		mapView.onResume();
+	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_F", "-------------F-------onSaveInstanceState()");
+
+		super.onSaveInstanceState(outState);
+		mapView.onSaveInstanceState(outState);
+	}
+	
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_F", "-------------F-------onPause()");
+
+		super.onPause();
+		mapView.onPause();
+	}
+	
+	@Override
+	public void onStop() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_F", "-------------F-------onStop()");
+
+		super.onStop();
+	}
+	
+	@Override
+	public void onDestroyView() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_F", "-------------F-------onDestroyView()");
+
+		super.onDestroyView();
+	}
+
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_F", "-------------F-------onDestroy()");
+		
+	    deactivate();
+		super.onDestroy();
+		mapView.onDestroy();
+	}
+	
 	private void init(){
 		if(aMap==null){
 			aMap=mapView.getMap();
@@ -92,14 +183,30 @@ public class PathFragment extends Fragment implements OnMarkerClickListener,Loca
 		
 	}
 	private void setUpMap() {
+	    Log.d("Fragment_F", "-------------F-------地图设置及开启地图定位)");
+
 		aMap.setLocationSource(this);
 		aMap.setOnMarkerClickListener(this);// 设置点击Marker事件监听器
-		aMap.getUiSettings().setMyLocationButtonEnabled(true);
-		aMap.getUiSettings().setCompassEnabled(true);
-		aMap.getUiSettings().setScaleControlsEnabled(true);
+		
+		mUiSettings = aMap.getUiSettings();
+		//定位按钮
+		mUiSettings.setMyLocationButtonEnabled(true);
+		//指南针
+		mUiSettings.setCompassEnabled(true);
+		//默认缩放按钮
+		mUiSettings.setScaleControlsEnabled(true);
+        /** 禁用缩放手势*/
+        mUiSettings.setZoomGesturesEnabled(false);
+        /** 禁用平移手势*/
+        mUiSettings.setScrollGesturesEnabled(false);
+        /** 禁用旋转手势*/
+        mUiSettings.setRotateGesturesEnabled(false);
+        /** 禁用倾斜手势*/
+        mUiSettings.setTiltGesturesEnabled(false);
+        
 		aMap.setMyLocationEnabled(true);
-		aMap.setMapType(AMap.MAP_TYPE_NORMAL);
-		aMap.setMyLocationType(AMap.LOCATION_TYPE_MAP_FOLLOW);
+		aMap.setMapType(AMap.MAP_TYPE_NORMAL); // 设置地图模式
+		aMap.setMyLocationType(AMap.LOCATION_TYPE_MAP_FOLLOW);// 设置定位为跟随模式
 		aMap.setTrafficEnabled(true);
 		try {
 			file=mapdata.creatFile(fileName);
@@ -108,42 +215,12 @@ public class PathFragment extends Fragment implements OnMarkerClickListener,Loca
 			e.printStackTrace();
 		}
 	}	
+	
+	/** 时间转换*/
 	public static String convertToTime(long time) {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = new Date(time);
 		return df.format(date);
-	}
-	@Override
-	public void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		Log.d("Map-Su", "------------------onResume");
-		mapView.onResume();
-	}
-	
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		// TODO Auto-generated method stub
-		super.onSaveInstanceState(outState);
-		mapView.onSaveInstanceState(outState);
-	}
-	
-	@Override
-	public void onPause() {
-		// TODO Auto-generated method stub
-		super.onPause();
-		Log.d("Map-Su", "------------------onPause");
-		mapView.onPause();
-	}
-	
-	
-	@Override
-	public void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-		Log.d("Map-Su", "------------------onDestroy");
-		mapView.onDestroy();
-		deactivate();
 	}
 	
 	@Override
@@ -164,11 +241,11 @@ public class PathFragment extends Fragment implements OnMarkerClickListener,Loca
 				  		    .snippet("经度："+amaplocation.getLatitude()+"纬度："+amaplocation.getLongitude()+"精度"+amaplocation.getAccuracy())
 				  		    .draggable(false);
 				    markerOptions.setFlat(true);
-			  		Log.d("Map-Su", "Location is:" + amaplocation.getLatitude() + "lastTime: " + lastTime);
-			  		Log.d("Map-Su", "currentTime: " + System.currentTimeMillis());
+			  		Log.d("FragmentF", "Location is:" + amaplocation.getLatitude() + "lastTime: " + lastTime);
+			  		Log.d("FragmentF", "currentTime: " + System.currentTimeMillis());
 				  	if(System.currentTimeMillis() - lastTime > TIME_LOCATION || isFirstMarker){
 				  		aMap.addMarker(markerOptions);	
-				  		Log.d("Map-Su", "Marker is:" + amaplocation.getLatitude());
+				  		Log.d("FragmentF", "Marker is:" + amaplocation.getLatitude());
 				  		i++;
 				  		isFirstMarker = false;
 					  	lastTime = System.currentTimeMillis();

@@ -7,10 +7,12 @@ import com.mtt.customview.CompassView;
 import com.mtt.customview.SteepView;
 import com.mtt.util.ToastUtil;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -45,20 +47,92 @@ public class MabiaoFragment extends Fragment implements SensorEventListener{
 	public final static String ACTION_STEEP_INITIAL = "com.mtt.mabiao.ACTION_STEEP_INITIAL";
 	
 	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		// TODO Auto-generated method stub
+		super.setUserVisibleHint(isVisibleToUser);
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+	    Log.d("Fragment_A", "-------------A-------OnCreate()");
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+	    Log.d("Fragment_A", "-------------A-------OnCreateView()");
+
         view = inflater.inflate(com.mtt.R.layout.fragment_mabiao, container, false);  
 		initView();  // 初始化
 
 		return view;
 	}
 	
+    @Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onActivityCreated(savedInstanceState);
+	    Log.d("Fragment_A", "-------------A-------OnActivityCreated()");
+
+		LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(getActivity());
+		broadcastManager.registerReceiver(mSteepInitialReceiver, SteepInitialIntentFilter());
+	}
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_A", "-------------A-------OnResume()");
+
+		super.onResume();
+		startSensing();
+	}
+	
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_A", "-------------A-------OnPause()");
+
+		super.onPause();
+		stopSensing();
+	}	
+	
+	@Override
+	public void onStop() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_A", "-------------A-------OnStop()");
+
+		super.onStop();
+	}
+	
+	@Override
+	public void onDestroyView() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_A", "-------------A-------OnDestroyView()");
+
+		super.onDestroyView();
+	}
+	
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+	    Log.d("Fragment_A", "-------------A-------OnDestroy()");
+
+		super.onDestroy();
+	}
+
 	/** 资源初始化*/
 	private void initView() {
 		// TODO Auto-generated method stub
+		// 取出设置的坡度值
+		SharedPreferences mPreferences = getActivity().getSharedPreferences("mysteep", Activity.MODE_PRIVATE);
+		int initsteep = mPreferences.getInt("steep", 0);
+		
 		mCompassView = (CompassView) view.findViewById(R.id.mabiaofragment_mycompassview);
 		mSteepView = (SteepView) view.findViewById(R.id.mabiaofragment_mysteepview);
+		mSteepView.resetSteep(initsteep);
 	    Context context = getActivity();
 	    mMgr = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 	    
@@ -85,7 +159,7 @@ public class MabiaoFragment extends Fragment implements SensorEventListener{
 	  this.mSensorList = this.mMgr.getSensorList(3);
 	  Sensor localSensor = mSensorList.get(0);
 	      
-	  mMgr.registerListener(this, localSensor, SensorManager.SENSOR_DELAY_GAME);
+	  mMgr.registerListener(this, localSensor, SensorManager.SENSOR_DELAY_UI);
 	  
 	}
 
@@ -118,36 +192,19 @@ public class MabiaoFragment extends Fragment implements SensorEventListener{
 		
 	}
 
-	@Override
-	public void onPause() {
-		// TODO Auto-generated method stub
-		super.onPause();
-		stopSensing();
-	}
-
-	@Override
-	public void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		startSensing();
-	}
-	
-	
-    @Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onActivityCreated(savedInstanceState);
-		LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(getActivity());
-		broadcastManager.registerReceiver(mSteepInitialReceiver, SteepInitialIntentFilter());
-	}
-
-
 	private final BroadcastReceiver mSteepInitialReceiver = new BroadcastReceiver() {
     	@Override
     	public void onReceive(Context context, Intent intent) {
     		final String action = intent.getAction();
     		if (ACTION_STEEP_INITIAL.equals(action)){
     			mSteepView.resetSteep(mSteepView.realSteep);
+    			
+    			// 保存归零时坡度值到系统文件中
+    			SharedPreferences mSharedPreferences = getActivity().getSharedPreferences("mysteep", Activity.MODE_PRIVATE);
+    			SharedPreferences.Editor editor = mSharedPreferences.edit();
+    			editor.putInt("steep", mSteepView.realSteep);
+    			editor.commit();
+    			
     			ToastUtil.show(getActivity(), "Reset sucess!");
     		}
     	}
