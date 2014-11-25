@@ -107,6 +107,16 @@
         	android:screenOrientation="landscape"			
         	android:launchMode="singleTask" 
         	></activity>
+        <activity 
+        	android:name=".view.StopWatchActivity"
+        	android:screenOrientation="landscape"			
+        	android:launchMode="singleTask" 
+        	></activity>        
+        <activity 
+        	android:name=".view.MusicActivity"
+        	android:screenOrientation="landscape"			
+        	android:launchMode="singleTask" 
+        	></activity>
         <service android:name="com.mtt.service.MusicService">            
         </service>
     </application>

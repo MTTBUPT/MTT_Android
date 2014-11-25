@@ -21,6 +21,13 @@ import android.view.View;
  * */
 public class RoundView extends View{
 
+	public static final int COM_MTT_ROUNDVIEW_TOUCH_MABIAO = 1;
+	public static final int COM_MTT_ROUNDVIEW_TOUCH_CAMERA = 2;
+	public static final int COM_MTT_ROUNDVIEW_TOUCH_GUIDE = 3;
+	public static final int COM_MTT_ROUNDVIEW_TOUCH_TOOL = 4;
+	public static final int COM_MTT_ROUNDVIEW_TOUCH_START = 5;
+
+	// 画笔
 	private Paint mPaint = new Paint();
 
 	/** 圆心坐标 */
@@ -37,43 +44,22 @@ public class RoundView extends View{
 	
 	
 	// 读取InputStream并得到位图
-	BitmapDrawable bmpDraw_mabiao_untouch=(BitmapDrawable)getResources().getDrawable(R.drawable.mabiao_untouch);
-	Bitmap bmp_mabiao_untouch=bmpDraw_mabiao_untouch.getBitmap();
-	BitmapDrawable bmpDraw_mabiao_touch=(BitmapDrawable)getResources().getDrawable(R.drawable.mabiao_touch);
-	Bitmap bmp_mabiao_touch=bmpDraw_mabiao_touch.getBitmap();
+	BitmapDrawable bmpDraw_mabiao=(BitmapDrawable)getResources().getDrawable(R.drawable.main_mabiao);
+	Bitmap bmp_mabiao=bmpDraw_mabiao.getBitmap();
 	
-	BitmapDrawable bmpDraw_path_untouch=(BitmapDrawable)getResources().getDrawable(R.drawable.path_untouch);
-	Bitmap bmp_path_untouch=bmpDraw_path_untouch.getBitmap();
-	BitmapDrawable bmpDraw_path_touch=(BitmapDrawable)getResources().getDrawable(R.drawable.path_touch);
-	Bitmap bmp_path_touch=bmpDraw_path_touch.getBitmap();
+	BitmapDrawable bmpDraw_camera=(BitmapDrawable)getResources().getDrawable(R.drawable.main_camera);
+	Bitmap bmp_camera=bmpDraw_camera.getBitmap();
 	
-	BitmapDrawable bmpDraw_music_untouch=(BitmapDrawable)getResources().getDrawable(R.drawable.music_untouch);
-	Bitmap bmp_music_untouch=bmpDraw_music_untouch.getBitmap();
-	BitmapDrawable bmpDraw_music_touch=(BitmapDrawable)getResources().getDrawable(R.drawable.music_touch);
-	Bitmap bmp_music_touch=bmpDraw_music_touch.getBitmap();
+	BitmapDrawable bmpDraw_guide=(BitmapDrawable)getResources().getDrawable(R.drawable.main_guide);
+	Bitmap bmp_guide=bmpDraw_guide.getBitmap();
 	
-	BitmapDrawable bmpDraw_camera_untouch=(BitmapDrawable)getResources().getDrawable(R.drawable.camera_untouch);
-	Bitmap bmp_camera_untouch=bmpDraw_camera_untouch.getBitmap();
-	BitmapDrawable bmpDraw_camera_touch=(BitmapDrawable)getResources().getDrawable(R.drawable.camera_touch);
-	Bitmap bmp_camera_touch=bmpDraw_camera_touch.getBitmap();
+	BitmapDrawable bmpDraw_tool=(BitmapDrawable)getResources().getDrawable(R.drawable.main_tool);
+	Bitmap bmp_tool=bmpDraw_tool.getBitmap();
 	
-	BitmapDrawable bmpDraw_stopwatches_untouch=(BitmapDrawable)getResources().getDrawable(R.drawable.stopwatches_untouch);
-	Bitmap bmp_stopwatches_untouch=bmpDraw_stopwatches_untouch.getBitmap();
-	BitmapDrawable bmpDraw_stopwatches_touch=(BitmapDrawable)getResources().getDrawable(R.drawable.stopwatches_touch);
-	Bitmap bmp_stopwatches_touch=bmpDraw_stopwatches_touch.getBitmap();
+	private int bmp_width = bmp_mabiao.getWidth();
+	private int bmp_height = bmp_mabiao.getHeight();
+	private int bmp_gap= bmp_height-bmp_width;
 	
-	BitmapDrawable bmpDraw_guide_untouch=(BitmapDrawable)getResources().getDrawable(R.drawable.guide_untouch);
-	Bitmap bmp_guide_untouch=bmpDraw_guide_untouch.getBitmap();
-	BitmapDrawable bmpDraw_guide_touch=(BitmapDrawable)getResources().getDrawable(R.drawable.guide_touch);
-	Bitmap bmp_guide_touch=bmpDraw_guide_touch.getBitmap();
-	
-	private int btmap_mabiao_width = bmp_mabiao_untouch.getWidth();
-	private int btmap_path_width = bmp_path_untouch.getWidth(); 
-	private int btmap_music_width = bmp_music_untouch.getWidth(); 
-	private int btmap_camera_width = bmp_camera_untouch.getWidth(); 
-	private int btmap_stopwatches_width = bmp_stopwatches_untouch.getWidth(); 
-	private int btmap_guide_width = bmp_guide_untouch.getWidth(); 
-
 	public RoundView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
@@ -86,216 +72,108 @@ public class RoundView extends View{
 		mPointX = this.getMeasuredWidth()/2;
 		mPointY = this.getMeasuredHeight()/2;
 		
-		outRadius = mPointX*5/9;
+		outRadius = (int)(mPointX*(0.5f));
 		// 初始化半径
-		exRadius = mPointX*4/9;
-		inRadius = exRadius/3;
+		exRadius = (int)(mPointX*(0.42f));
+		inRadius = (int)(exRadius*(0.44f));
 	}
 
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 
-		canvas.drawARGB(255, 34, 44, 54);
+		canvas.drawARGB(255, 52, 52, 52);
 		// 去锯齿
 		mPaint.setAntiAlias(true);
 		mPaint.setStyle(Paint.Style.FILL);
 		
 		// 绘制外环
-		mPaint.setARGB(255, 25, 33, 43);
+		mPaint.setARGB(255, 38, 38, 38);
 		canvas.drawCircle(mPointX, mPointY, outRadius, mPaint);
 		// 绘制外圆
-		mPaint.setARGB(255, 44, 54, 66);;
+		mPaint.setARGB(255, 52, 52, 52);;
 		canvas.drawCircle(mPointX, mPointY, exRadius, mPaint);
 		
 		RectF oval = new RectF(mPointX - exRadius, mPointY - exRadius, mPointX + exRadius, mPointY + exRadius);
 		switch (isTouchDown) {
-		case 1:
-			// 绘制扇形（导航）
-			mPaint.setARGB(255, 232, 25, 41);
-			canvas.drawArc(oval, 180, 60, true, mPaint);
+		case COM_MTT_ROUNDVIEW_TOUCH_MABIAO:
+			mPaint.setARGB(255, 232, 26, 41);
+			canvas.drawArc(oval, 225, 90, true, mPaint);
 			break;
-		case 2:
-			// 绘制扇形（码表）
-			mPaint.setARGB(255, 232, 25, 41);
-			canvas.drawArc(oval, 240, 60, true, mPaint);
+		case COM_MTT_ROUNDVIEW_TOUCH_GUIDE:
+			mPaint.setARGB(255, 232, 26, 41);
+			canvas.drawArc(oval, 135, 90, true, mPaint);
 			break;
-		case 3:
-			// 绘制扇形（轨迹）
-			mPaint.setARGB(255, 232, 25, 41);
-			canvas.drawArc(oval, 300, 60, true, mPaint);
+		case COM_MTT_ROUNDVIEW_TOUCH_CAMERA:
+			mPaint.setARGB(255, 232, 26, 41);
+			canvas.drawArc(oval, 315, 90, true, mPaint);
 			break;
-		case 4:
-			// 绘制扇形（音乐）
-			mPaint.setARGB(255, 232, 25, 41);
-			canvas.drawArc(oval, 0, 60, true, mPaint);
-			break;
-		case 5:		
-			// 绘制扇形（相机）
-			mPaint.setARGB(255, 232, 25, 41);
-			canvas.drawArc(oval, 60, 60, true, mPaint);
-			break;
-		case 6:
-			// 绘制扇形（秒表）
-			mPaint.setARGB(255, 232, 25, 41);
-			canvas.drawArc(oval, 120, 60, true, mPaint);
+		case COM_MTT_ROUNDVIEW_TOUCH_TOOL:
+			mPaint.setARGB(255, 232, 26, 41);
+			canvas.drawArc(oval, 45, 90, true, mPaint);
 			break;
 		default:
 			break;
 		}
 		
 		// 绘制内圆
-		mPaint.setARGB(255, 25, 33, 43);;
+		mPaint.setARGB(255, 38, 38, 38);
 		canvas.drawCircle(mPointX, mPointY, inRadius, mPaint);
 		
-		// ----------设置后绘制六条直线----------
-		mPaint.setARGB(255, 25, 33, 43);
+		// ----------设置后绘制四条直线----------
+		mPaint.setARGB(255, 38, 38, 38);
 		mPaint.setStyle(Paint.Style.STROKE);
-		mPaint.setStrokeWidth(5);
+		mPaint.setStrokeWidth(4);
 		
 		Path patha = new Path();
-		patha.moveTo(mPointX - inRadius, mPointY);
-		patha.lineTo(mPointX - exRadius, mPointY);
+		patha.moveTo((float)(mPointX - inRadius*Math.sqrt(2)/2), (float)(mPointY - inRadius*Math.sqrt(2)/2) );
+		patha.lineTo((float)(mPointX - exRadius*Math.sqrt(2)/2), (float)(mPointY - exRadius*Math.sqrt(2)/2));
 		patha.close();
 		canvas.drawPath(patha, mPaint);
 		
 		Path pathb = new Path();
-		pathb.moveTo(mPointX - inRadius/2, (float) (mPointY + inRadius*Math.sqrt(3)/2));
-		pathb.lineTo(mPointX - exRadius/2, (float) (mPointY + exRadius*Math.sqrt(3)/2));
+		pathb.moveTo((float)(mPointX + inRadius*Math.sqrt(2)/2), (float)(mPointY - inRadius*Math.sqrt(2)/2));
+		pathb.lineTo((float)(mPointX + exRadius*Math.sqrt(2)/2), (float)(mPointY - exRadius*Math.sqrt(2)/2));
 		pathb.close();
 		canvas.drawPath(pathb, mPaint);
 		
 		Path pathc = new Path();
-		pathc.moveTo(mPointX + inRadius/2, (float) (mPointY + inRadius*Math.sqrt(3)/2));
-		pathc.lineTo(mPointX + exRadius/2, (float) (mPointY + exRadius*Math.sqrt(3)/2));
+		pathc.moveTo((float)(mPointX - inRadius*Math.sqrt(2)/2), (float)(mPointY + inRadius*Math.sqrt(2)/2));
+		pathc.lineTo((float)(mPointX - exRadius*Math.sqrt(2)/2), (float)(mPointY + exRadius*Math.sqrt(2)/2));
 		pathc.close();
 		canvas.drawPath(pathc, mPaint);
 		
 		Path pathd = new Path();
-		pathd.moveTo(mPointX + inRadius, mPointY);
-		pathd.lineTo(mPointX + exRadius, mPointY);
+		pathd.moveTo((float)(mPointX + inRadius*Math.sqrt(2)/2), (float)(mPointY + inRadius*Math.sqrt(2)/2));
+		pathd.lineTo((float)(mPointX + exRadius*Math.sqrt(2)/2), (float)(mPointY + exRadius*Math.sqrt(2)/2));
 		pathd.close();
 		canvas.drawPath(pathd, mPaint);
 		
-		Path pathe = new Path();
-		pathe.moveTo(mPointX + inRadius/2, (float) (mPointY - inRadius*Math.sqrt(3)/2));
-		pathe.lineTo(mPointX + exRadius/2, (float) (mPointY - exRadius*Math.sqrt(3)/2));
-		pathe.close();
-		canvas.drawPath(pathe, mPaint);
-		
-		Path pathf = new Path();
-		pathf.moveTo(mPointX - inRadius/2, (float) (mPointY - inRadius*Math.sqrt(3)/2));
-		pathf.lineTo(mPointX - exRadius/2, (float) (mPointY - exRadius*Math.sqrt(3)/2));
-		pathf.close();
-		canvas.drawPath(pathf, mPaint);
-		
-		// ----------设置字符大小后绘制字符---------------------------
-		mPaint.setStrokeWidth(1);
-		mPaint.setColor(Color.WHITE);
-		mPaint.setStyle(Paint.Style.FILL);
-		mPaint.setTextSize(40);
-		mPaint.setShader(null);
-		mPaint.setTextAlign(Align.CENTER);
-		
-		// ------------------绘制6个字符串和图片----------------------
+		// ------------------绘制4个图片----------------------
 		// 码表
-		canvas.translate(mPointX, mPointY);
-		if(isTouchDown ==2){
-			mPaint.setARGB(255, 44, 54, 66);;
-			canvas.drawText(getResources().getString(R.string.mabiao), 0, - inRadius*(1.5f), mPaint);
-		}else{
-			mPaint.setColor(Color.WHITE);
-			canvas.drawText(getResources().getString(R.string.mabiao), 0, - inRadius*(1.5f), mPaint);
-		}
+		int x1 = mPointX;
+		int y1 = (int)(mPointY - exRadius*0.7f);
+		RectF dst_t1 = new RectF(x1-bmp_width/2,y1-bmp_height/2,x1+bmp_width/2,y1+bmp_height/2);
+		canvas.drawBitmap(bmp_mabiao, null, dst_t1, mPaint);
 		
-		if(isTouchDown ==5){
-			mPaint.setARGB(255, 44, 54, 66);;
-			canvas.drawText(getResources().getString(R.string.camera), 0, inRadius*(1.5f), mPaint);
-		}else {
-			mPaint.setColor(Color.WHITE);
-			canvas.drawText(getResources().getString(R.string.camera), 0, inRadius*(1.5f), mPaint);
-		}
-		
-		if(isTouchDown == 2){
-			canvas.drawBitmap(bmp_mabiao_touch, - btmap_mabiao_width/2, -inRadius*(2.6f), mPaint);
-		}else{
-			canvas.drawBitmap(bmp_mabiao_untouch, - btmap_mabiao_width/2, -inRadius*(2.6f), mPaint);
-		}
-		
-		// 轨迹
-		canvas.rotate(60);
-		if(isTouchDown ==3){
-			mPaint.setARGB(255, 44, 54, 66);;
-			canvas.drawText(getResources().getString(R.string.path), 0, - inRadius*(1.5f), mPaint);
-		}else {
-			mPaint.setColor(Color.WHITE);
-			canvas.drawText(getResources().getString(R.string.path), 0, - inRadius*(1.5f), mPaint);
-		}
-		
-		if(isTouchDown ==6){
-			mPaint.setARGB(255, 44, 54, 66);;
-			canvas.drawText(getResources().getString(R.string.stopwatch), 0, inRadius*(1.5f), mPaint);
-		}else {
-			mPaint.setColor(Color.WHITE);
-			canvas.drawText(getResources().getString(R.string.stopwatch), 0, inRadius*(1.5f), mPaint);
-		}
-		
-		if(isTouchDown == 3){
-			canvas.drawBitmap(bmp_path_touch, - btmap_path_width/2, -inRadius*(2.6f), mPaint);
-
-		}else{
-			canvas.drawBitmap(bmp_path_untouch, - btmap_path_width/2, -inRadius*(2.6f), mPaint);
-		}
-		
-		// 音乐
-		canvas.rotate(60);
-		if(isTouchDown == 4){
-			canvas.drawBitmap(bmp_music_touch, - btmap_music_width/2, -inRadius*(2.6f), mPaint);
-
-		}else{
-			canvas.drawBitmap(bmp_music_untouch, - btmap_music_width/2, -inRadius*(2.6f), mPaint);
-		}
+		// 工具
+		int x2 = mPointX;
+		int y2 = (int)(mPointY + exRadius*0.7f);
+		RectF dst_t2 = new RectF(x2-bmp_width/2,y2-bmp_height/2,x2+bmp_width/2,y2+bmp_height/2);
+		canvas.drawBitmap(bmp_tool, null, dst_t2, mPaint);
 		
 		// 相机
-		canvas.rotate(60);
-		if(isTouchDown == 5){
-			canvas.drawBitmap(bmp_camera_touch, - btmap_camera_width/2, -inRadius*(2.6f), mPaint);
-		}else{
-			canvas.drawBitmap(bmp_camera_untouch, - btmap_camera_width/2, -inRadius*(2.6f), mPaint);
-		}
+		int x3 = (int)(mPointX +exRadius*0.7f-bmp_gap/2);
+		int y3 = mPointY;
+		RectF dst_t3 = new RectF(x3-bmp_width/2,y3-bmp_height/2,x3+bmp_width/2,y3+bmp_height/2);
+		canvas.drawBitmap(bmp_camera, null, dst_t3, mPaint);
 		
-		// 秒表
-		canvas.rotate(60);
-		if(isTouchDown == 6){
-			canvas.drawBitmap(bmp_stopwatches_touch, - btmap_stopwatches_width/2, -inRadius*(2.6f), mPaint);
-		}else{
-			canvas.drawBitmap(bmp_stopwatches_untouch, - btmap_stopwatches_width/2, -inRadius*(2.6f), mPaint);
-		}
+		// 导航		
+		int x4 = (int)(mPointX -exRadius*0.7f+bmp_gap/2);
+		int y4 = mPointY;
+		RectF dst_t4 = new RectF(x4-bmp_width/2,y4-bmp_height/2,x4+bmp_width/2,y4+bmp_height/2);
+		canvas.drawBitmap(bmp_guide, null, dst_t4, mPaint);
 		
-		// 导航
-		canvas.rotate(60);
-		if(isTouchDown == 1){
-			mPaint.setARGB(255, 44, 54, 66);;
-			canvas.drawText(getResources().getString(R.string.navi), 0, - inRadius*(1.5f), mPaint);
-		}else {
-			mPaint.setColor(Color.WHITE);
-			canvas.drawText(getResources().getString(R.string.navi), 0, - inRadius*(1.5f), mPaint);
-		}
-		
-		if(isTouchDown == 4){
-			mPaint.setARGB(255, 44, 54, 66);;
-			canvas.drawText(getResources().getString(R.string.music), 0, inRadius*(1.5f), mPaint);
-		}else {
-			mPaint.setColor(Color.WHITE);
-			canvas.drawText(getResources().getString(R.string.music), 0, inRadius*(1.5f), mPaint);
-		}
-		
-		if(isTouchDown == 1){
-			canvas.drawBitmap(bmp_guide_touch, - btmap_guide_width/2, -inRadius*(2.6f), mPaint);
-		}else{
-			canvas.drawBitmap(bmp_guide_untouch, - btmap_guide_width/2, -inRadius*(2.6f), mPaint);
-		}
-
 	}
 
 	
@@ -308,30 +186,24 @@ public class RoundView extends View{
 			x = (int) event.getX();
 			y = (int) event.getY();
 			switch (touchPositon(x, y)) {
-			case 1:
-				isTouchDown = 1;
+			case COM_MTT_ROUNDVIEW_TOUCH_MABIAO:
+				isTouchDown = COM_MTT_ROUNDVIEW_TOUCH_MABIAO;
 				invalidate();
 				break;
-			case 2:
-				isTouchDown = 2;
+			case COM_MTT_ROUNDVIEW_TOUCH_GUIDE:
+				isTouchDown = COM_MTT_ROUNDVIEW_TOUCH_GUIDE;
 				invalidate();
 				break;
-			case 3:
-				isTouchDown = 3;
+			case COM_MTT_ROUNDVIEW_TOUCH_CAMERA:
+				isTouchDown = COM_MTT_ROUNDVIEW_TOUCH_CAMERA;
 				invalidate();
 				break;
-			case 4:
-				isTouchDown = 4;
+			case COM_MTT_ROUNDVIEW_TOUCH_TOOL:
+				isTouchDown = COM_MTT_ROUNDVIEW_TOUCH_TOOL;
 				invalidate();
 				break;
-			case 5:
-				isTouchDown = 5;
-				invalidate();
-				break;
-			case 6:
-				isTouchDown = 6;
-				invalidate();
-				break;
+			case COM_MTT_ROUNDVIEW_TOUCH_START:
+				isTouchDown = COM_MTT_ROUNDVIEW_TOUCH_START;
 			default:
 				break;
 			}
@@ -340,20 +212,23 @@ public class RoundView extends View{
 			x = (int) event.getX();
 			y = (int) event.getY();
 			switch (touchPositon(x, y)) {
-			case 1:
-	            return mOnTouchListener.onTouchEvent(this, event,1);  
-			case 2:
-	            return mOnTouchListener.onTouchEvent(this, event,2);  
-			case 3:
-	            return mOnTouchListener.onTouchEvent(this, event,3);  
-			case 4:
-	            return mOnTouchListener.onTouchEvent(this, event,4);  
-			case 5:
-	            return mOnTouchListener.onTouchEvent(this, event,5);  
-			case 6:
-	            return mOnTouchListener.onTouchEvent(this, event,6);  
+			case COM_MTT_ROUNDVIEW_TOUCH_MABIAO:
+	            return mOnTouchListener.onTouchEvent(this, event,COM_MTT_ROUNDVIEW_TOUCH_MABIAO); 
+	            
+			case COM_MTT_ROUNDVIEW_TOUCH_GUIDE:
+	            return mOnTouchListener.onTouchEvent(this, event,COM_MTT_ROUNDVIEW_TOUCH_GUIDE);  
+			
+			case COM_MTT_ROUNDVIEW_TOUCH_CAMERA:
+	            return mOnTouchListener.onTouchEvent(this, event,COM_MTT_ROUNDVIEW_TOUCH_CAMERA);  
+			
+			case COM_MTT_ROUNDVIEW_TOUCH_TOOL:
+	            return mOnTouchListener.onTouchEvent(this, event,COM_MTT_ROUNDVIEW_TOUCH_TOOL); 
+			case COM_MTT_ROUNDVIEW_TOUCH_START:
+				return mOnTouchListener.onTouchEvent(this, event, COM_MTT_ROUNDVIEW_TOUCH_START);
 
 			default:
+				resetTouch();
+				invalidate();
 				break;
 			}
 		}
@@ -374,6 +249,17 @@ public class RoundView extends View{
 		}
 	}
 	
+	/** 
+	 * 判断点击点是否在开始按钮中
+	 * */
+	private boolean isStart(int x,int y){
+		if(((x-mPointX)*(x-mPointX) + (y-mPointY)*(y-mPointY)) < inRadius*inRadius){
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	/**点击点所在的位置
 	 * @param x 横坐标
 	 * @param y 纵坐标
@@ -386,18 +272,16 @@ public class RoundView extends View{
 		double j = Math.sqrt((x-mPointX)*(x-mPointX) + (y-mPointY)*(y-mPointY));
 		double arc = arccos(i/j);
 		
-		if(arc<60 && x<mPointX && y<mPointY && isInRound(x, y)){
-			result = 1;
-		}else if (isInRound(x, y) && arc>60 && y<mPointY){
-			result = 2;
-		}else if (isInRound(x, y) && arc<60 && x>mPointX && y<mPointY){
-			result = 3;
-		}else if (isInRound(x, y) && arc<60 && x>mPointX && y>mPointY){
-			result = 4;
-		}else if (isInRound(x, y) && arc>60 && y>mPointY){
-			result = 5;
-		}else if (isInRound(x, y) && arc<60 && x<mPointX && y>mPointY){
-			result = 6;
+		if(arc>45 && y<mPointY && isInRound(x, y)){
+			result = COM_MTT_ROUNDVIEW_TOUCH_MABIAO;
+		}else if (isInRound(x, y) && arc<45 && x<mPointX){
+			result = COM_MTT_ROUNDVIEW_TOUCH_GUIDE;
+		}else if (isInRound(x, y) && arc<45 && x>mPointX){
+			result = COM_MTT_ROUNDVIEW_TOUCH_CAMERA;
+		}else if (isInRound(x, y) && arc>45 && y>mPointY){
+			result = COM_MTT_ROUNDVIEW_TOUCH_TOOL;
+		}else if (isStart(x, y)) {
+			result = COM_MTT_ROUNDVIEW_TOUCH_START;
 		}
 		
 		return result;

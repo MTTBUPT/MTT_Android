@@ -1,6 +1,7 @@
 package com.mtt.customview;
 
 import com.mtt.R;
+import com.mtt.view.SubFunctionActivity;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -22,6 +23,12 @@ import android.widget.Scroller;
  * @author Kerry
  * */
 public class DialogView extends View{
+
+	public static final int COM_MTT_DIALOGVIEW_TAB_A = 1;
+	public static final int COM_MTT_DIALOGVIEW_TAB_B = 2;
+	public static final int COM_MTT_DIALOGVIEW_TAB_C = 3;
+	public static final int COM_MTT_DIALOGVIEW_TAB_D = 4;
+	public static final int COM_MTT_DIALOGVIEW_TAB_BACK = 5;
 
 	private Paint mPaint = new Paint();
 	
@@ -48,7 +55,7 @@ public class DialogView extends View{
 	/** view的展示状态*/
 	private boolean isShow = false;	
 	/** view所在的页面*/
-	private int pageNum = 0;
+	private int pageNum = SubFunctionActivity.COM_MTT_FRAGMENT_MABIAO;
 	
 	// 读取InputStream并得到位图
 	/** 弹窗头标*/
@@ -56,16 +63,8 @@ public class DialogView extends View{
 	Bitmap bmp_mabiao=bmpDraw_mabiao.getBitmap();
 	BitmapDrawable bmpDraw_camera=(BitmapDrawable)getResources().getDrawable(R.drawable.subfunction_camera);
 	Bitmap bmp_camera=bmpDraw_camera.getBitmap();
-	BitmapDrawable bmpDraw_music=(BitmapDrawable)getResources().getDrawable(R.drawable.subfunction_music);
-	Bitmap bmp_music=bmpDraw_music.getBitmap();
-	BitmapDrawable bmpDraw_stopwatch=(BitmapDrawable)getResources().getDrawable(R.drawable.subfunction_stopwatch);
-	Bitmap bmp_stopwatch=bmpDraw_stopwatch.getBitmap();
 	BitmapDrawable bmpDraw_guide=(BitmapDrawable)getResources().getDrawable(R.drawable.subfunction_guide);
 	Bitmap bmp_guide=bmpDraw_guide.getBitmap();
-	BitmapDrawable bmpDraw_path=(BitmapDrawable)getResources().getDrawable(R.drawable.subfunction_path);
-	Bitmap bmp_path=bmpDraw_path.getBitmap();
-	/** 位图的宽度*/
-	private int bmp_width = bmp_mabiao.getWidth();
 	
 	/** 弹窗内容图标*/
 	// 码表页面
@@ -84,12 +83,6 @@ public class DialogView extends View{
 	BitmapDrawable bmpDraw_camera_storage=(BitmapDrawable)getResources().getDrawable(R.drawable.camera_storage);
 	Bitmap bmp_camera_storage=bmpDraw_camera_storage.getBitmap();
 	
-	// 音乐页面
-	BitmapDrawable bmpDraw_music_cycle=(BitmapDrawable)getResources().getDrawable(R.drawable.music_cycle);
-	Bitmap bmp_music_cycle=bmpDraw_music_cycle.getBitmap();
-	BitmapDrawable bmpDraw_music_random=(BitmapDrawable)getResources().getDrawable(R.drawable.music_random);
-	Bitmap bmp_music_random=bmpDraw_music_random.getBitmap();
-	
 	// 导航页面
 	BitmapDrawable bmpDraw_guide_setpath=(BitmapDrawable)getResources().getDrawable(R.drawable.guide_setpath);
 	Bitmap bmp_guide_setpath=bmpDraw_guide_setpath.getBitmap();
@@ -100,17 +93,9 @@ public class DialogView extends View{
 	BitmapDrawable bmpDraw_guide_information=(BitmapDrawable)getResources().getDrawable(R.drawable.guide_information);
 	Bitmap bmp_guide_information=bmpDraw_guide_information.getBitmap();	
 	
-	// 轨迹页面
-	BitmapDrawable bmpDraw_path_resetstart=(BitmapDrawable)getResources().getDrawable(R.drawable.path_resetstart);
-	Bitmap bmp_path_resetstart=bmpDraw_path_resetstart.getBitmap();
-	BitmapDrawable bmpDraw_path_save=(BitmapDrawable)getResources().getDrawable(R.drawable.path_save);
-	Bitmap bmp_path_save=bmpDraw_path_save.getBitmap();
-	BitmapDrawable bmpDraw_path_continue=(BitmapDrawable)getResources().getDrawable(R.drawable.path_continue);
-	Bitmap bmp_path_continue=bmpDraw_path_continue.getBitmap();
-	BitmapDrawable bmpDraw_path_share=(BitmapDrawable)getResources().getDrawable(R.drawable.path_share);
-	Bitmap bmp_path_share=bmpDraw_path_share.getBitmap();	
-	
-	/** 位图的宽度*/
+	/** 头标位图的宽度*/
+	private int bmp_width = bmp_mabiao.getWidth();
+	/** 内容位图的宽度*/
 	private int bmp_content_width = bmp_mabiao_resetspeed.getWidth();
 	
 	public DialogView(Context context, AttributeSet attrs) {
@@ -125,8 +110,8 @@ public class DialogView extends View{
 		mHeight = this.getWindowHeigh(context)*0.57f;
 		tabHeight = this.getWindowHeigh(context)*0.107f;
 		
+		// 获取滑动对象
 		mScroller = new Scroller(context);
-		
 	}
 
 	@Override
@@ -145,7 +130,9 @@ public class DialogView extends View{
 		mPaint.setAntiAlias(true);
 		mPaint.setStyle(Paint.Style.FILL);
 		mPaint.setARGB(255, 52, 52, 52);
-		// -------------------绘制中间-----------------------------------
+		
+		
+		// -------------------绘制中间矩形-----------------------------------
 		// 绘制矩形（正中）
 		canvas.drawRect(mPointX-mWidth/2, mPointY-mHeight/2+mPointY+mHeight/2, mPointX+mWidth/2, mPointY+mHeight/2+mPointY+mHeight/2, mPaint);
 		
@@ -210,7 +197,9 @@ public class DialogView extends View{
 		pathd.lineTo(mPointX+mWidth/2,mPointY+mPointY+mHeight/2);
 		pathd.close();
 		canvas.drawPath(pathd, mPaint);
+
 		
+		// -------------------------绘制图标-------------------------
 		// 图标中点
 		// 上左
 		float t_x1 = mPointX-mWidth/2+tabHeight;
@@ -252,70 +241,37 @@ public class DialogView extends View{
 		RectF dst_m4 = new RectF(m_x4-bmp_content_width/2, m_y4-bmp_content_width/2+mPointY+mHeight/2, m_x4+bmp_content_width/2, m_y4+bmp_content_width/2+mPointY+mHeight/2);
 
 		switch (pageNum) {
-		case 0:
+		case SubFunctionActivity.COM_MTT_FRAGMENT_MABIAO:
 			// 码表页面
-			
 			// 绘制头标
-			canvas.drawBitmap(bmp_path, null, dst_t1, mPaint);
+			canvas.drawBitmap(bmp_camera, null, dst_t1, mPaint);
 			canvas.drawBitmap(bmp_mabiao, null, dst_t2, mPaint);
-			canvas.drawBitmap(bmp_camera, null, dst_t3, mPaint);
+			canvas.drawBitmap(bmp_guide, null, dst_t3, mPaint);
 			canvas.drawBitmap(bmp_mabiao_resetspeed, null, dst_m1, mPaint);
 			canvas.drawBitmap(bmp_mabiao_resetmileage, null, dst_m2, mPaint);
 			canvas.drawBitmap(bmp_mabiao_resettime, null, dst_m3, mPaint);
 			canvas.drawBitmap(bmp_mabiao_resetsteep, null, dst_m4, mPaint);
 
 			break;
-		case 1:
+		case SubFunctionActivity.COM_MTT_FRAGMENT_CAMERA:
 			// 相机页面
-			
 			// 绘制头标
-			canvas.drawBitmap(bmp_mabiao, null, dst_t1, mPaint);
+			canvas.drawBitmap(bmp_guide, null, dst_t1, mPaint);
 			canvas.drawBitmap(bmp_camera, null, dst_t2, mPaint);
-			canvas.drawBitmap(bmp_music, null, dst_t3, mPaint);
+			canvas.drawBitmap(bmp_mabiao, null, dst_t3, mPaint);
 			canvas.drawBitmap(bmp_camera_delay, null, dst_m1, mPaint);
 			canvas.drawBitmap(bmp_camera_storage, null, dst_m2, mPaint);
 			break;
-		case 2:
-			// 音乐页面
-			
-			// 绘制头标
-			canvas.drawBitmap(bmp_camera, null, dst_t1, mPaint);
-			canvas.drawBitmap(bmp_music, null, dst_t2, mPaint);
-			canvas.drawBitmap(bmp_stopwatch, null, dst_t3, mPaint);
-			canvas.drawBitmap(bmp_music_cycle, null, dst_m1, mPaint);
-			canvas.drawBitmap(bmp_music_random, null, dst_m2, mPaint);
-			break;
-		case 3:
-			// 秒表页面
-			
-			// 绘制头标
-			canvas.drawBitmap(bmp_music, null, dst_t1, mPaint);
-			canvas.drawBitmap(bmp_stopwatch, null, dst_t2, mPaint);
-			canvas.drawBitmap(bmp_guide, null, dst_t3, mPaint);
-			break;
-		case 4:
+		case SubFunctionActivity.COM_MTT_FRAGMENT_GUIDE:
 			// 导航页面
-			
 			// 绘制头标
-			canvas.drawBitmap(bmp_stopwatch, null, dst_t1, mPaint);
+			canvas.drawBitmap(bmp_mabiao, null, dst_t1, mPaint);
 			canvas.drawBitmap(bmp_guide, null, dst_t2, mPaint);
-			canvas.drawBitmap(bmp_path, null, dst_t3, mPaint);
+			canvas.drawBitmap(bmp_camera, null, dst_t3, mPaint);
 			canvas.drawBitmap(bmp_guide_setpath, null, dst_m1, mPaint);
 			canvas.drawBitmap(bmp_guide_summary, null, dst_m2, mPaint);
 			canvas.drawBitmap(bmp_guide_offlinemap, null, dst_m3, mPaint);
 			canvas.drawBitmap(bmp_guide_information, null, dst_m4, mPaint);
-			break;
-		case 5:
-			// 轨迹页面
-			
-			// 绘制头标
-			canvas.drawBitmap(bmp_guide, null, dst_t1, mPaint);
-			canvas.drawBitmap(bmp_path, null, dst_t2, mPaint);
-			canvas.drawBitmap(bmp_mabiao, null, dst_t3, mPaint);
-			canvas.drawBitmap(bmp_path_resetstart, null, dst_m1, mPaint);
-			canvas.drawBitmap(bmp_path_save, null, dst_m2, mPaint);
-			canvas.drawBitmap(bmp_path_continue, null, dst_m3, mPaint);
-			canvas.drawBitmap(bmp_path_share, null, dst_m4, mPaint);
 			break;
 		default:
 			break;
@@ -345,9 +301,6 @@ public class DialogView extends View{
 				}
 			}else{
 				if(couldTouchClose(x, y)){
-//					DialogView.this.startMoveAnim(mPointY*3/2, -mPointY*3/2, mDuration);
-//					isShow = false;
-//					changed();
 					break;
 				}
 			}
@@ -396,12 +349,15 @@ public class DialogView extends View{
 		return super.onTouchEvent(event);
 	}
 
+	// -------------------区域判断--------------------------------
+	
 	/** 判断点击点是否在可触发范围内,若触发则展开dialog
 	 * @param x x点位置
 	 * @param y y点位置
-	 * @return true/false*/
+	 * @return true/false
+	 * */
 	public boolean couldShow(int x,int y){
-		if(x<mPointX*3/2 && x>mPointX/2 && y<mPointY*2 && y>mPointY*7/4){
+		if(x<mPointX+mWidth*0.25f && x>mPointX-mWidth*0.25f && y<mPointY*2 && y>(mPointY*2-tabHeight)){
 			return true;
 		}else{
 			return false;
@@ -411,7 +367,8 @@ public class DialogView extends View{
 	/** 判断点击点是否在可触发范围内，如果在则可通过点击关闭dialog
 	 * @param x x点位置
 	 * @param y y点位置
-	 * @return true/false*/
+	 * @return true/false
+	 * */
 	public boolean couldTouchClose(int x,int y){
 		if(x<mPointX+mWidth/2 && x>mPointX-mWidth/2 && y>mPointY-mHeight/2 && y<mPointY+mHeight/2+tabHeight){
 			return false;
@@ -424,41 +381,19 @@ public class DialogView extends View{
 	public int touchMidTab(int x, int y){
 		int i = 0;
 		if(x>mPointX-mWidth/2 && x<mPointX && y<mPointY && y>mPointY-mHeight/2){
-			i=1;
+			i=COM_MTT_DIALOGVIEW_TAB_A;
 		}else if (x>mPointX && x<mPointX+mWidth/2 && y<mPointY && y>mPointY-mHeight/2) {
-			i=2;
+			i=COM_MTT_DIALOGVIEW_TAB_B;
 		}else if (x>mPointX-mWidth/2 && x<mPointX && y>mPointY && y<mPointY+mHeight/2) {
-			i=3;
+			i=COM_MTT_DIALOGVIEW_TAB_C;
 		}else if (x>mPointX && x<mPointX+mWidth/2 && y>mPointY && y<mPointY+mHeight/2) {
-			i=4;
+			i=COM_MTT_DIALOGVIEW_TAB_D;
 		}else if (x>mPointX-mWidth/2 && x<mPointX+mWidth/2 && y>mPointY+mHeight/2 && y<mPointY+mHeight/2+tabHeight) {
-			i=5;
+			i=COM_MTT_DIALOGVIEW_TAB_BACK;
 		}
 		return i;
 	}
-	
-	/** 获取屏幕的宽度*/
-	public int getWindowWidth(Context context) {
-		// 获取屏幕分辨率
-		WindowManager wm = (WindowManager) (context
-				.getSystemService(Context.WINDOW_SERVICE));
-		DisplayMetrics dm = new DisplayMetrics();
-		wm.getDefaultDisplay().getMetrics(dm);
-		int mScreenWidth = dm.widthPixels;
-		return mScreenWidth;
-	}
 
-	/** 获取屏幕的高度*/
-	public int getWindowHeigh(Context context) {
-		// 获取屏幕分辨率
-		WindowManager wm = (WindowManager) (context
-				.getSystemService(Context.WINDOW_SERVICE));
-		DisplayMetrics dm = new DisplayMetrics();
-		wm.getDefaultDisplay().getMetrics(dm);
-		int mScreenHeigh = dm.heightPixels;
-		return mScreenHeigh;
-	}
-	
 	/**
 	 * 拖动动画
 	 * @param startY  
@@ -479,15 +414,6 @@ public class DialogView extends View{
 		} else {
 		}
 		super.computeScroll();
-	}
-	
-	/** 开打界面 */
-	public void show(){
-		if(!isShow){
-			DialogView.this.startMoveAnim(0, (int)(mPointY+mHeight/2), mDuration);
-			isShow = true;
-			changed();
-		}
 	}
 	
 	/** 关闭界面 */
@@ -546,6 +472,28 @@ public class DialogView extends View{
 	public void setPageNum(int page){
 		pageNum = page;
 		invalidate();
+	}
+	
+	/** 获取屏幕的宽度*/
+	public int getWindowWidth(Context context) {
+		// 获取屏幕分辨率
+		WindowManager wm = (WindowManager) (context
+				.getSystemService(Context.WINDOW_SERVICE));
+		DisplayMetrics dm = new DisplayMetrics();
+		wm.getDefaultDisplay().getMetrics(dm);
+		int mScreenWidth = dm.widthPixels;
+		return mScreenWidth;
+	}
+
+	/** 获取屏幕的高度*/
+	public int getWindowHeigh(Context context) {
+		// 获取屏幕分辨率
+		WindowManager wm = (WindowManager) (context
+				.getSystemService(Context.WINDOW_SERVICE));
+		DisplayMetrics dm = new DisplayMetrics();
+		wm.getDefaultDisplay().getMetrics(dm);
+		int mScreenHeigh = dm.heightPixels;
+		return mScreenHeigh;
 	}
 	
 }

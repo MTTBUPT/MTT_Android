@@ -6,12 +6,10 @@
     <string name="app_name">MTT_Android</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="navi">导航</string>
-    <string name="path">轨迹</string>
+    <string name="guide">导航</string>
     <string name="camera">相机</string>
-    <string name="stopwatch">秒表</string>
     <string name="mabiao">码表</string>
-	<string name="music">音乐</string>
+    <string name="tool">工具</string>
 	<string name="mainpage">主页</string>
 	<string name="surroundings">周边信息</string>
 	<string name="pathoverlook">线路概览</string>
